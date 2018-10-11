@@ -13,41 +13,23 @@ zsh_theme: ys
 
 homebrew_cask_packages:
   - google-chrome
+  - firefox
   - iterm2
   - alfred
   - jetbrains-toolbox
-  - spotify
-  - visual-studio-code
   - sequel-pro
   - libreoffice
   - libreoffice-language-pack
   - vlc
   - slack
-  - calibre
-  - hazel
-  - teamviewer
-  - postman
   - wkhtmltopdf
-  - filezilla
-  - dropbox
-  - docker
-  - firefox
-  - github
-  - atom
-  - muzzle
-  - rocket
 
 homebrew_packages:
   - nodejs
   - yarn
 
 mas_upgrade_all_apps: yes
-mas_installed_apps:
-  - { id: 557168941, name: "Tweetbot 2" }
-  - { id: 425424353, name: "The Unarchiver" }
-  - { id: 585829637, name: "Todoist" }
-  - { id: 1289197285, name: "MindNode" }
-  - { id: 1333542190, name: "1Password 7" }
+mas_installed_apps: []
 
 managed_services:
   - { name: nginx, sudo: true }
@@ -63,7 +45,7 @@ sudo_password: ""
 #########
 
 git_user_name: X X
-git_user_email: x@x.fr
+git_user_email: x@fdsea51.fr
 
 #  https://github.com/tj/git-extras
 install_git_extras: true
@@ -176,7 +158,7 @@ dnsmasq_domains:
 mariadb_dev_user: dev
 mariadb_dev_password: dev
 
-mariadb_root_password: Nuerei9iev
+mariadb_root_password: ohvaiN2azoof0feeDi2
 
 #############
 # Mailhog   #
@@ -186,7 +168,7 @@ mailhog_api_bind_addr: 0.0.0.0:8025
 mailhog_ui_bind_addr: 0.0.0.0:8025
 mailhog_smtp_bind_addr: 0.0.0.0:1025
 
-mailhog_hostname: floran.fr
+mailhog_hostname: ter-informatique.com
 #mailhog_outgoing_smtp_servers:
 #  my_server:
 #    name: my_server

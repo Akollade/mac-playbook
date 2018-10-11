@@ -68,7 +68,7 @@ try {
     </div>
     <div >
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="https://github.com/notFloran/mac-playbook" target="_blank">Github</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/ter-informatique/mac-playbook" target="_blank">Github</a></li>
         </ul>
     </div>
 </nav>
