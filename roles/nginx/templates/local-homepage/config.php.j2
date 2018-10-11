@@ -1,0 +1,11 @@
+<?php
+
+// {{ ansible_managed }}
+
+$sites = [
+{% for site in nginx_sites %}
+    ['name' => '{{ site.name }}', 'url' => 'http://{{ site.server_name }}', 'path' => '{{ site.root }}'],
+{% endfor %}
+];
+
+$webServerLogPath = '{{ nginx_log_path }}';

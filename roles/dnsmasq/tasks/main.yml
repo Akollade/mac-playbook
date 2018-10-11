@@ -1,0 +1,39 @@
+---
+- name: homebrew install dnsmasq
+  homebrew:
+    name: dnsmasq
+    state: "{{ homebrew_package_state }}"
+
+- name: add dnsmasq conf
+  template:
+    src: dnsmasq.conf.j2
+    dest: '{{ dnsmasq_conf_path }}'
+  notify:
+    - restart dnsmasq
+
+- name: create resolver directory
+  file:
+    path: /etc/resolver
+    state: directory
+  become: yes
+
+- name: get all resolvers
+  shell: "ls /etc/resolver/*"
+  register: resolvers
+  ignore_errors: yes
+  when: delete_old_resolvers == true
+
+- name: delete old resolvers
+  file:
+    name: '{{ item }}'
+    state: absent
+  with_items: '{{ resolvers.stdout_lines }}'
+  become: yes
+  when: delete_old_resolvers == true
+
+- name: add resolver
+  template:
+    src: resolver.j2
+    dest: /etc/resolver/{{ item }}
+  become: yes
+  with_items: '{{ dnsmasq_domains }}'

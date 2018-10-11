@@ -1,0 +1,19 @@
+[client]
+user={{ mariadb_dev_user }}
+password={{ mariadb_dev_password }}
+
+[mysqld]
+max_allowed_packet=64M
+
+collation-server     = utf8mb4_unicode_ci
+character-set-server = utf8mb4
+
+log_error = {{ mariadb_error_log_path }}
+
+# we do want to know about network errors and such
+log_warnings		= 2
+
+# Enable the slow query log to see queries with especially long duration
+slow_query_log_file	= {{ mariadb_slow_query_log_path }}
+long_query_time = 10
+log_slow_verbosity	= query_plan

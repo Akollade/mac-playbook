@@ -1,0 +1,3 @@
+---
+mailhog_plist_file: /usr/local/opt/mailhog/homebrew.mxcl.mailhog.plist
+mailhog_outgoing_smtp_file: /usr/local/etc/mailhog_outgoing_smtp.json

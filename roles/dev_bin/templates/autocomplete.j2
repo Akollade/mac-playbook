@@ -1,0 +1,10 @@
+#compdef dev
+
+__dev() {
+    local curcontext="$curcontext" fileopts diropts cur prev
+    typeset -A opt_args
+    cur=$words[CURRENT]
+    _arguments "*: :($(grep -E '^[a-zA-Z_-]+:.*?## .*$$' {{ playbook_dev_path }}/Makefile | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "%s ", $1}'))"
+}
+
+__dev

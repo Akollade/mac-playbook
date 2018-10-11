@@ -1,0 +1,10 @@
+---
+
+- name: disable sudoers lecture
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^Defaults    lecture \='
+    line: 'Defaults    lecture = never'
+    validate: 'visudo -cf %s'
+  become: yes

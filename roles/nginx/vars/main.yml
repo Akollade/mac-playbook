@@ -1,0 +1,33 @@
+---
+#########
+# NGINX #
+#########
+
+nginx_http_port: 80
+nginx_https_port: 443
+nginx_default_site_root: "/usr/local/var/www"
+nginx_path: /usr/local/etc/nginx
+nginx_log_path: /usr/local/var/log/nginx
+nginx_conf_path: "{{ nginx_path }}/nginx.conf"
+
+nginx_site_types:
+  - symfony
+  - symfony-flex
+  - php
+  - cors
+  - wordpress
+
+#########
+# SSL   #
+#########
+
+reset_ssl_certs: false
+
+openssl_path: /usr/local/etc/openssl
+openssl_certs_path: "{{ openssl_path }}/certs"
+openssl_private_path: "{{ openssl_path }}/private"
+ssl_cacert_file: /usr/local/etc/openssl/cert.pem
+ssl_cacert_url: https://curl.haxx.se/ca/cacert.pem
+ssl_intermediate_certs:
+  - https://v4.gandi.net/static/CAs/GandiStandardSSLCA.pem
+  - https://v4.gandi.net/static/CAs/GandiStandardSSLCA2.pem

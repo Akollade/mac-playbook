@@ -1,0 +1,71 @@
+---
+
+- name: Génération des certificats SSL
+  include_tasks: certificates.yml
+
+- name: génération de la config pour la page d'accueil
+  template:
+    src: local-homepage/config.php.j2
+    dest: '{{ playbook_dev_path | realpath }}/local-homepage/config/nginx.config.php'
+
+- name: homebrew install nginx
+  homebrew:
+    name: nginx
+    state: "{{ homebrew_package_state }}"
+
+- name: create conf directory
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items:
+    - "{{ nginx_path }}/logs"
+    - "{{ nginx_path }}/sites-available"
+    - "{{ nginx_path }}/sites-enabled"
+    - "{{ nginx_path }}/conf.d"
+    - "{{ nginx_path }}/ssl"
+
+- name: add confs
+  template:
+    src: "conf/{{ item }}.j2"
+    dest: "{{ nginx_path }}/conf.d/{{ item }}"
+  with_items: "{{ nginx_site_types }}"
+
+- name: add nginx conf
+  template:
+    src: nginx.conf.j2
+    dest: '{{ nginx_conf_path }}'
+
+- name: add default site
+  template:
+    src: sites/default.j2
+    dest: '{{ nginx_path }}/sites-available/default'
+
+- name: enable default site
+  file:
+    src: '{{ nginx_path }}/sites-available/default'
+    dest: '{{ nginx_path }}/sites-enabled/default'
+    state: link
+
+- name: On vérifie la configuration des sites
+  fail:
+    msg: "Le type de site {{ item.nginx_type }} n'existe pas"
+  when: item.nginx_type not in nginx_site_types
+  with_items: "{{ nginx_sites }}"
+
+- name: add site
+  template:
+    src: sites/site.j2
+    dest: '{{ nginx_path }}/sites-available/dev'
+
+- name: enable site
+  file:
+    src: '{{ nginx_path }}/sites-available/dev'
+    dest: '{{ nginx_path }}/sites-enabled/dev'
+    state: link
+
+- debug: msg="restart nginx"
+  notify: restart nginx
+  changed_when: true
+
+- name: force execution of handlers
+  meta: flush_handlers

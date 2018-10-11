@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/security find-generic-password -w -a "$USER" -l "ansible-mac-dev-playbook"

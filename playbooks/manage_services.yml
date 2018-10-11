@@ -1,0 +1,15 @@
+- hosts: all
+  vars_files:
+    - ../default.config.yml
+  vars_prompt:
+    - name: "service_state"
+      prompt: "Etat du service (start/stop/restart)"
+      default: "start"
+      private: no
+  pre_tasks:
+    - include_vars: "{{ item }}"
+      with_fileglob:
+        - ../config.yml
+  roles:
+    - check_sudo_access
+    - manage_services

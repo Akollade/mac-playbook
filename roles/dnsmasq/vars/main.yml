@@ -1,0 +1,3 @@
+---
+dnsmasq_conf_path: /usr/local/etc/dnsmasq.conf
+delete_old_resolvers: true

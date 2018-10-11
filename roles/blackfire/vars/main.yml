@@ -1,0 +1,5 @@
+---
+blackfire_homebrew_tap: blackfireio/homebrew-blackfire
+blackfire_agent_config_path: /usr/local/etc/blackfire/agent
+blackfire_config_path: ~/.blackfire.ini
+

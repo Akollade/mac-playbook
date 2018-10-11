@@ -1,0 +1,19 @@
+---
+
+- name: Ajout du binaire "dev"
+  template:
+    src: dev.j2
+    dest: /usr/local/bin/dev
+    mode: "u=rxw,g=rx,o=rx"
+
+- name: Configuration de l'autocomplétion pour le binaire "dev"
+  template:
+    src: autocomplete.j2
+    dest: /usr/local/share/zsh/site-functions/_dev
+    mode: "u=rxw,g=rx,o=rx"
+
+- name: Configuration de l'éditeur pour "dev config"
+  template:
+    src: dev_config_env.j2
+    dest: ~/.dev_config_env
+    mode: "u=rw,g=r,o=r"

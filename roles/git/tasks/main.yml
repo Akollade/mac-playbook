@@ -1,0 +1,22 @@
+---
+- name: add git config
+  template:
+    src: gitconfig.j2
+    dest: ~/.gitconfig
+    force: yes
+
+- name: add gitignore
+  copy:
+    src: gitignore_global
+    dest: ~/.gitignore_global
+
+- name: add git commit template
+  copy:
+    src: git_commit_msg.txt
+    dest: ~/.git_commit_msg.txt
+
+- name: install git-extras
+  homebrew:
+    name: git-extras
+    state: present
+  when: install_git_extras

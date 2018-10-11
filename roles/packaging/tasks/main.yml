@@ -1,0 +1,70 @@
+---
+
+- name: Ajout des dépôts homebrew
+  homebrew_tap:
+    tap: '{{ item }}'
+    state: present
+  with_items: '{{ homebrew_tap }}'
+
+- name: Mise à jour de homebrew
+  homebrew:
+    update_homebrew: yes
+  when: upgrade_all_packages
+
+- name: Récupération de la version de Curl
+  command: /usr/local/opt/curl/bin/curl -V
+  register: curl_version
+  ignore_errors: true
+  changed_when: False
+  args:
+    warn: false
+
+- name: Suppression de la version de curl avec SecureTransport
+  homebrew:
+    name: curl
+    state: absent
+  when: "'SecureTransport' in curl_version.stdout"
+  ignore_errors: true
+
+- name: Installation de curl avec OpenSSL
+  homebrew:
+    name: curl
+    state: "{{ homebrew_package_state }}"
+    install_options: with-openssl
+
+- name: On force l'utilisation de curl avec OpenSSL
+  command: brew link curl --force
+
+- name: Installation des paquets avec homebrew
+  homebrew:
+    name: '{{ item }}'
+    state: "{{ homebrew_package_state }}"
+  with_items: '{{ homebrew_base_packages + homebrew_packages|default([]) }}'
+
+- name: Installation des applications avec homebrew cask
+  homebrew_cask:
+    name: '{{ item }}'
+    state: present
+  with_items: '{{ homebrew_cask_packages }}'
+  ignore_errors: true
+
+- name: List installed MAS apps
+  command: mas list
+  register: mas_list
+  check_mode: no
+  changed_when: false
+
+- name: Ensure configured MAS apps are installed
+  command: mas install "{{ item.id|default(item) }}"
+  with_items: "{{ mas_installed_apps }}"
+  when: (item.id | default(item) | string) not in mas_list.stdout
+
+- name: Upgrade all mas apps (if configured)
+  command: mas upgrade
+  when: mas_upgrade_all_apps
+
+- name: Mise à jour des binaires
+  homebrew:
+    update_homebrew: yes
+    upgrade_all: yes
+  when: upgrade_all_packages

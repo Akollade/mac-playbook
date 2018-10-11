@@ -1,0 +1,5 @@
+---
+- command: "brew services {{ service_state|mandatory }} {{ item.name|mandatory }}"
+  with_items: "{{ managed_services }}"
+  become: "{{ item.sudo|default(false) }}"
+  ignore_errors: true

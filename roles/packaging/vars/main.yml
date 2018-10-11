@@ -1,0 +1,24 @@
+---
+homebrew_tap:
+  - homebrew/services
+  - buo/cask-upgrade
+
+homebrew_base_packages:
+  - coreutils
+  - pwgen
+  - git
+  - tree
+  - httpie
+  - python
+  - zsh
+  - tmux
+  - gs # pdf
+  - ruby
+  - zsh-completions
+  - gpg2 # for gpg
+  - pinentry-mac # for gpg
+  - autoconf
+  - imagemagick
+  - telnet
+  - mas
+  - wget

@@ -1,0 +1,55 @@
+[user]
+  name = {{ git_user_name|mandatory }}
+  email = {{ git_user_email|mandatory }}
+{% if use_gpg_to_sign_commit %}
+  signingkey = {{ git_signingkey|mandatory }}
+{% endif %}
+[alias]
+  ci   = commit
+  st   = status
+  br   = branch
+  co   = checkout
+  cat  = cat-file -p
+  lg   = log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset%s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative
+  lol = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\"
+  ds = diff --staged
+
+  # stash shortcuts
+  sl = stash list
+  sa = stash apply
+  ss = stash save
+
+  r = reset
+  # cancel last commit
+  r1 = reset HEAD^
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+[core]
+  excludesfile = ~/.gitignore_global
+  editor = "vim"
+  ignorecase = false
+  preloadindex = true
+[credential]
+  helper = cache --timeout 3600
+[include]
+  path = .gitconfig.local
+[commit]
+  template = ~/.git_commit_msg.txt
+{% if use_gpg_to_sign_commit %}
+  gpgsign = true
+{% endif %}
+[pull]
+  rebase = preserve
+[fetch]
+  prune = true
+[help]
+  autocorrect = 1
+[diff]
+  compactionHeuristic = true
+[pager]
+	branch = false
+[rebase]
+	autoStash = true

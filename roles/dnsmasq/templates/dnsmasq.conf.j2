@@ -1,0 +1,12 @@
+#{{ ansible_managed }}
+{% for domain in dnsmasq_domains %}
+address=/.{{ domain }}/127.0.0.1
+{% endfor %}
+
+# Listen only on loopback interface, on non-privileged port
+# 5253 as an homage to Multicast DNS (mDNS) using 5353 UDP
+port=5253
+listen-address=127.0.0.1
+
+# Provide only DNS service, disable DHCP and TFTP
+no-dhcp-interface=

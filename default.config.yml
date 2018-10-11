@@ -1,0 +1,194 @@
+---
+############
+# SYSTEM   #
+############
+upgrade_all_packages: False
+homebrew_package_state: present
+playbook_dev_path: "{{ playbook_dir }}/.."
+
+# Use with "dev config". Examples: atom, code, pstorm, etc
+edit_dev_config_with: vim
+
+zsh_theme: ys
+
+homebrew_cask_packages:
+  - google-chrome
+  - iterm2
+  - alfred
+  - jetbrains-toolbox
+  - spotify
+  - visual-studio-code
+  - sequel-pro
+  - libreoffice
+  - libreoffice-language-pack
+  - vlc
+  - slack
+  - calibre
+  - hazel
+  - teamviewer
+  - postman
+  - wkhtmltopdf
+  - filezilla
+  - dropbox
+  - docker
+  - firefox
+  - github
+  - atom
+  - muzzle
+  - rocket
+
+homebrew_packages:
+  - nodejs
+  - yarn
+
+mas_upgrade_all_apps: yes
+mas_installed_apps:
+  - { id: 557168941, name: "Tweetbot 2" }
+  - { id: 425424353, name: "The Unarchiver" }
+  - { id: 585829637, name: "Todoist" }
+  - { id: 1289197285, name: "MindNode" }
+  - { id: 1333542190, name: "1Password 7" }
+
+managed_services:
+  - { name: nginx, sudo: true }
+  - { name: php }
+  - { name: dnsmasq }
+  - { name: mailhog }
+  - { name: mariadb }
+
+sudo_password: ""
+
+#########
+# GIT   #
+#########
+
+git_user_name: X X
+git_user_email: x@x.fr
+
+#  https://github.com/tj/git-extras
+install_git_extras: true
+use_gpg_to_sign_commit: false
+
+#########
+# PHP   #
+#########
+
+install_xdebug: true
+
+php_fpm_memory_limit: 256M
+
+# PECL
+php_extensions:
+- imagick
+
+php_custom_config:
+  - section: 'PHP'
+    option: 'max_execution_time'
+    value: 120
+  - section: 'PHP'
+    option: 'display_errors'
+    value: true
+  - section: 'PHP'
+    option: 'error_reporting'
+    value: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
+  - section: 'PHP'
+    option: 'error_log'
+    value: "/usr/local/var/log/php_errors.log"
+  - section: 'PHP'
+    option: 'memory_limit'
+    value: -1
+  - section: 'PHP'
+    option: 'upload_max_filesize'
+    value: "20M"
+  - section: 'PHP'
+    option: 'post_max_size'
+    value: "20M"
+  - section: 'Date'
+    option: 'date.timezone'
+    value: "Europe/Paris"
+  - section: 'Session'
+    option: 'session.cookie_lifetime'
+    value: 604800
+  - section: 'Session'
+    option: 'session.gc_maxlifetime'
+    value: 604800
+  - section: 'mail function'
+    option: 'sendmail_path'
+    value: "Mailhog sendmail"
+  - section: 'xdebug'
+    option: 'xdebug.remote_port'
+    value: "9001"
+    when: install_xdebug
+  - section: 'xdebug'
+    option: 'xdebug.remote_enable'
+    value: 1
+    when: install_xdebug
+  - section: 'xdebug'
+    option: 'xdebug.profiler_enable'
+    value: 1
+    when: install_xdebug
+  - section: 'xdebug'
+    option: 'xdebug.profiler_output_dir'
+    value: "{{ '~/dev/xdebug' | expanduser }}"
+    when: install_xdebug
+  - section: 'xdebug'
+    option: 'xdebug.idekey'
+    value: "mac-playbook"
+    when: install_xdebug
+  - section: 'xdebug'
+    option: 'xdebug.file_link_format'
+    value: "'phpstorm://open?file=%f&line=%l'"
+    when: install_xdebug
+
+setup_blackfire: false
+blackfire_server_id: ~
+blackfire_server_token: ~
+blackfire_client_id: ~
+blackfire_client_token: ~
+
+composer_global_packages:
+  hirak/prestissimo: "@stable"
+
+###########
+# Nginx   #
+###########
+
+nginx_client_max_body_size: 5M
+nginx_php_max_execution_time: 120
+
+nginx_sites:
+  - name: example
+    server_name: example.localhost
+    nginx_type: symfony-flex
+    root: "~/dev/example/web"
+
+#########
+# DNS   #
+#########
+
+dnsmasq_domains:
+  - localhost
+
+#############
+# MariaDB   #
+#############
+
+mariadb_dev_user: dev
+mariadb_dev_password: dev
+
+mariadb_root_password: Nuerei9iev
+
+#############
+# Mailhog   #
+#############
+
+mailhog_api_bind_addr: 0.0.0.0:8025
+mailhog_ui_bind_addr: 0.0.0.0:8025
+mailhog_smtp_bind_addr: 0.0.0.0:1025
+
+mailhog_hostname: floran.fr
+#mailhog_outgoing_smtp_servers:
+#  my_server:
+#    name: my_server
+#    host: smtp.floran.fr
+#    port: "25"

@@ -1,0 +1,5 @@
+# Si appliqué, ce commit va ...
+
+# Expliquez pourquoi ce changement est fait
+
+# Liens vers des issues, articles ou autres ressources pertinents

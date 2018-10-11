@@ -1,0 +1,29 @@
+---
+- name: installation de la probe Blackfire
+  homebrew:
+    name: "blackfire-php{{ php_version|replace('.', '') }}"
+    state: latest
+
+- name: homebrew blackfire tap
+  homebrew_tap:
+    tap: '{{ blackfire_homebrew_tap }}'
+    state: present
+
+- name: Installation de l'agent Blackfire
+  homebrew:
+    name: blackfire-agent
+    state: latest
+
+- name: Ajout de la config pour l'agent Blackfire
+  template:
+    src: agent.j2
+    dest: '{{ blackfire_agent_config_path }}'
+  notify:
+    - restart blackfire-agent
+    - restart php-fpm
+
+- name: add blackfire config
+  template:
+    src: blackfire.ini.j2
+    dest: '{{ blackfire_config_path }}'
+

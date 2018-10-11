@@ -1,0 +1,14 @@
+#{{ ansible_managed }}
+server {
+    listen {{ nginx_http_port }};
+    server_name  localhost;
+    root       {{ playbook_dev_path | realpath }}/local-homepage;
+
+    error_log {{ nginx_log_path }}/default.error.log;
+    access_log {{ nginx_log_path }}/default.access.log;
+
+    include   {{ nginx_path }}/conf.d/php;
+
+    error_page  404     /404.html;
+    error_page  403     /403.html;
+}

@@ -1,0 +1,29 @@
+- hosts: all
+  vars_files:
+    - ../default.config.yml
+  vars:
+    upgrade_all_packages: no
+  pre_tasks:
+    - include_vars: "{{ item }}"
+      with_fileglob:
+        - ../config.yml
+    - name: set facts for packages
+      set_fact:
+        upgrade_all_packages: "{{ upgrade_all_packages|bool }}"
+        homebrew_package_state: "{{ upgrade_all_packages | ternary('latest','present') }}"
+  roles:
+    - check_sudo_access
+    - sudoers
+    - packaging
+    - ansible
+    - dev_bin
+    - git
+    - dotfiles
+    - dnsmasq
+    - mariadb
+    - php
+    - { role: blackfire, when: setup_blackfire == true }
+    - composer
+    - nginx
+    - mailhog
+    - cleanup

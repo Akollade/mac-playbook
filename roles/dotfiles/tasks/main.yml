@@ -1,0 +1,40 @@
+---
+
+- name: Clone oh-my-zsh repo
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: ~/.oh-my-zsh
+    force: yes
+
+- name: Clone syntax-highlighting
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    force: yes
+
+- name: deploy .zshrc
+  template:
+    src: zshrc.j2
+    dest: ~/.zshrc
+
+- name: deploy .zsh_aliases
+  template:
+    src: zsh_aliases.j2
+    dest: ~/.zsh_aliases
+
+- name: ensure user config file exists
+  copy:
+    content: ""
+    dest: ~/.zshrc.local
+    force: no
+
+- name: set zsh as default shell
+  user:
+    name: "{{ lookup('env','USER') }}"
+    shell: /bin/zsh
+  become: true
+
+- name: deploy .sqliterc
+  copy:
+    src: sqliterc
+    dest: ~/.sqliterc
