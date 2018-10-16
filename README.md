@@ -23,7 +23,7 @@ $ touch config.yml
 $ vim config.yml
 ```
 
-You can look in the file `config.default.yml` to customize your environment.
+You can look in the file `default.config.yml` to customize your environment.
 
 To avoid having to enter the SUDO password all the time we will encrypt our SUDO password  with a password that will be stored in the keychain :
 
