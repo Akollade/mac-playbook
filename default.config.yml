@@ -5,6 +5,7 @@
 upgrade_all_packages: False
 homebrew_package_state: present
 playbook_dev_path: "{{ playbook_dir }}/.."
+sudo_password: ''
 
 # Use with "dev config". Examples: atom, code, pstorm, etc
 edit_dev_config_with: vim
