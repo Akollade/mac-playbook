@@ -38,8 +38,6 @@ managed_services:
   - { name: mailhog }
   - { name: mariadb }
 
-sudo_password: ""
-
 #########
 # GIT   #
 #########
