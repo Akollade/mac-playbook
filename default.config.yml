@@ -13,16 +13,6 @@ edit_dev_config_with: vim
 zsh_theme: ys
 
 homebrew_cask_packages:
-  - google-chrome
-  - firefox
-  - iterm2
-  - alfred
-  - jetbrains-toolbox
-  - sequel-pro
-  - libreoffice
-  - libreoffice-language-pack
-  - vlc
-  - slack
   - wkhtmltopdf
 
 homebrew_packages:
