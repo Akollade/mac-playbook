@@ -4,6 +4,12 @@
     name: "php@{{ php_version }}"
     state: latest
 
+- name: Install extensions dependencies
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ php_extensions_dependencies }}"
+
 - name: Get PECL path
   shell: "brew --prefix php@{{ php_version }}"
   register: brew_prefix_php
