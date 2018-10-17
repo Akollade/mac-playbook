@@ -25,12 +25,6 @@ $ vim config.yml
 
 You can look in the file `default.config.yml` to customize your environment.
 
-To avoid having to enter the SUDO password all the time we will encrypt our SUDO password  with a password that will be stored in the keychain :
-
-```shell
-$ ./scripts/generate-ansible-password
-```
-
 Then :
 
 ```shell
@@ -40,6 +34,15 @@ $ make bootstrap
 And to finish : reboot the computer.
 
 From there, you can use the **dev** binary to manage the environment.
+
+## Save password
+
+To avoid having to enter the SUDO password all the time we will encrypt our SUDO password  with a password that will be stored in the keychain :
+
+```shell
+$ ./scripts/generate-ansible-password
+```
+
 
 ## Usages
 
