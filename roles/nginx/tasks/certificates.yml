@@ -64,6 +64,8 @@
 - name: Récupération des certificats Gandi
   shell: curl -L {{ item }} >> {{ ssl_cacert_file }}
   with_items: "{{ ssl_intermediate_certs }}"
+  args:
+    warn: false
 
 - name: include in cacert
   shell: cat {{ openssl_certs_path }}/{{ item.name }}.crt >> {{ ssl_cacert_file }}

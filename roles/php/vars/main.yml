@@ -1,7 +1,3 @@
 ---
 php_version: 7.2
 php_custom_config_file: /usr/local/etc/php/{{ php_version }}/conf.d/custom.ini
-
-php_extensions_dependencies:
-  - openldap
-  - libiconv

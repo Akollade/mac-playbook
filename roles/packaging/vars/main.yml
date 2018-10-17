@@ -18,7 +18,6 @@ homebrew_base_packages:
   - gpg2 # for gpg
   - pinentry-mac # for gpg
   - autoconf
-  - imagemagick
   - telnet
   - mas
   - wget
