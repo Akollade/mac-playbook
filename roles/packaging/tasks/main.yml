@@ -37,9 +37,8 @@
 
 - name: Installation des paquets avec homebrew
   homebrew:
-    name: '{{ item }}'
+    name: '{{ homebrew_base_packages + homebrew_packages|default([]) }}'
     state: "{{ homebrew_package_state }}"
-  with_items: '{{ homebrew_base_packages + homebrew_packages|default([]) }}'
 
 - name: Installation des applications avec homebrew cask
   homebrew_cask:
