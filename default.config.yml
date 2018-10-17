@@ -147,6 +147,7 @@ dnsmasq_domains:
 mariadb_dev_user: dev
 mariadb_dev_password: dev
 
+# dont change after bootstrap
 mariadb_root_password: ohvaiN2azoof0feeDi2
 
 #############
