@@ -29,7 +29,7 @@ homebrew_packages:
   - nodejs
   - yarn
 
-mas_upgrade_all_apps: yes
+mas_upgrade_all_apps: no
 mas_installed_apps: []
 
 managed_services:
