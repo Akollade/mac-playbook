@@ -58,12 +58,12 @@
 - name: Set FPM config
   template:
     src: php-fpm.conf.j2
-    dest: '/usr/local/etc/php/{{ php_version }}/php-fpm.d/www.conf'
+    dest: '/usr/local/etc/php/{{ php_version }}/php-fpm.conf'
   notify: restart php-fpm
 
 - name: Delete old fpm config
   file:
-    dest: '/usr/local/etc/php/{{ php_version }}/php-fpm.conf'
+    dest: '/usr/local/etc/php/{{ php_version }}/php-fpm.d/www.conf'
     state: absent
 
 - name: Add configs
