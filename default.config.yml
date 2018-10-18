@@ -29,6 +29,11 @@ managed_services:
   - { name: mailhog }
   - { name: mariadb }
 
+# SSH config (~/.ssh/config)
+#ssh_config: |
+#      Host *
+#		    User example
+
 #########
 # GIT   #
 #########
