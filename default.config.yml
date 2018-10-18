@@ -10,8 +10,6 @@ sudo_password: ''
 # Use with "dev config". Examples: atom, code, pstorm, etc
 edit_dev_config_with: vim
 
-zsh_theme: ys
-
 homebrew_cask_packages:
   - wkhtmltopdf
 
@@ -29,6 +27,12 @@ managed_services:
   - { name: mailhog }
   - { name: mariadb }
 
+############
+# dotfiles #
+############
+
+zsh_theme: ys
+
 # SSH config (~/.ssh/config)
 #ssh_config: |
 #      Host *
@@ -43,6 +47,7 @@ git_user_email: x@fdsea51.fr
 
 #  https://github.com/tj/git-extras
 install_git_extras: true
+
 use_gpg_to_sign_commit: false
 
 #########
