@@ -34,6 +34,12 @@
     shell: /bin/zsh
   become: true
 
+- name: Add SSH config
+  copy:
+    content: "{{ ssh_config }}"
+    dest: ~/.ssh/config
+  when: ssh_config is defined and ssh_config != ''
+
 - name: deploy .sqliterc
   copy:
     src: sqliterc
