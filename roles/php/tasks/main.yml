@@ -61,6 +61,11 @@
     dest: '/usr/local/etc/php/{{ php_version }}/php-fpm.d/www.conf'
   notify: restart php-fpm
 
+- name: Delete old fpm config
+  file:
+    dest: '/usr/local/etc/php/{{ php_version }}/php-fpm.conf'
+    state: absent
+
 - name: Add configs
   ini_file:
     dest: "{{ php_custom_config_file }}"
