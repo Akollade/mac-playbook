@@ -14,7 +14,7 @@
   roles:
     - check_sudo_access
     - sudoers
-    - packaging
+    - common
     - ansible
     - dev_bin
     - git
