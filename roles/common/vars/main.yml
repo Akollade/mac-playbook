@@ -3,6 +3,7 @@ homebrew_tap:
   - homebrew/services
   - buo/cask-upgrade
   - caskroom/fonts
+  - caskroom/versions
 
 homebrew_base_packages:
   - coreutils
