@@ -25,6 +25,47 @@ $ vim config.yml
 
 You can look in the file `default.config.yml` to customize your environment.
 
+Example :
+
+```yaml
+---
+############
+# SYSTEM   #
+############
+
+edit_dev_config_with: atom
+
+homebrew_cask_packages:
+- sequel
+- iterm2
+- alfred
+- atom
+
+############
+# dotfiles #
+############
+
+zsh_theme: agnoster
+
+#########
+# GIT   #
+#########
+
+git_user_name: John Doe
+git_user_email: john@doe.fr
+
+###########
+# Nginx   #
+###########
+
+nginx_sites:
+  - name: wallabag
+    server_name: wallabag.localhost
+    nginx_type: symfony
+    root: "~/dev/wallabag/web"
+
+```
+
 Then :
 
 ```shell
