@@ -48,8 +48,8 @@
 
 - name: On vérifie la configuration des sites
   fail:
-    msg: "Le type de site {{ item.nginx_type }} n'existe pas"
-  when: item.nginx_type not in nginx_site_types
+    msg: "Le type de site {{ item.type }} n'existe pas"
+  when: item.type not in nginx_site_types
   with_items: "{{ nginx_sites }}"
 
 - name: add site

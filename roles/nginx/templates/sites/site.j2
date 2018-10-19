@@ -13,7 +13,7 @@ server {
     error_log {{ nginx_log_path }}/{{ site.name }}.error.log;
     access_log {{ nginx_log_path }}/{{ site.name }}.access.log;
 
-    include {{ nginx_path }}/conf.d/{{ site.nginx_type }};
+    include {{ nginx_path }}/conf.d/{{ site.type }};
 
 {% if site.cors|default(false) %}
     include {{ nginx_path }}/conf.d/cors;

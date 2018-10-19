@@ -61,7 +61,7 @@ git_user_email: john@doe.fr
 nginx_sites:
   - name: wallabag
     server_name: wallabag.localhost
-    nginx_type: symfony
+    type: symfony
     root: "~/dev/wallabag/web"
 
 ```
