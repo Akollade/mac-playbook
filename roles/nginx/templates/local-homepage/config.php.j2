@@ -4,7 +4,7 @@
 
 $sites = [
 {% for site in nginx_sites %}
-    ['name' => '{{ site.name }}', 'url' => 'http://{{ site.server_name }}', 'path' => '{{ site.root }}'],
+    ['name' => '{{ site.name }}', 'url' => 'http://{{ site.server_name }}:{{ site.http_port|default(nginx_http_port) }}', 'path' => '{{ site.root }}'],
 {% endfor %}
 ];
 

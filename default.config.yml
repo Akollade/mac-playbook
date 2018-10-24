@@ -148,6 +148,8 @@ nginx_sites:
     server_name: example.localhost
     nginx_type: symfony-flex
     root: "~/dev/example/web"
+    redirect_to_https: true
+    https: true
 
 #########
 # DNS   #
