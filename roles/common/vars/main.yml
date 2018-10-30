@@ -23,3 +23,7 @@ homebrew_base_packages:
   - telnet
   - mas
   - wget
+  - qlmarkdown # preview markdown
+  - quicklook-json # preview json
+  - qlstephen # preview all files without or with unknown extension
+  - qlcolorcode # add color for code
