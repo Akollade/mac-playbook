@@ -23,7 +23,7 @@
   homebrew:
     name: curl
     state: absent
-  when: "'SecureTransport' in curl_version.stdout"
+  when: "'SecureTransport' in curl_version.stdout|default('')"
   ignore_errors: true
 
 - name: Installation de curl avec OpenSSL
