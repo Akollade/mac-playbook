@@ -23,3 +23,4 @@ homebrew_base_packages:
   - telnet
   - mas
   - wget
+  - bat
