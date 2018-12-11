@@ -26,4 +26,5 @@
     - composer
     - nginx
     - mailhog
+    - upgrade
     - cleanup
