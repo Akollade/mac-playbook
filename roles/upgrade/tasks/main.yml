@@ -1,0 +1,11 @@
+---
+
+- name: Upgrade all mas apps (if configured)
+  command: mas upgrade
+  when: mas_upgrade_all_apps
+
+- name: Upgrade all binaries
+  homebrew:
+    update_homebrew: yes
+    upgrade_all: yes
+  when: upgrade_all_packages
