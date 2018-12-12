@@ -1,7 +1,8 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
+
 # Wide-open CORS config for nginx
 # https://gist.github.com/michiel/1064640
-#
+
 location / {
 
      if ($request_method = 'OPTIONS') {

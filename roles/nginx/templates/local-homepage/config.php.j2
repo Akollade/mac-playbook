@@ -1,6 +1,6 @@
 <?php
 
-// {{ ansible_managed }}
+{{ ansible_managed | comment('c') }}
 
 $sites = [
 {% for site in nginx_sites %}
