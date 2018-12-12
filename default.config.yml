@@ -26,7 +26,7 @@ mas_installed_apps: []
 
 managed_services:
   - { name: nginx, sudo: true }
-  - { name: php }
+  - { name: "php@7.2" }
   - { name: dnsmasq }
   - { name: mailhog }
   - { name: mariadb }
