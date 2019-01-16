@@ -37,9 +37,9 @@ upgrade: ## Upgrade of the apps and dev environment
 setup-nginx: ## Setup/config nginx
 	@$(ANSIBLE_COMMAND) playbooks/setup_nginx.yml
 
-.PHONY: reset-ssl-certs
-reset-ssl-certs: ## Force the regeneration of SSL certificates
-	@$(ANSIBLE_COMMAND) playbooks/setup_webserver.yml --extra-vars='reset_ssl_certs=true'
+.PHONY: setup-mkcert
+setup-mkcert: ## Setup mkcert
+	mkcert -install
 
 .PHONY: dotfiles
 dotfiles: ## Setup "dotfiles"

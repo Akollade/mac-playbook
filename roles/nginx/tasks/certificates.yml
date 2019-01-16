@@ -1,6 +1,17 @@
 ---
 
-- name: Création des dossiers pour les certificats
+- name: Install mkcert and nss
+  homebrew:
+    name:
+      - mkcert
+      - nss
+    state: "{{ homebrew_package_state }}"
+
+- name: Setup mkcert
+  shell: mkcert -install
+  become: yes
+
+- name: Create paths for certificates
   file:
     path: '{{ item }}'
     state: directory
@@ -8,65 +19,15 @@
     - "{{ openssl_private_path }}"
     - "{{ openssl_certs_path }}"
 
-- name: Mise en place de la configuration par défaut d'OpenSSL
-  shell: cp /System/Library/OpenSSL/openssl.cnf "/tmp/dev-openssl-{{ item.name }}.cnf"
+- name: Create certs
+  shell: "mkcert -cert-file {{ openssl_certs_path }}/{{ item.name }}.pem -key-file {{ openssl_private_path }}/{{ item.name }}.pem {{ item.server_name }}"
   with_items: "{{ nginx_sites }}"
 
-- name: Ajout localhost à la config OpenSSL
-  shell: echo '[SAN]\nsubjectAltName=DNS:{{ item.server_name }}' >> "/tmp/dev-openssl-{{ item.name }}.cnf"
-  with_items: "{{ nginx_sites }}"
-
-- name: Suppression des certificats SSL
-  file:
-    path: "{{ openssl_certs_path }}/{{ item.name }}.crt"
-    state: absent
-  become: yes
-  ignore_errors: yes
-  with_items: "{{ nginx_sites }}"
-  when: reset_ssl_certs
-
-- name: create self-signed SSL cert
-  shell: |
-    openssl req \
-        -newkey rsa:2048 \
-        -x509 \
-        -nodes \
-        -keyout {{ openssl_private_path }}/{{ item.name }}.key \
-        -new \
-        -out {{ openssl_certs_path }}/{{ item.name }}.crt \
-        -subj /CN={{ item.server_name }} \
-        -reqexts SAN \
-        -extensions SAN \
-        -config /tmp/dev-openssl-{{ item.name }}.cnf \
-        -sha256 \
-        -days 3650
-  args:
-    creates: "{{ openssl_certs_path }}/{{ item.name }}.crt"
-  with_items: "{{ nginx_sites }}"
-
-- name: delete system certificate
-  command: security find-certificate -c "{{ item.server_name }}" -a -Z | awk '/SHA-1/{system("security delete-certificate -Z "$NF)}'
-  become: yes
-  ignore_errors: yes
-  with_items: "{{ nginx_sites }}"
-
-- name: import ssl certificate
-  command: security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {{ openssl_certs_path }}/{{ item.name }}.crt
-  become: yes
-  with_items: "{{ nginx_sites }}"
-
-- name: Téléchargement de cacert
+- name: Download cacert
   get_url:
-    url: "{{ ssl_cacert_url }}"
-    dest: "{{ ssl_cacert_file }}"
+    url: "{{ openssl_cacert_url }}"
+    dest: "{{ openssl_cacert_file }}"
     force: yes
 
-- name: Récupération des certificats Gandi
-  shell: curl -L {{ item }} >> {{ ssl_cacert_file }}
-  with_items: "{{ ssl_intermediate_certs }}"
-  args:
-    warn: false
-
-- name: include in cacert
-  shell: cat {{ openssl_certs_path }}/{{ item.name }}.crt >> {{ ssl_cacert_file }}
-  with_items: "{{ nginx_sites }}"
+- name: Include mkcert CA in cacert
+  shell: cat "$(mkcert -CAROOT)/rootCA.pem" >> {{ openssl_cacert_file }}
