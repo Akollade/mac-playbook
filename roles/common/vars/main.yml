@@ -15,7 +15,6 @@ homebrew_base_packages:
   - zsh
   - tmux
   - gs # pdf
-  - ruby
   - zsh-completions
   - gpg2 # for gpg
   - pinentry-mac # for gpg
@@ -24,3 +23,4 @@ homebrew_base_packages:
   - mas
   - wget
   - bat
+  - ruby
