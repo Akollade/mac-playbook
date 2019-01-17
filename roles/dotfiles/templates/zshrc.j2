@@ -19,8 +19,6 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 # Composer binaries
 export PATH=~/.composer/vendor/bin:./vendor/bin:$PATH
 
-export REQUESTS_CA_BUNDLE=/usr/local/etc/openssl/cert.pem
-
 [ -e "${HOME}/.zsh_aliases" ] && source "${HOME}/.zsh_aliases"
 
 # Used in makefile
@@ -28,5 +26,7 @@ export REQUESTS_CA_BUNDLE=/usr/local/etc/openssl/cert.pem
 
 # gpg and password prompt
 export GPG_TTY=$(tty)
+
+export REQUESTS_CA_BUNDLE="/usr/local/etc/openssl/cacert.pem"
 
 source ~/.zshrc.local

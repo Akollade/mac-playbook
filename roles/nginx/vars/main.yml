@@ -22,13 +22,8 @@ nginx_site_types:
 # SSL   #
 #########
 
-reset_ssl_certs: false
-
 openssl_path: /usr/local/etc/openssl
 openssl_certs_path: "{{ openssl_path }}/certs"
 openssl_private_path: "{{ openssl_path }}/private"
-ssl_cacert_file: /usr/local/etc/openssl/cert.pem
-ssl_cacert_url: https://curl.haxx.se/ca/cacert.pem
-ssl_intermediate_certs:
-  - https://v4.gandi.net/static/CAs/GandiStandardSSLCA.pem
-  - https://v4.gandi.net/static/CAs/GandiStandardSSLCA2.pem
+openssl_cacert_file: /usr/local/etc/openssl/cacert.pem
+openssl_cacert_url: https://curl.haxx.se/ca/cacert.pem

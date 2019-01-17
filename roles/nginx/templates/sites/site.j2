@@ -8,8 +8,8 @@ server {
     root {{ site.root | expanduser }};
 
     {% if site.https|default(true) %}
-    ssl_certificate      {{ openssl_certs_path }}/{{ site.name }}.crt;
-    ssl_certificate_key  {{ openssl_private_path }}/{{ site.name }}.key;
+    ssl_certificate      {{ openssl_certs_path }}/{{ site.name }}.pem;
+    ssl_certificate_key  {{ openssl_private_path }}/{{ site.name }}.pem;
     {% endif %}
 
     error_log {{ nginx_log_path }}/{{ site.name }}.error.log;

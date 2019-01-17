@@ -70,6 +70,7 @@ Then :
 
 ```shell
 $ make bootstrap
+$ make setup-mkcert
 ```
 
 And to finish : reboot the computer.
@@ -83,7 +84,6 @@ To avoid having to enter the SUDO password all the time we will encrypt our SUDO
 ```shell
 $ ./scripts/generate-ansible-password
 ```
-
 
 ## Usages
 
