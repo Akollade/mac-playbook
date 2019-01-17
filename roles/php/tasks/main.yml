@@ -31,7 +31,7 @@
   notify: restart php-fpm
 
 - name: Install xdebug
-  shell: "{{ pecl_bin }} install xdebug"
+  shell: "{{ pecl_bin }} install {{ xdebug_package }}"
   register: pecl_result
   changed_when: "pecl_result.rc == 0"
   failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
@@ -40,7 +40,7 @@
 
 - name: Remove loading of xdebug in php.ini
   lineinfile:
-    path:  "/usr/local/etc/php/{{ php_version }}/php.ini"
+    path: "/usr/local/etc/php/{{ php_version }}/php.ini"
     state: absent
     regexp: '^zend_extension="xdebug.so"'
   when: install_xdebug
@@ -48,7 +48,7 @@
 
 - name: Load xdebug with custom file
   lineinfile:
-    path:  "/usr/local/etc/php/{{ php_version }}/conf.d/ext-xdebug.ini"
+    path: "/usr/local/etc/php/{{ php_version }}/conf.d/ext-xdebug.ini"
     state: present
     line: 'zend_extension="xdebug.so"'
     create: yes
@@ -58,12 +58,12 @@
 - name: Set FPM config
   template:
     src: php-fpm.conf.j2
-    dest: '/usr/local/etc/php/{{ php_version }}/php-fpm.conf'
+    dest: "/usr/local/etc/php/{{ php_version }}/php-fpm.conf"
   notify: restart php-fpm
 
 - name: Delete old fpm config
   file:
-    dest: '/usr/local/etc/php/{{ php_version }}/php-fpm.d/www.conf'
+    dest: "/usr/local/etc/php/{{ php_version }}/php-fpm.d/www.conf"
     state: absent
 
 - name: Add configs
