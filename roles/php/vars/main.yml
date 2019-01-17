@@ -1,4 +1,3 @@
 ---
-php_version: 7.3
 php_custom_config_file: /usr/local/etc/php/{{ php_version }}/conf.d/custom.ini
 xdebug_package: xdebug-2.7.0beta1
