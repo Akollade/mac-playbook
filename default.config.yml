@@ -5,7 +5,7 @@
 upgrade_all_packages: False
 homebrew_package_state: present
 playbook_dev_path: "{{ playbook_dir }}/.."
-sudo_password: ''
+sudo_password: ""
 
 # Use with "dev config". Examples: atom, code, pstorm, etc
 edit_dev_config_with: vim
@@ -26,7 +26,7 @@ mas_installed_apps: []
 
 managed_services:
   - { name: nginx, sudo: true }
-  - { name: "php@7.2" }
+  - { name: "php@{{ php_version }}" }
   - { name: dnsmasq }
   - { name: mailhog }
   - { name: mariadb }
@@ -58,13 +58,15 @@ use_gpg_to_sign_commit: false
 # PHP   #
 #########
 
+php_version: 7.3
+
 install_xdebug: true
 
 php_fpm_memory_limit: 256M
 
 # PECL
 php_extensions:
-- imagick
+  - imagick
 
 # packages needed to build extensions
 php_extensions_dependencies:
@@ -73,61 +75,61 @@ php_extensions_dependencies:
   - imagemagick
 
 php_custom_config:
-  - section: 'PHP'
-    option: 'max_execution_time'
+  - section: "PHP"
+    option: "max_execution_time"
     value: 120
-  - section: 'PHP'
-    option: 'display_errors'
+  - section: "PHP"
+    option: "display_errors"
     value: true
-  - section: 'PHP'
-    option: 'error_reporting'
+  - section: "PHP"
+    option: "error_reporting"
     value: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
-  - section: 'PHP'
-    option: 'error_log'
+  - section: "PHP"
+    option: "error_log"
     value: "/usr/local/var/log/php_errors.log"
-  - section: 'PHP'
-    option: 'memory_limit'
+  - section: "PHP"
+    option: "memory_limit"
     value: -1
-  - section: 'PHP'
-    option: 'upload_max_filesize'
+  - section: "PHP"
+    option: "upload_max_filesize"
     value: "20M"
-  - section: 'PHP'
-    option: 'post_max_size'
+  - section: "PHP"
+    option: "post_max_size"
     value: "20M"
-  - section: 'Date'
-    option: 'date.timezone'
+  - section: "Date"
+    option: "date.timezone"
     value: "Europe/Paris"
-  - section: 'Session'
-    option: 'session.cookie_lifetime'
+  - section: "Session"
+    option: "session.cookie_lifetime"
     value: 604800
-  - section: 'Session'
-    option: 'session.gc_maxlifetime'
+  - section: "Session"
+    option: "session.gc_maxlifetime"
     value: 604800
-  - section: 'mail function'
-    option: 'sendmail_path'
+  - section: "mail function"
+    option: "sendmail_path"
     value: "Mailhog sendmail"
-  - section: 'xdebug'
-    option: 'xdebug.remote_port'
+  - section: "xdebug"
+    option: "xdebug.remote_port"
     value: "9001"
     when: install_xdebug
-  - section: 'xdebug'
-    option: 'xdebug.remote_enable'
+  - section: "xdebug"
+    option: "xdebug.remote_enable"
     value: 1
     when: install_xdebug
-  - section: 'xdebug'
-    option: 'xdebug.profiler_enable'
+  - section: "xdebug"
+    option: "xdebug.profiler_enable"
     value: 1
     when: install_xdebug
-  - section: 'xdebug'
-    option: 'xdebug.profiler_output_dir'
+  - section: "xdebug"
+    option: "xdebug.profiler_output_dir"
     value: "{{ '~/dev/xdebug' | expanduser }}"
     when: install_xdebug
-  - section: 'xdebug'
-    option: 'xdebug.idekey'
+  - section: "xdebug"
+    option: "xdebug.idekey"
     value: "mac-playbook"
     when: install_xdebug
-  - section: 'xdebug'
-    option: 'xdebug.file_link_format'
+  - section: "xdebug"
+    option: "xdebug.file_link_format"
     value: "'phpstorm://open?file=%f&line=%l'"
     when: install_xdebug
 
