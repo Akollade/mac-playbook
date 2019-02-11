@@ -11,29 +11,10 @@
     update_homebrew: yes
   when: upgrade_all_packages
 
-- name: Récupération de la version de Curl
-  command: /usr/local/opt/curl/bin/curl -V
-  register: curl_version
-  ignore_errors: true
-  changed_when: False
-  args:
-    warn: false
-
-- name: Suppression de la version de curl avec SecureTransport
-  homebrew:
-    name: curl
-    state: absent
-  when: "'SecureTransport' in curl_version.stdout|default('')"
-  ignore_errors: true
-
 - name: Installation de curl avec OpenSSL
   homebrew:
-    name: curl
+    name: curl-openssl
     state: "{{ homebrew_package_state }}"
-    install_options: with-openssl
-
-- name: On force l'utilisation de curl avec OpenSSL
-  command: brew link curl --force
 
 - name: Installation des paquets avec homebrew
   homebrew:
