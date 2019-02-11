@@ -6,6 +6,7 @@ homebrew_tap:
   - homebrew/cask-versions
 
 homebrew_base_packages:
+  - curl-openssl
   - coreutils
   - pwgen
   - git
