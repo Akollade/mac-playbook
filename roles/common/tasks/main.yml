@@ -11,11 +11,6 @@
     update_homebrew: yes
   when: upgrade_all_packages
 
-- name: Installation de curl avec OpenSSL
-  homebrew:
-    name: curl-openssl
-    state: "{{ homebrew_package_state }}"
-
 - name: Installation des paquets avec homebrew
   homebrew:
     name: '{{ homebrew_base_packages + homebrew_packages|default([]) }}'
