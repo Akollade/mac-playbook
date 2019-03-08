@@ -2,7 +2,7 @@
 
 The Web server (nginx), PHP and the services (MariaDB, Mailhog) are installed locally with Ansible.
 
-All the management of the system (configuration, update, etc) goes through this tool which allows all the world to have a similar environment.
+All the management of the system (configuration, update, etc) goes through this tool which allows everyone to have a similar environment.
 
 ## Install
 
