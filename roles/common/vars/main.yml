@@ -17,6 +17,7 @@ homebrew_base_packages:
   - tmux
   - gs # pdf
   - zsh-completions
+  - bash-completion
   - gpg2 # for gpg
   - pinentry-mac # for gpg
   - autoconf
