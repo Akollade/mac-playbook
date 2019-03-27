@@ -6,7 +6,7 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="{{ zsh_theme|mandatory }}"
 DISABLE_UPDATE_PROMPT=true
 
-plugins=(git zsh-syntax-highlighting history-substring-search sudo symfony2 composer brew brew-cask httpie extract)
+plugins=(git zsh-syntax-highlighting history-substring-search sudo symfony2 composer brew httpie extract)
 source $ZSH/oh-my-zsh.sh
 
 DEFAULT_USER="{{ lookup('env','USER') }}"
