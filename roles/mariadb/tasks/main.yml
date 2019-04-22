@@ -4,6 +4,12 @@
     path: /usr/local/etc/my.cnf.d
     state: directory
 
+# https://github.com/Homebrew/brew/issues/5783
+- name: create file to keep /usr/local/etc/my.cnf.d/
+  file:
+    path: /usr/local/etc/my.cnf.d/KEEP_DIR
+    state: touch
+
 - name: create log path
   file:
     path: "{{ mariadb_log_path }}"
@@ -65,8 +71,3 @@
   template:
     src: local-homepage/config.php.j2
     dest: "{{ playbook_dev_path | realpath }}/local-homepage/config/mariadb.config.php"
-
-- name: create my.cnf.d
-  file:
-    path: /usr/local/etc/my.cnf.d
-    state: directory
