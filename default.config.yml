@@ -18,7 +18,7 @@ homebrew_cask_packages:
   - qlcolorcode # add color for code
 
 homebrew_packages:
-  - nodejs
+  - node@10
   - yarn
 
 mas_upgrade_all_apps: no
