@@ -1,0 +1,30 @@
+---
+# see https://gist.github.com/ibraheem4/ce5ccd3e4d7a65589ce84f2a3b7c23a3
+
+- name: homebrew install PostgreSQL
+  homebrew:
+    name: postgresql
+    state: "{{ homebrew_package_state }}"
+
+- name: restart postgresql
+  shell: brew services restart postgresql
+
+- name: Check if user database exists
+  shell: "psql -lqt | cut -d \\| -f 1 | grep -qw {{ lookup('env','USER') }}"
+  register: postgresql_user_database_exists
+  ignore_errors: true
+  changed_when: false
+
+- name: Create user database
+  shell: "createdb {{ lookup('env','USER') }}"
+  when: postgresql_user_database_exists.rc == 1
+
+- name: Check if "postgres" database exists
+  shell: "psql -lqt | cut -d \\| -f 1 | grep -qw postgres"
+  register: postgresql_postgres_database_exists
+  ignore_errors: true
+  changed_when: false
+
+- name: Create "postgres" database
+  shell: "createdb -s postgres"
+  when: postgresql_postgres_database_exists.rc == 1

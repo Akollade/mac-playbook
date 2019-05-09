@@ -1,0 +1,6 @@
+---
+- name: restart PostgreSQL
+  command: brew services restart postgresql
+
+- name: stop PostgreSQL
+  command: brew services stop postgresql

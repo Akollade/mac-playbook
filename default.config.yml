@@ -28,6 +28,7 @@ managed_services:
   - { name: dnsmasq }
   - { name: mailhog }
   - { name: mariadb }
+  - { name: postgresql }
 
 ############
 # dotfiles #
