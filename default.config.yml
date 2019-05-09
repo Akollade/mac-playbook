@@ -17,9 +17,7 @@ homebrew_cask_packages:
   - qlstephen # preview all files without or with unknown extension
   - qlcolorcode # add color for code
 
-homebrew_packages:
-  - node@10
-  - yarn
+homebrew_packages: []
 
 mas_upgrade_all_apps: no
 mas_installed_apps: []
@@ -141,6 +139,12 @@ blackfire_client_token: ~
 
 composer_global_packages:
   hirak/prestissimo: "@stable"
+
+###########
+# Node    #
+###########
+
+node_version: 10
 
 ###########
 # Nginx   #
