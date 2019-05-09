@@ -1,0 +1,21 @@
+---
+- name: Install node
+  homebrew:
+    name: "node@{{ node_version }}"
+    state: "{{ homebrew_package_state }}"
+
+- name: Get node path
+  shell: "brew --prefix node@{{ node_version }}"
+  register: brew_prefix_node
+  changed_when: False
+
+- name: Add "~/.load_node" file to add node to $PATH
+  template:
+    src: load_node.j2
+    dest: ~/.load_node
+    mode: "u=rxw,g=rx,o=rx"
+
+- name: Install yarn
+  homebrew:
+    name: "yarn"
+    state: "{{ homebrew_package_state }}"
