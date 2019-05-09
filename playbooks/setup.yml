@@ -21,6 +21,7 @@
     - dotfiles
     - dnsmasq
     - mariadb
+    - postgresql
     - php
     - { role: blackfire, when: setup_blackfire == true }
     - composer
