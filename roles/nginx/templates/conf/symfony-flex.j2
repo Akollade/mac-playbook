@@ -23,6 +23,7 @@ location ~ ^/(index)\.php(/|$) {
     fastcgi_split_path_info ^(.+\.php)(/.*)$;
     include fastcgi_params;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param HTTP_X_REQUEST_ID $request_id;
     fastcgi_buffer_size 512k;
     fastcgi_buffers 16 512k;
     fastcgi_max_temp_file_size 0;
