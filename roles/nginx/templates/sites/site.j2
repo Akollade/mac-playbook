@@ -12,8 +12,8 @@ server {
     ssl_certificate_key  {{ openssl_private_path }}/{{ site.name }}.pem;
     {% endif %}
 
+    access_log {{ nginx_log_path }}/{{ site.name }}.access.log main;
     error_log {{ nginx_log_path }}/{{ site.name }}.error.log;
-    access_log {{ nginx_log_path }}/{{ site.name }}.access.log;
 
     include {{ nginx_path }}/conf.d/{{ site.type }};
 
