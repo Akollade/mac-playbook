@@ -22,7 +22,5 @@ http {
     keepalive_timeout   65;
     index index.html index.php;
 
-    add_header X-Request-ID $request_id;
-
     include /usr/local/etc/nginx/sites-enabled/*;
 }
