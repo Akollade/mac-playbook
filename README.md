@@ -33,13 +33,13 @@ Example :
 # SYSTEM   #
 ############
 
-edit_dev_config_with: atom
+edit_dev_config_with: code
 
 homebrew_cask_packages:
 - sequel
 - iterm2
 - alfred
-- atom
+- code
 
 ############
 # dotfiles #
