@@ -1,21 +1,14 @@
 ---
 
 - block:
-    - name: Création d'un fichier temporaire pour tester l'accès sudo
-      file:
-        dest: /tmp/test_ansible_sudo
-        state: touch
-        owner: root
+    - name: Check if sudo password is correct
+      command: echo "Password is correct"
       changed_when: False
       become: yes
-    - name: Suppression du fichier de test
-      file:
-        dest: /tmp/test_ansible_sudo
-        state: absent
-      changed_when: False
-      become: yes
+      no_log: True
 
   rescue:
-    - debug: msg='Le mot de passe SUDO est invalide'
+    - name: Fails
+      debug: msg='Wrong password'
     - meta: end_play
 
