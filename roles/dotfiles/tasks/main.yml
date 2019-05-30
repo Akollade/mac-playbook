@@ -44,3 +44,8 @@
   copy:
     src: sqliterc
     dest: ~/.sqliterc
+
+- name: deploy global editorconfig
+  template:
+    src: editorconfig.j2
+    dest: ~/.editorconfig
