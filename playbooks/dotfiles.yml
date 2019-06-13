@@ -8,3 +8,4 @@
   roles:
     - dev_bin
     - dotfiles
+    - git
