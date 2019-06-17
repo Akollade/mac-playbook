@@ -211,6 +211,10 @@ HTML;
                         <td class="w-50"><a href="http://127.0.0.1:<?php echo $minioPort; ?>" target="_blank">Ouvrir</a></td>
                     </tr>
                     <tr>
+                        <th class="w-50">Port</th>
+                        <td class="w-50"><?php echo $minioPort; ?></td>
+                    </tr>
+                    <tr>
                         <th class="w-50">Access Key</th>
                         <td class="w-50"><?php echo $minioAccessKey; ?></td>
                     </tr>
