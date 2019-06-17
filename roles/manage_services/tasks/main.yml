@@ -3,3 +3,15 @@
   with_items: "{{ managed_services }}"
   become: "{{ item.sudo|default(false) }}"
   ignore_errors: true
+
+- command: "launchctl unload /Users/{{ lookup('env','USER') }}/Library/LaunchAgents/{{ item.name|mandatory }}.plist"
+  with_items: "{{ managed_plists }}"
+  when: service_state|mandatory == 'stop' or service_state|mandatory == 'restart'
+  become: "{{ item.sudo|default(false) }}"
+  ignore_errors: true
+
+- command: "launchctl load /Users/{{ lookup('env','USER') }}/Library/LaunchAgents/{{ item.name|mandatory }}.plist"
+  with_items: "{{ managed_plists }}"
+  when: service_state|mandatory == 'start' or service_state|mandatory == 'restart'
+  become: "{{ item.sudo|default(false) }}"
+  ignore_errors: true

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>MINIO_ACCESS_KEY</key>
+      <string>{{ minio_access_key|mandatory }}</string>
+      <key>MINIO_SECRET_KEY</key>
+      <string>{{ minio_secret_key|mandatory }}</string>
+    </dict>
+    <key>KeepAlive</key>
+    <true/>
+    <key>Label</key>
+    <string>homebrew.mxcl.minio</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/local/opt/minio/bin/minio</string>
+      <string>server</string>
+      <string>--config-dir=/usr/local/etc/minio</string>
+      <string>--address=:{{ minio_port }}</string>
+      <string>/usr/local/var/minio</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>WorkingDirectory</key>
+    <string>/usr/local</string>
+    <key>StandardErrorPath</key>
+    <string>/usr/local/var/log/minio/output.log</string>
+    <key>StandardOutPath</key>
+    <string>/usr/local/var/log/minio/output.log</string>
+    <key>RunAtLoad</key>
+    <true/>
+  </dict>
+</plist>

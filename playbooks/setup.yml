@@ -28,5 +28,6 @@
     - node
     - nginx
     - mailhog
+    - minio
     - upgrade
     - cleanup

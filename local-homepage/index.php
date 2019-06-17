@@ -8,7 +8,7 @@ $configs = [
     ['name' => 'nginx', 'required' => true],
     ['name' => 'mariadb', 'required' => true],
     ['name' => 'mailhog', 'required' => true],
-    ['name' => 'rabbitmq', 'required' => false],
+    ['name' => 'minio', 'required' => true],
 ];
 
 foreach ($configs as $config) {
@@ -197,6 +197,27 @@ try {
 HTML;
                     }
                     ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-white rounded box-shadow my-3 p-3 border">
+                <h2>Minio</h2>
+
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                    <tr>
+                        <th class="w-50">Interface Web</th>
+                        <td class="w-50"><a href="http://127.0.0.1:<?php echo $minioPort; ?>" target="_blank">Ouvrir</a></td>
+                    </tr>
+                    <tr>
+                        <th class="w-50">Access Key</th>
+                        <td class="w-50"><?php echo $minioAccessKey; ?></td>
+                    </tr>
+                    <tr>
+                        <th class="w-50">Secret Key</th>
+                        <td class="w-50"><?php echo $minioSecretKey; ?></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

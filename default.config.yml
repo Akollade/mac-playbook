@@ -30,6 +30,9 @@ managed_services:
   - { name: mariadb }
   - { name: postgresql }
 
+managed_plists:
+  - { name: com.minio.minio }
+
 ############
 # dotfiles #
 ############
@@ -193,3 +196,11 @@ mailhog_hostname: example.org
 #    name: my_server
 #    host: smtp.floran.fr
 #    port: "25"
+
+#############
+# Minio     #
+#############
+
+minio_plist_name: com.minio.minio
+minio_access_key: AKIAIOSFODNN7EXAMPLE
+minio_secret_key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY

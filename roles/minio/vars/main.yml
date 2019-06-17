@@ -1,0 +1,3 @@
+---
+minio_port: 9005
+minio_plist_path: /Users/{{ lookup('env','USER') }}/Library/LaunchAgents/{{ minio_plist_name|mandatory }}.plist
