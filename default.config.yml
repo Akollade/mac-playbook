@@ -46,7 +46,7 @@ zsh_theme: ys
 #########
 
 git_user_name: X X
-git_user_email: x@fdsea51.fr
+git_user_email: x@exemple.fr
 
 #  https://github.com/tj/git-extras
 install_git_extras: true
@@ -191,5 +191,5 @@ mailhog_hostname: example.org
 #mailhog_outgoing_smtp_servers:
 #  my_server:
 #    name: my_server
-#    host: smtp.floran.fr
+#    host: smtp.exemple.fr
 #    port: "25"
