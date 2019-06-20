@@ -15,6 +15,14 @@
     src: minio.plist.j2
     dest: "{{ minio_plist_path }}"
 
+- name: Fix right on log directory
+  file:
+    path: /usr/local/var/log/minio
+    state: directory
+    recurse: yes
+    owner: "{{ lookup('env','USER') }}"
+  become: yes
+
 - name: start minio
   shell: "launchctl load -w {{ minio_plist_path }}"
 
