@@ -26,6 +26,14 @@
 - name: start minio
   shell: "launchctl load -w {{ minio_plist_path }}"
 
+- name: Wait for minio to start
+  wait_for:
+    port: "{{ minio_port }}"
+    delay: 10
+
+- name: configure mc
+  shell: "mc config host add minio http://localhost:{{ minio_port }} {{ minio_access_key|mandatory }} {{ minio_secret_key|mandatory }}"
+
 - name: Generate config for local homepage
   template:
     src: local-homepage/config.php.j2
