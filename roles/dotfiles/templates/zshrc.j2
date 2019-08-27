@@ -35,4 +35,7 @@ export GPG_TTY=$(tty)
 
 export REQUESTS_CA_BUNDLE="/usr/local/etc/openssl/cacert.pem"
 
+# need by vips
+export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/local/opt/libffi/lib/pkgconfig"
+
 source ~/.zshrc.local
