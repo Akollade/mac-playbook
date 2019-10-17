@@ -1,11 +1,5 @@
 {{ ansible_managed | comment }}
 
-# System
-alias ll='ls -lh'
-alias tailf='tail -f'
-alias df='df -h'
-
-alias gut="git"
-alias gti="git"
-
-alias cat="bat"
+{% for alias in zsh_aliases %}
+alias {{ alias }}
+{% endfor %}
