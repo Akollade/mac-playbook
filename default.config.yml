@@ -39,6 +39,14 @@ managed_plists:
 
 zsh_theme: ys
 
+zsh_aliases:
+ - ll='ls -lh'
+ - tailf='tail -f'
+ - df='df -h'
+ - gut="git"
+ - gti="git"
+ - cat="bat"
+
 # SSH config (~/.ssh/config)
 #ssh_config: |
 #      Host *
