@@ -1,6 +1,10 @@
 ---
-
 - name: cleanup homebrew
   command: brew cleanup -s
   register: clean_homebrew_result
   changed_when: "clean_homebrew_result.stdout != ''"
+
+- name: cleanup gem
+  command: yes | gem cleanup
+  changed_when: false
+  ignore_errors: true
