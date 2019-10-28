@@ -5,6 +5,6 @@
   changed_when: "clean_homebrew_result.stdout != ''"
 
 - name: cleanup gem
-  command: yes | gem cleanup
+  command: gem cleanup
   changed_when: false
   ignore_errors: true
