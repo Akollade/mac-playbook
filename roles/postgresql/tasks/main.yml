@@ -3,11 +3,11 @@
 
 - name: homebrew install PostgreSQL
   homebrew:
-    name: postgresql
+    name: postgresql@11
     state: "{{ homebrew_package_state }}"
 
 - name: restart postgresql
-  shell: brew services restart postgresql
+  shell: brew services restart postgresql@11
 
 - name: Check if user database exists
   shell: "psql -lqt | cut -d \\| -f 1 | grep -qw {{ lookup('env','USER') }}"

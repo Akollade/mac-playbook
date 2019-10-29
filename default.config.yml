@@ -28,7 +28,7 @@ managed_services:
   - { name: dnsmasq }
   - { name: mailhog }
   - { name: mariadb }
-  - { name: postgresql }
+  - { name: postgresql@11 }
 
 managed_plists:
   - { name: com.minio.minio }
