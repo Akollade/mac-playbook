@@ -76,3 +76,9 @@ xdebug-on: ## Enable XDebug
 .PHONY: xdebug-off
 xdebug-off: ## Disable XDebug
 	@scripts/xdebug.sh off
+
+.PHONY: fix-python-crash
+fix-python-crash: ## Fix Python with macOS Catalina 10.15, see https://github.com/TheGrowingPlant/mac-playbook/issues/53
+	@brew install openssl
+	@ln -s /usr/local/Cellar/openssl/1.0.2t/lib/libcrypto.1.0.0.dylib /usr/local/lib/libcrypto.dylib
+	@ln -s /usr/local/Cellar/openssl/1.0.2t/lib/libssl.1.0.0.dylib /usr/local/lib/libssl.dylib
