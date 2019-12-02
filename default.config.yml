@@ -28,7 +28,7 @@ managed_services:
   - { name: dnsmasq }
   - { name: mailhog }
   - { name: mariadb }
-  - { name: postgresql@11 }
+  - { name: "postgresql@{{ postgresql_version }}" }
 
 managed_plists:
   - { name: com.minio.minio }
@@ -191,6 +191,12 @@ mariadb_dev_password: dev
 
 # dont change after bootstrap
 mariadb_root_password: ohvaiN2azoof0feeDi2
+
+################
+# PostgreSQL   #
+################
+
+postgresql_version: 11
 
 #############
 # Mailhog   #
