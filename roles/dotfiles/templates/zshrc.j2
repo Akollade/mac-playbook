@@ -17,6 +17,9 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 # PHP
 [ -e "${HOME}/.load_php" ] && source "${HOME}/.load_php"
 
+# PostgreSQL
+[ -e "${HOME}/.load_postgresql" ] && source "${HOME}/.load_postgresql"
+
 # Composer binaries
 export PATH=~/.composer/vendor/bin:./vendor/bin:$PATH
 

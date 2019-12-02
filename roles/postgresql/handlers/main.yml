@@ -1,6 +1,6 @@
 ---
 - name: restart PostgreSQL
-  command: brew services restart postgresql@11
+  command: "brew services restart postgresql@{{ brew_prefix_postgresql }}"
 
 - name: stop PostgreSQL
-  command: brew services stop postgresql@11
+  command: "brew services stop postgresql@{{ brew_prefix_postgresql }}"
