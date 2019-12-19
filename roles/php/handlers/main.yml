@@ -1,3 +1,0 @@
----
-- name: restart php-fpm
-  command: "brew services restart php"

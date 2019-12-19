@@ -36,10 +36,10 @@ Example :
 edit_dev_config_with: code
 
 homebrew_cask_packages:
-- sequel
-- iterm2
-- alfred
-- code
+  - sequel
+  - iterm2
+  - alfred
+  - code
 
 ############
 # dotfiles #
@@ -63,7 +63,6 @@ nginx_sites:
     server_name: wallabag.localhost
     type: symfony
     root: "~/dev/wallabag/web"
-
 ```
 
 Then :
@@ -79,7 +78,7 @@ From there, you can use the **dev** binary to manage the environment.
 
 ## Save password
 
-To avoid having to enter the SUDO password all the time we will encrypt our SUDO password  with a password that will be stored in the keychain :
+To avoid having to enter the SUDO password all the time we will encrypt our SUDO password with a password that will be stored in the keychain :
 
 ```shell
 $ ./scripts/generate-ansible-password

@@ -1,84 +1,36 @@
 ---
-- name: Install PHP
+- name: Check that default PHP version is supported
+  fail:
+    msg: "Default PHP version {{ php_version }} is not supported"
+  when: php_version not in php_supported_versions
+
+- name: Uninstall unsupported PHP versions
   homebrew:
-    name: "php@{{ php_version }}"
-    state: latest
+    name: "php@{{ item }}"
+    state: absent
+  with_items: "{{ php_unsupported_versions }}"
+
+- name: Stop all supported PHP-FPM
+  shell: "brew services stop php@{{ item }} || true"
+  with_items: "{{ php_supported_versions }}"
+  ignore_errors: true
 
 - name: Install extensions dependencies
   homebrew:
     name: "{{ php_extensions_dependencies|default([]) }}"
-    state: latest
+    state: "{{ homebrew_package_state }}"
 
-- name: Get PECL path
-  shell: "brew --prefix php@{{ php_version }}"
-  register: brew_prefix_php
-  changed_when: False
+- name: Install PHP
+  include_tasks: install_php.yml
+  with_items: "{{ php_supported_versions }}"
+  loop_control:
+    loop_var: php_current_version
 
-- set_fact:
-    pecl_bin: "{{ brew_prefix_php.stdout }}/bin/pecl"
-
-- name: Update PECL
-  shell: "{{ pecl_bin }} channel-update pecl.php.net"
-  register: pecl_update_result
-  changed_when: "'succeeded' in pecl_update_result.stdout"
-
-- name: Install extensions with PECL
-  shell: "{{ pecl_bin }} install {{ item }}"
-  register: pecl_result
-  changed_when: "pecl_result.rc == 0"
-  failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
-  with_items: "{{ php_extensions }}"
-  notify: restart php-fpm
-
-- name: Install xdebug
-  shell: "{{ pecl_bin }} install {{ xdebug_package }}"
-  register: pecl_result
-  changed_when: "pecl_result.rc == 0"
-  failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
-  when: install_xdebug
-  notify: restart php-fpm
-
-- name: Remove loading of xdebug in php.ini
-  lineinfile:
-    path: "/usr/local/etc/php/{{ php_version }}/php.ini"
-    state: absent
-    regexp: '^zend_extension="xdebug.so"'
-  when: install_xdebug
-  notify: restart php-fpm
-
-- name: Load xdebug with custom file
-  lineinfile:
-    path: "/usr/local/etc/php/{{ php_version }}/conf.d/ext-xdebug.ini"
-    state: present
-    line: 'zend_extension="xdebug.so"'
-    create: yes
-  when: install_xdebug
-  notify: restart php-fpm
-
-- name: Set FPM config
+- name: Setup sphp
   template:
-    src: php-fpm.conf.j2
-    dest: "/usr/local/etc/php/{{ php_version }}/php-fpm.conf"
-  notify: restart php-fpm
+    src: sphp.sh.j2
+    dest: "/usr/local/bin/sphp"
+    mode: 0755
 
-- name: Delete old fpm config
-  file:
-    dest: "/usr/local/etc/php/{{ php_version }}/php-fpm.d/www.conf"
-    state: absent
-
-- name: Add configs
-  ini_file:
-    dest: "{{ php_custom_config_file }}"
-    section: "{{ item.section }}"
-    option: "{{ item.option }}"
-    value: "{{ item.value }}"
-  when: item.when|default(true)
-  become: true
-  with_items: "{{ php_custom_config }}"
-  notify: restart php-fpm
-
-- name: Add "~/.load_php" file to add PHP to $PATH
-  template:
-    src: load_php.j2
-    dest: ~/.load_php
-    mode: "u=rxw,g=rx,o=rx"
+- name: Start default PHP-FPM
+  command: "sphp {{ php_version }}"

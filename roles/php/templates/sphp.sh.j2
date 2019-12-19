@@ -1,0 +1,26 @@
+#!/bin/bash
+{{ ansible_managed | comment }}
+
+if [[ -z "$1" ]]; then
+    echo "Version is missing, supported versions are: {{ php_supported_versions|join(', ') }}"
+    exit
+fi
+
+php_version="$1"
+php_supported_versions_array=({{ '\"' + php_supported_versions|join('\" \"') + '\"' }})
+
+# Check if php version is supported
+if [[ (" ${php_supported_versions_array[*]} " != *"$php_version"*) ]]; then
+    echo "Version $php_version is not supported, allowed versions are: {{ php_supported_versions|join(', ') }}"
+    exit
+fi
+
+# Stop PHP-FPM for all versions
+{% for php_supported_version in php_supported_versions %}
+brew services stop php@{{ php_supported_version }}
+{% endfor %}
+
+php_brew_prefix=$(brew --prefix php@$php_version)
+
+echo export PATH="$php_brew_prefix/bin:\$PATH" > ~/.load_php
+brew services start php@$php_version
