@@ -72,6 +72,13 @@ use_gpg_to_sign_commit: false
 
 php_version: 7.3
 
+php_supported_versions:
+  - 7.3
+  - 7.4
+
+php_unsupported_versions:
+  - 7.2
+
 install_xdebug: true
 
 php_fpm_memory_limit: 256M
