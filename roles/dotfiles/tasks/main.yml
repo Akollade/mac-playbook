@@ -5,16 +5,22 @@
     dest: ~/.oh-my-zsh
     force: yes
 
-- name: Clone syntax-highlighting
+- name: Clone syntax-highlighting plugin
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     force: yes
 
-- name: Clone zsh-autosuggestions
+- name: Clone zsh-autosuggestions plugin
   git:
     repo: https://github.com/zsh-users/zsh-autosuggestions
     dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    force: yes
+
+- name: Clone symfony plugin
+  git:
+    repo: git@github.com:TheGrowingPlant/symfony.plugin.zsh.git
+    dest: ~/.oh-my-zsh/custom/plugins/symfony
     force: yes
 
 - name: deploy .zshrc

@@ -7,7 +7,7 @@ ZSH_THEME="{{ zsh_theme|mandatory }}"
 DISABLE_UPDATE_PROMPT=true
 {% if zsh_autosuggestions|bool %}ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=030'{% endif %}
 
-plugins=(git history-substring-search sudo symfony2 composer brew httpie extract {% if zsh_syntax_highlighting|bool %}zsh-syntax-highlighting{% endif %} {% if zsh_autosuggestions|bool %}zsh-autosuggestions{% endif %})
+plugins=(git history-substring-search sudo composer symfony brew httpie extract {% if zsh_syntax_highlighting|bool %}zsh-syntax-highlighting{% endif %} {% if zsh_autosuggestions|bool %}zsh-autosuggestions{% endif %})
 source $ZSH/oh-my-zsh.sh
 
 DEFAULT_USER="{{ lookup('env','USER') }}"
