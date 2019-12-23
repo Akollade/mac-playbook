@@ -99,7 +99,7 @@ php_custom_config:
     value: 120
   - section: "PHP"
     option: "display_errors"
-    value: true
+    value: 1
   - section: "PHP"
     option: "error_reporting"
     value: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
@@ -154,7 +154,7 @@ php_custom_config:
   # issue between PHP 7.4, opcache and Symfony
   - section: "opcache"
     option: "opcache.enable"
-    value: false
+    value: 0
 
 setup_blackfire: false
 blackfire_server_id: ~
