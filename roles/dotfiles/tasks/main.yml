@@ -19,7 +19,7 @@
 
 - name: Clone symfony plugin
   git:
-    repo: git@github.com:TheGrowingPlant/symfony.plugin.zsh.git
+    repo: https://github.com/TheGrowingPlant/symfony.plugin.zsh.git
     dest: ~/.oh-my-zsh/custom/plugins/symfony
     force: yes
 
