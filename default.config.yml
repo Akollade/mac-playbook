@@ -151,6 +151,10 @@ php_custom_config:
     option: "xdebug.file_link_format"
     value: "'phpstorm://open?file=%f&line=%l'"
     when: install_xdebug
+  # issue between PHP 7.4, opcache and Symfony
+  - section: "opcache"
+    option: "opcache.enable"
+    value: false
 
 setup_blackfire: false
 blackfire_server_id: ~
