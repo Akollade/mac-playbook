@@ -151,6 +151,10 @@ php_custom_config:
     option: "xdebug.file_link_format"
     value: "'phpstorm://open?file=%f&line=%l'"
     when: install_xdebug
+  - section: "xdebug"
+    option: "xdebug.remote_log"
+    value: "/usr/local/var/log/xdebug_remote.log"
+    when: install_xdebug
   # issue between PHP 7.4, opcache and Symfony
   - section: "opcache"
     option: "opcache.enable"
