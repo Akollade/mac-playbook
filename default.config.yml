@@ -11,7 +11,6 @@ sudo_password: ""
 edit_dev_config_with: vim
 
 homebrew_cask_packages:
-  - wkhtmltopdf
   - qlmarkdown # preview markdown
   - quicklook-json # preview json
   - qlstephen # preview all files without or with unknown extension
