@@ -5,6 +5,19 @@
     dest: ~/.oh-my-zsh
     force: yes
 
+- name: Capture current installed custom plugins
+  find:
+    paths: ~/.oh-my-zsh/custom/plugins/
+    file_type: directory
+  register: current_installed_zsh_custom_plugins
+
+- name: Remove old zsh custom plugins
+  file:
+    state: absent
+    path: "{{ item.path }}"
+  when: (item.path | basename) not in zsh_custom_plugins|to_json
+  with_items: "{{ current_installed_zsh_custom_plugins.files }}"
+
 - name: Clone custom plugin
   git:
     repo: "{{ item.url }}"
