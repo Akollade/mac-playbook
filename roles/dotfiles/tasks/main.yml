@@ -5,23 +5,25 @@
     dest: ~/.oh-my-zsh
     force: yes
 
-- name: Clone syntax-highlighting plugin
-  git:
-    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-    force: yes
+- name: Capture current installed custom plugins
+  find:
+    paths: ~/.oh-my-zsh/custom/plugins/
+    file_type: directory
+  register: current_installed_zsh_custom_plugins
 
-- name: Clone zsh-autosuggestions plugin
-  git:
-    repo: https://github.com/zsh-users/zsh-autosuggestions
-    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    force: yes
+- name: Remove old zsh custom plugins
+  file:
+    state: absent
+    path: "{{ item.path }}"
+  when: (item.path | basename) not in zsh_custom_plugins|to_json
+  with_items: "{{ current_installed_zsh_custom_plugins.files }}"
 
-- name: Clone symfony plugin
+- name: Clone custom plugins
   git:
-    repo: https://github.com/TheGrowingPlant/symfony.plugin.zsh.git
-    dest: ~/.oh-my-zsh/custom/plugins/symfony
+    repo: "{{ item.url }}"
+    dest: "~/.oh-my-zsh/custom/plugins/{{ item.name }}"
     force: yes
+  with_items: "{{ zsh_custom_plugins }}"
 
 - name: deploy .zshrc
   template:
