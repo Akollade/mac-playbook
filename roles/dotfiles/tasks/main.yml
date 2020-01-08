@@ -18,7 +18,7 @@
   when: (item.path | basename) not in zsh_custom_plugins|to_json
   with_items: "{{ current_installed_zsh_custom_plugins.files }}"
 
-- name: Clone custom plugin
+- name: Clone custom plugins
   git:
     repo: "{{ item.url }}"
     dest: "~/.oh-my-zsh/custom/plugins/{{ item.name }}"
