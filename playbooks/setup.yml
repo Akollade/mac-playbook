@@ -2,7 +2,7 @@
   vars_files:
     - ../default.config.yml
   vars:
-    upgrade_all_packages: no
+    upgrade_all_packages: false
   pre_tasks:
     - include_vars: "{{ item }}"
       with_fileglob:
