@@ -32,7 +32,7 @@
     delay: 10
 
 - name: configure mc
-  shell: "mc config host add minio http://localhost:{{ minio_port }} {{ minio_access_key|mandatory }} {{ minio_secret_key|mandatory }}"
+  shell: "mc config host add minio http://localhost:{{ minio_port }} {{ minio_access_key }} {{ minio_secret_key }}"
 
 - name: Generate config for local homepage
   template:

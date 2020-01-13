@@ -34,8 +34,8 @@
   args:
     creates: ~/.my.cnf
 
-- name: Create {{ mariadb_dev_user | mandatory }} user of MariaDB
-  command: mysql -u root -p{{ mariadb_root_password }} -NBe "CREATE USER '{{ mariadb_dev_user | mandatory }}'@'{{ item }}' IDENTIFIED BY '{{ mariadb_dev_password | mandatory }}'; GRANT ALL PRIVILEGES ON *.* TO '{{ mariadb_dev_user | mandatory }}'@'{{ item }}' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+- name: Create {{ mariadb_dev_user }} user of MariaDB
+  command: mysql -u root -p{{ mariadb_root_password }} -NBe "CREATE USER '{{ mariadb_dev_user }}'@'{{ item }}' IDENTIFIED BY '{{ mariadb_dev_password }}'; GRANT ALL PRIVILEGES ON *.* TO '{{ mariadb_dev_user }}'@'{{ item }}' WITH GRANT OPTION; FLUSH PRIVILEGES;"
   with_items:
     - 127.0.0.1
     - ::1

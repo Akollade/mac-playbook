@@ -3,7 +3,7 @@
 export TERM="xterm-256color"
 export ZSH=$HOME/.oh-my-zsh
 
-ZSH_THEME="{{ zsh_theme|mandatory }}"
+ZSH_THEME="{{ zsh_theme }}"
 DISABLE_UPDATE_PROMPT=true
 
 plugins=({{ zsh_plugins | join(' ') }})

@@ -1,8 +1,8 @@
 [user]
-  name = {{ git_user_name|mandatory }}
-  email = {{ git_user_email|mandatory }}
+  name = {{ git_user_name }}
+  email = {{ git_user_email }}
 {% if use_gpg_to_sign_commit %}
-  signingkey = {{ git_signingkey|mandatory }}
+  signingkey = {{ git_signingkey }}
 {% endif %}
 [alias]
   ci   = commit
