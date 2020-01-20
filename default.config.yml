@@ -84,7 +84,7 @@ use_gpg_to_sign_commit: false
 # PHP   #
 #########
 
-php_version: 7.3
+php_version: 7.4
 
 php_supported_versions:
   - 7.3
