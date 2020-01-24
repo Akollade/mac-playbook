@@ -169,10 +169,6 @@ php_custom_config:
     option: "xdebug.remote_log"
     value: "/usr/local/var/log/xdebug_remote.log"
     when: install_xdebug
-  # issue between PHP 7.4, opcache and Symfony
-  - section: "opcache"
-    option: "opcache.enable"
-    value: 0
 
 setup_blackfire: false
 blackfire_server_id: ~
