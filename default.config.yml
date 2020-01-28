@@ -183,7 +183,7 @@ composer_global_packages:
 # Node    #
 ###########
 
-node_version: 10
+node_version: 12
 
 ###########
 # Nginx   #
