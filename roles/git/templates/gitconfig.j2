@@ -7,7 +7,8 @@
 [alias]
   ci   = commit
   st   = status
-  br   = !"git for-each-ref --sort='-authordate:"iso8601"' --format=' %(color:green)%(authordate:iso8601)%09%(color:white)%(refname:short)' refs/heads"
+  br   = branch
+  branches = !"git for-each-ref --sort='-authordate:iso8601' --format=' %(color:green)%(authordate:iso8601)%09%(color:white)%(refname:short)' refs/heads"
   co   = checkout
   cat  = cat-file -p
   lg   = log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset%s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative
