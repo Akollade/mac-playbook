@@ -22,8 +22,8 @@ nginx_site_types:
 # SSL   #
 #########
 
-openssl_path: /usr/local/etc/openssl
+openssl_path: /usr/local/etc/openssl@1.1
 openssl_certs_path: "{{ openssl_path }}/certs"
 openssl_private_path: "{{ openssl_path }}/private"
-openssl_cacert_file: /usr/local/etc/openssl/cacert.pem
+openssl_cacert_file: "{{ openssl_path }}/cert.pem"
 openssl_cacert_url: https://curl.haxx.se/ca/cacert.pem
