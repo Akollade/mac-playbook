@@ -13,4 +13,22 @@
         homebrew_package_state: "{{ upgrade_all_packages | ternary('latest','present') }}"
   roles:
     - check_sudo_access
+    - sudoers
+    - common
+    - ansible
+    - dev_bin
+    - git
+    - dotfiles
+    - dnsmasq
+    - mariadb
+    - postgresql
+    - php
+    - { role: blackfire, when: setup_blackfire == true }
+    - composer
+    - node
+    - nginx
+    - mailhog
+    - minio
+    - upgrade
+    - cleanup
     - redis
