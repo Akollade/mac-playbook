@@ -1,0 +1,7 @@
+---
+- name: homebrew install redis
+  homebrew:
+    name: "redis"
+    state: "{{ homebrew_package_state }}"
+  notify:
+    - restart redis
