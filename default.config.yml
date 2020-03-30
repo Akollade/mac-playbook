@@ -24,6 +24,7 @@ mas_installed_apps: []
 managed_services:
   - { name: nginx, sudo: true }
   - { name: "php@{{ php_version }}" }
+  - { name: redis }
   - { name: dnsmasq }
   - { name: mailhog }
   - { name: mariadb }
@@ -100,6 +101,8 @@ php_fpm_memory_limit: 256M
 # PECL
 php_extensions:
   - imagick
+  - redis
+  - igbinary
 
 # packages needed to build extensions
 php_extensions_dependencies:
