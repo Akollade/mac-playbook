@@ -17,6 +17,7 @@ nginx_site_types:
   - php
   - cors
   - wordpress
+  - drupal8
 
 #########
 # SSL   #
