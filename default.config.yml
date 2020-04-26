@@ -95,6 +95,7 @@ php_unsupported_versions:
   - 7.2
 
 install_xdebug: true
+xdebug_version: 2.9.5
 
 php_fpm_memory_limit: 256M
 
