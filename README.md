@@ -1,6 +1,6 @@
 # Mac Ansible Playbook
 
-The Web server (nginx), PHP and the services (MariaDB, Mailhog) are installed locally with Ansible.
+The Web server (nginx), PHP and the services (MariaDB, PostgreSQL, Mailhog) are installed locally with Ansible.
 
 All the management of the system (configuration, update, etc) goes through this tool which allows everyone to have a similar environment.
 
@@ -36,7 +36,7 @@ Example :
 edit_dev_config_with: code
 
 homebrew_cask_packages:
-  - sequel
+  - tableplus
   - iterm2
   - alfred
   - code
