@@ -21,17 +21,20 @@ homebrew_packages: []
 mas_upgrade_all_apps: no
 mas_installed_apps: []
 
-managed_services:
-  - { name: nginx, sudo: true }
-  - { name: "php@{{ php_version }}" }
-  - { name: redis }
-  - { name: dnsmasq }
-  - { name: mailhog }
-  - { name: mariadb }
-  - { name: "postgresql@{{ postgresql_version }}" }
+managed_services_as_user:
+  - "php@{{ php_version }}"
+  - redis
+  - dnsmasq
+  - mailhog
+  - mariadb
+  - "postgresql@{{ postgresql_version }}"
+  - blackfire-agent
+
+managed_services_as_root:
+  - nginx
 
 managed_plists:
-  - { name: com.minio.minio }
+  - com.minio.minio
 
 ############
 # dotfiles #
