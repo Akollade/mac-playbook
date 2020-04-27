@@ -81,10 +81,10 @@ xdebug-off: ## Disable XDebug
 fix-python-crash: ## Fix Python with macOS Catalina, see https://github.com/TheGrowingPlant/mac-playbook/issues/53
 	@brew install openssl
 	@rm /usr/local/lib/libcrypto.dylib || true
-	@ln -s /usr/local/Cellar/openssl@1.1/1.1.1f/lib/libcrypto.1.1.dylib /usr/local/lib/libcrypto.dylib
+	@ln -s /usr/local/opt/openssl@1.1/lib/libcrypto.1.1.dylib /usr/local/lib/libcrypto.dylib
 	@rm  /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib || true
-	@ln -s /usr/local/Cellar/openssl@1.1/1.1.1f/lib/libcrypto.1.1.dylib /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib
+	@ln -s /usr/local/opt/openssl@1.1/lib/libcrypto.1.1.dylib /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib
 	@rm /usr/local/lib/libssl.dylib || true
-	@ln -s /usr/local/Cellar/openssl@1.1/1.1.1f/lib/libssl.1.1.dylib /usr/local/lib/libssl.dylib
+	@ln -s /usr/local/opt/openssl@1.1/lib/libssl.1.1.dylib /usr/local/lib/libssl.dylib
 	@rm /usr/local/opt/openssl/lib/libssl.1.0.0.dylib || true
-	@ln -s /usr/local/Cellar/openssl@1.1/1.1.1f/lib/libssl.1.1.dylib /usr/local/opt/openssl/lib/libssl.1.0.0.dylib
+	@ln -s /usr/local/opt/openssl@1.1/lib/libssl.1.1.dylib /usr/local/opt/openssl/lib/libssl.1.0.0.dylib
