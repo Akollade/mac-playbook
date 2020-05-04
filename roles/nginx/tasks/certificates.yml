@@ -31,9 +31,3 @@
 
 - name: Include mkcert CA in cacert
   shell: cat "$(mkcert -CAROOT)/rootCA.pem" >> {{ openssl_cacert_file }}
-
-  # should be removed after everyone run it
-- name: Remove old OpenSSL 1.0 certificates dir
-  file:
-    path: /usr/local/etc/openssl
-    state: absent
