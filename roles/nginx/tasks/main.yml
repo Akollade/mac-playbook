@@ -64,7 +64,7 @@
     state: link
 
 - debug: msg="restart nginx"
-  notify: restart nginx
+  notify: Restart nginx
   changed_when: true
 
 - name: Force execution of handlers

@@ -4,4 +4,4 @@
     name: "redis"
     state: "{{ homebrew_package_state }}"
   notify:
-    - restart redis
+    - Restart redis

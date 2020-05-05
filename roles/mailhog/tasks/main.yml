@@ -11,14 +11,14 @@
     dest: "{{ mailhog_outgoing_smtp_file }}"
     force: yes
   when: mailhog_outgoing_smtp_servers is defined
-  notify: restart mailhog
+  notify: Restart mailhog
 
 - name: Add custom plist for mailhog
   template:
     src: plist.j2
     dest: "{{ mailhog_plist_file }}"
     force: yes
-  notify: restart mailhog
+  notify: Restart mailhog
 
 - name: Generate config for local homepage
   template:

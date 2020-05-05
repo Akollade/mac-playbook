@@ -9,7 +9,7 @@
     src: dnsmasq.conf.j2
     dest: '{{ dnsmasq_conf_path }}'
   notify:
-    - restart dnsmasq
+    - Restart dnsmasq
 
 - name: Create resolver directory
   file:

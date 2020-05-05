@@ -20,7 +20,7 @@
     src: agent.j2
     dest: "{{ blackfire_agent_config_path }}"
   notify:
-    - restart blackfire-agent
+    - Restart blackfire-agent
 
 - name: Add config for Blackfire
   template:
