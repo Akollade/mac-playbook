@@ -8,8 +8,11 @@ nginx_https_port: 443
 nginx_http2: true
 nginx_default_site_root: "/usr/local/var/www"
 nginx_path: /usr/local/etc/nginx
+nginx_conf_file_path: "{{ nginx_path }}/nginx.conf"
+nginx_confs_path: "{{ nginx_path }}/conf.d"
+nginx_certificates_path: "{{ nginx_path }}/certificates"
+nginx_vhosts_path: "{{ nginx_path }}/sites-enabled"
 nginx_log_path: /usr/local/var/log/nginx
-nginx_conf_path: "{{ nginx_path }}/nginx.conf"
 
 nginx_site_types:
   - symfony
@@ -18,13 +21,3 @@ nginx_site_types:
   - cors
   - wordpress
   - drupal8
-
-#########
-# SSL   #
-#########
-
-openssl_path: /usr/local/etc/openssl@1.1
-openssl_certs_path: "{{ openssl_path }}/certs"
-openssl_private_path: "{{ openssl_path }}/private"
-openssl_cacert_file: "{{ openssl_path }}/cert.pem"
-openssl_cacert_url: https://curl.haxx.se/ca/cacert.pem

@@ -14,13 +14,20 @@ DEFAULT_USER="{{ lookup('env','USER') }}"
 
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
+# OpenSSL
+export PATH="{{ lookup('pipe', 'brew --prefix openssl') }}/bin:$PATH"
+
+# Use custom cacert with mkcert CA
+# See https://github.com/jakubroztocil/httpie/issues/480
+export REQUESTS_CA_BUNDLE="{{ openssl_ca_file }}"
+
 # PHP
 [ -e "${HOME}/.load_php" ] && source "${HOME}/.load_php"
 
 # PostgreSQL
 [ -e "${HOME}/.load_postgresql" ] && source "${HOME}/.load_postgresql"
 
-# Composer binaries
+# composer binaries
 export PATH=~/.composer/vendor/bin:./vendor/bin:$PATH
 
 # node
@@ -39,9 +46,6 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 # gpg and password prompt
 export GPG_TTY=$(tty)
-
-# needed to bypass certifi for some python tools like httpie
-export REQUESTS_CA_BUNDLE="{{ openssl_cacert_file }}"
 
 # need by vips
 export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/local/opt/libffi/lib/pkgconfig"

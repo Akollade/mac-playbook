@@ -1,8 +1,5 @@
 ---
 
-- name: Generate SSL certificates
-  include_tasks: certificates.yml
-
 - name: Generate config for homepage
   template:
     src: local-homepage/config.php.j2
@@ -18,33 +15,28 @@
     path: '{{ item }}'
     state: directory
   with_items:
-    - "{{ nginx_path }}/logs"
-    - "{{ nginx_path }}/sites-available"
-    - "{{ nginx_path }}/sites-enabled"
-    - "{{ nginx_path }}/conf.d"
-    - "{{ nginx_path }}/ssl"
+    - "{{ nginx_confs_path }}"
+    - "{{ nginx_certificates_path }}"
+    - "{{ nginx_vhosts_path }}"
 
 - name: Add confs
   template:
     src: "conf/{{ item }}.j2"
-    dest: "{{ nginx_path }}/conf.d/{{ item }}"
+    dest: "{{ nginx_confs_path }}/{{ item }}"
   with_items: "{{ nginx_site_types }}"
+  notify: Restart nginx
 
 - name: Add nginx conf
   template:
     src: nginx.conf.j2
-    dest: '{{ nginx_conf_path }}'
+    dest: '{{ nginx_conf_file_path }}'
+  notify: Restart nginx
 
 - name: Add default site
   template:
     src: sites/default.j2
-    dest: '{{ nginx_path }}/sites-available/default'
-
-- name: Enable default site
-  file:
-    src: '{{ nginx_path }}/sites-available/default'
-    dest: '{{ nginx_path }}/sites-enabled/default'
-    state: link
+    dest: '{{ nginx_vhosts_path }}/default'
+  notify: Restart nginx
 
 - name: Check config of each sites
   fail:
@@ -55,17 +47,10 @@
 - name: Add site
   template:
     src: sites/site.j2
-    dest: '{{ nginx_path }}/sites-available/dev'
-
-- name: Enable site
-  file:
-    src: '{{ nginx_path }}/sites-available/dev'
-    dest: '{{ nginx_path }}/sites-enabled/dev'
-    state: link
-
-- debug: msg="restart nginx"
+    dest: '{{ nginx_vhosts_path }}/dev'
   notify: Restart nginx
-  changed_when: true
 
-- name: Force execution of handlers
-  meta: flush_handlers
+- name: Create certs
+  shell: "mkcert -cert-file {{ nginx_certificates_path }}/{{ item.name }}.crt -key-file {{ nginx_certificates_path }}/{{ item.name }}.key {{ item.server_name }}"
+  with_items: "{{ nginx_sites }}"
+  notify: Restart nginx

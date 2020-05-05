@@ -8,17 +8,17 @@ server {
     root {{ site.root | expanduser }};
 
     {% if site.https|default(true) %}
-    ssl_certificate      {{ openssl_certs_path }}/{{ site.name }}.pem;
-    ssl_certificate_key  {{ openssl_private_path }}/{{ site.name }}.pem;
+    ssl_certificate      {{ nginx_certificates_path }}/{{ site.name }}.crt;
+    ssl_certificate_key  {{ nginx_certificates_path }}/{{ site.name }}.key;
     {% endif %}
 
     access_log {{ nginx_log_path }}/{{ site.name }}.access.log main;
     error_log {{ nginx_log_path }}/{{ site.name }}.error.log;
 
-    include {{ nginx_path }}/conf.d/{{ site.type }};
+    include {{ nginx_confs_path }}/{{ site.type }};
 
 {% if site.cors|default(false) %}
-    include {{ nginx_path }}/conf.d/cors;
+    include {{ nginx_confs_path }}/cors;
 {% endif %}
 }
 

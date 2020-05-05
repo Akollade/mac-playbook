@@ -8,7 +8,7 @@ server {
     error_log {{ nginx_log_path }}/default.error.log;
     access_log {{ nginx_log_path }}/default.access.log;
 
-    include   {{ nginx_path }}/conf.d/php;
+    include   {{ nginx_confs_path }}/php;
 
     error_page  404     /404.html;
     error_page  403     /403.html;
