@@ -1,5 +1,5 @@
 ---
-- name: homebrew install redis
+- name: Install redis
   homebrew:
     name: "redis"
     state: "{{ homebrew_package_state }}"

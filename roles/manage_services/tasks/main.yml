@@ -1,32 +1,32 @@
 ---
 
-- name: get currently started brew services
+- name: Get currently started brew services
   shell: "brew services list | grep -E 'started|error' | awk '{ print $1 }'"
   register: started_brew_services
   changed_when: false
 
-- name: manage brew services as user
+- name: Manage brew services as user
   command: "brew services {{ service_state }} {{ item }}"
   with_items: "{{ managed_services_as_user }}"
   when: (service_state == 'stop' and item in started_brew_services.stdout_lines) or service_state != 'stop'
 
-- name: manage brew services as root
+- name: Manage brew services as root
   command: "brew services {{ service_state }} {{ item }}"
   with_items: "{{ managed_services_as_root }}"
   when: (service_state == 'stop' and item in started_brew_services.stdout_lines) or service_state != 'stop'
   become: yes
 
-- name: get currently loaded plists
+- name: Get currently loaded plists
   shell: "launchctl list  | awk '{ print $3 }'"
   register: loaded_plists
   changed_when: false
 
-- name: launchctl unload
+- name: Launchctl unload
   command: "launchctl unload /Users/{{ lookup('env','USER') }}/Library/LaunchAgents/{{ item }}.plist"
   with_items: "{{ managed_plists }}"
   when: (service_state == 'stop' or service_state == 'restart') and item in loaded_plists.stdout_lines
 
-- name: launchctl load
+- name: Launchctl load
   command: "launchctl load /Users/{{ lookup('env','USER') }}/Library/LaunchAgents/{{ item }}.plist"
   with_items: "{{ managed_plists }}"
   when: service_state == 'start' or service_state == 'restart'

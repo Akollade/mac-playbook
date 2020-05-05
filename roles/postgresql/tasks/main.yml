@@ -1,12 +1,12 @@
 ---
 # see https://gist.github.com/ibraheem4/ce5ccd3e4d7a65589ce84f2a3b7c23a3
 
-- name: homebrew install PostgreSQL
+- name: Install PostgreSQL
   homebrew:
     name: "postgresql@{{ postgresql_version }}"
     state: "{{ homebrew_package_state }}"
 
-- name: restart postgresql
+- name: Restart postgresql
   shell: "brew services restart postgresql@{{ postgresql_version }}"
 
 - name: Get brew prefix for PostgreSQL

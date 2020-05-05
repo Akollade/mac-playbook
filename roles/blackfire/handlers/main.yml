@@ -1,4 +1,4 @@
 ---
-- name: restart blackfire-agent
+- name: Restart blackfire-agent
   command: brew services restart blackfire-agent
   ignore_errors: true

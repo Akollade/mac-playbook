@@ -1,11 +1,11 @@
 ---
 
-- name: create ansible config directory
+- name: Create ansible config directory
   file:
     path: ~/.ansible/retry-files/
     state: directory
 
-- name: add ansible config
+- name: Add ansible config
   template:
     src: ansible.cfg.j2
     dest: ~/.ansible.cfg

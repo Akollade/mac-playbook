@@ -17,6 +17,8 @@
     path: "{{ item.path }}"
   when: (item.path | basename) not in zsh_custom_plugins|to_json
   with_items: "{{ current_installed_zsh_custom_plugins.files }}"
+  loop_control:
+    label: "{{ item.path | basename }}"
 
 - name: Clone custom plugins
   git:
@@ -25,23 +27,23 @@
     force: yes
   with_items: "{{ zsh_custom_plugins }}"
 
-- name: deploy .zshrc
+- name: Deploy .zshrc
   template:
     src: zshrc.j2
     dest: ~/.zshrc
 
-- name: deploy .zsh_aliases
+- name: Deploy .zsh_aliases
   template:
     src: zsh_aliases.j2
     dest: ~/.zsh_aliases
 
-- name: ensure user config file exists
+- name: Ensure user config file exists
   copy:
     content: ""
     dest: ~/.zshrc.local
     force: no
 
-- name: set zsh as default shell
+- name: Set zsh as default shell
   user:
     name: "{{ lookup('env','USER') }}"
     shell: /bin/zsh
@@ -53,12 +55,12 @@
     dest: ~/.ssh/config
   when: ssh_config is defined and ssh_config != ''
 
-- name: deploy .sqliterc
+- name: Deploy .sqliterc
   copy:
     src: sqliterc
     dest: ~/.sqliterc
 
-- name: deploy global editorconfig
+- name: Deploy global editorconfig
   template:
     src: editorconfig.j2
     dest: ~/.editorconfig

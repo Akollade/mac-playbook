@@ -3,7 +3,7 @@
     - ../default.config.yml
   vars_prompt:
     - name: "service_state"
-      prompt: "Etat du service (start/stop/restart)"
+      prompt: "Service state (start/stop/restart)"
       default: "start"
       private: no
   pre_tasks:
