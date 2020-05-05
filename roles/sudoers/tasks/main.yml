@@ -1,6 +1,6 @@
 ---
 
-- name: disable sudoers lecture
+- name: Disable sudoers lecture
   lineinfile:
     dest: /etc/sudoers
     state: present

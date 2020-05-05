@@ -1,6 +1,6 @@
 ---
-- name: restart mariadb
+- name: Restart mariadb
   command: brew services restart mariadb
 
-- name: stop mariadb
+- name: Stop mariadb
   command: brew services stop mariadb

@@ -1,19 +1,19 @@
 ---
 
-- name: Génération des certificats SSL
+- name: Generate SSL certificates
   include_tasks: certificates.yml
 
-- name: génération de la config pour la page d'accueil
+- name: Generate config for homepage
   template:
     src: local-homepage/config.php.j2
     dest: '{{ playbook_dev_path | realpath }}/local-homepage/config/nginx.config.php'
 
-- name: homebrew install nginx
+- name: Install nginx
   homebrew:
     name: nginx
     state: "{{ homebrew_package_state }}"
 
-- name: create conf directory
+- name: Create conf directory
   file:
     path: '{{ item }}'
     state: directory
@@ -24,40 +24,40 @@
     - "{{ nginx_path }}/conf.d"
     - "{{ nginx_path }}/ssl"
 
-- name: add confs
+- name: Add confs
   template:
     src: "conf/{{ item }}.j2"
     dest: "{{ nginx_path }}/conf.d/{{ item }}"
   with_items: "{{ nginx_site_types }}"
 
-- name: add nginx conf
+- name: Add nginx conf
   template:
     src: nginx.conf.j2
     dest: '{{ nginx_conf_path }}'
 
-- name: add default site
+- name: Add default site
   template:
     src: sites/default.j2
     dest: '{{ nginx_path }}/sites-available/default'
 
-- name: enable default site
+- name: Enable default site
   file:
     src: '{{ nginx_path }}/sites-available/default'
     dest: '{{ nginx_path }}/sites-enabled/default'
     state: link
 
-- name: On vérifie la configuration des sites
+- name: Check config of each sites
   fail:
-    msg: "Le type de site {{ item.type }} n'existe pas"
+    msg: "Type {{ item.type }} does not exist"
   when: item.type not in nginx_site_types
   with_items: "{{ nginx_sites }}"
 
-- name: add site
+- name: Add site
   template:
     src: sites/site.j2
     dest: '{{ nginx_path }}/sites-available/dev'
 
-- name: enable site
+- name: Enable site
   file:
     src: '{{ nginx_path }}/sites-available/dev'
     dest: '{{ nginx_path }}/sites-enabled/dev'
@@ -67,5 +67,5 @@
   notify: restart nginx
   changed_when: true
 
-- name: force execution of handlers
+- name: Force execution of handlers
   meta: flush_handlers

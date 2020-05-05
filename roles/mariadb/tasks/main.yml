@@ -1,26 +1,26 @@
 ---
-- name: create my.cnf.d
+- name: Create my.cnf.d
   file:
     path: /usr/local/etc/my.cnf.d
     state: directory
 
 # https://github.com/Homebrew/brew/issues/5783
-- name: create file to keep /usr/local/etc/my.cnf.d/
+- name: Create file to keep /usr/local/etc/my.cnf.d/
   file:
     path: /usr/local/etc/my.cnf.d/KEEP_DIR
     state: touch
 
-- name: create log path
+- name: Create log path
   file:
     path: "{{ mariadb_log_path }}"
     state: directory
 
-- name: homebrew install mariadb
+- name: Install mariadb
   homebrew:
     name: mariadb
     state: "{{ homebrew_package_state }}"
 
-- name: restart mariadb
+- name: Restart mariadb
   shell: brew services restart mariadb
   args:
     creates: "{{ mariadb_socket }}"
@@ -29,7 +29,7 @@
   wait_for:
     path: "{{ mariadb_socket }}"
 
-- name: set root password
+- name: Set root password
   shell: mysqladmin -u root password '{{ mariadb_root_password }}'
   args:
     creates: ~/.my.cnf
@@ -43,7 +43,7 @@
   args:
     creates: ~/.my.cnf
 
-- name: add my.cnf
+- name: Add my.cnf
   template: >
     src=my.cnf.j2
     dest=~/.my.cnf
@@ -67,7 +67,7 @@
   command: mysql -u root -p{{ mariadb_root_password }} -NBe "DROP DATABASE test"
   when: mysql_check_test_database_exists.stdout_lines|length != 0
 
-- name: génération de la config pour la page d'accueil
+- name: Create config for homepage
   template:
     src: local-homepage/config.php.j2
     dest: "{{ playbook_dev_path | realpath }}/local-homepage/config/mariadb.config.php"

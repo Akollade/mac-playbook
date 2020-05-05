@@ -1,16 +1,16 @@
 ---
-- name: stop minio
+- name: Stop minio
   shell: "launchctl unload -w {{ minio_plist_path }}"
   ignore_errors: yes
 
-- name: homebrew install minio
+- name: Install minio
   homebrew:
     name:
       - minio/stable/minio
       - minio/stable/mc
     state: "{{ homebrew_package_state }}"
 
-- name: add plist file
+- name: Add plist file
   template:
     src: minio.plist.j2
     dest: "{{ minio_plist_path }}"
@@ -23,7 +23,7 @@
     owner: "{{ lookup('env','USER') }}"
   become: yes
 
-- name: start minio
+- name: Start minio
   shell: "launchctl load -w {{ minio_plist_path }}"
 
 - name: Wait for minio to start
@@ -31,7 +31,7 @@
     port: "{{ minio_port }}"
     delay: 10
 
-- name: configure mc
+- name: Configure mc
   shell: "mc config host add minio http://localhost:{{ minio_port }} {{ minio_access_key }} {{ minio_secret_key }}"
 
 - name: Generate config for local homepage

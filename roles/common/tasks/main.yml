@@ -1,21 +1,21 @@
 ---
-- name: Ajout des dépôts homebrew
+- name: Tap blackfire homebrew repositories
   homebrew_tap:
     tap: "{{ item }}"
     state: present
   with_items: "{{ homebrew_tap }}"
 
-- name: Mise à jour de homebrew
+- name: Update homebrew
   homebrew:
     update_homebrew: yes
   when: upgrade_all_packages|bool
 
-- name: Installation des paquets avec homebrew
+- name: Install homebrew packages
   homebrew:
     name: "{{ homebrew_base_packages + homebrew_packages|default([]) }}"
     state: "{{ homebrew_package_state }}"
 
-- name: Installation des applications avec homebrew cask
+- name: Install homebrew cask packages
   homebrew_cask:
     name: "{{ item }}"
     state: present
