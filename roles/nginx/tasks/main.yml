@@ -43,6 +43,8 @@
     msg: "Type {{ item.type }} does not exist"
   when: item.type not in nginx_site_types
   with_items: "{{ nginx_sites }}"
+  loop_control:
+    label: "{{ item.type }}"
 
 - name: Add site
   template:
@@ -53,4 +55,6 @@
 - name: Create certs
   shell: "mkcert -cert-file {{ nginx_certificates_path }}/{{ item.name }}.crt -key-file {{ nginx_certificates_path }}/{{ item.name }}.key {{ item.server_name }}"
   with_items: "{{ nginx_sites }}"
+  loop_control:
+    label: "{{ item.name }}"
   notify: Restart nginx
