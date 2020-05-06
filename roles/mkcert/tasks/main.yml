@@ -7,6 +7,11 @@
       - nss
     state: "{{ homebrew_package_state }}"
 
+- name: Install certifi
+  pip:
+    name: certifi
+    state: latest
+
 - name: Setup mkcert
   shell: mkcert -install
   become: yes
@@ -17,3 +22,8 @@
 
 - name: Include mkcert CA in OpenSSL CA
   shell: cat "$(mkcert -CAROOT)/rootCA.pem" >> {{ openssl_ca_file }}
+
+- name: Replace certifi CA 
+  shell: cp {{ openssl_ca_file }} $(python -m certifi)
+
+  
