@@ -1,7 +1,9 @@
 ---
+
 ############
-# SYSTEM   #
+# System   #
 ############
+
 upgrade_all_packages: false
 homebrew_package_state: present
 playbook_dev_path: "{{ playbook_dir }}/.."
@@ -35,6 +37,12 @@ managed_services_as_root:
 
 managed_plists:
   - com.minio.minio
+
+##################
+# Certificates   #
+##################
+
+openssl_ca_file: /usr/local/etc/openssl@1.1/cert.pem
 
 ############
 # dotfiles #
