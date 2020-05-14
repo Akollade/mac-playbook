@@ -4,6 +4,17 @@
   register: clean_homebrew_result
   changed_when: "clean_homebrew_result.stdout != ''"
 
+- name: Cleanup homebrew services for user
+  command: brew services cleanup
+  register: cleanup_homebrew_services_user_result
+  changed_when: "cleanup_homebrew_services_user_result.stdout != 'All user-space services OK, nothing cleaned...'"
+
+- name: Cleanup homebrew services for root
+  command: brew services cleanup
+  register: cleanup_homebrew_services_root_result
+  changed_when: "cleanup_homebrew_services_root_result.stdout != 'All root services OK, nothing cleaned...'"
+  become: true
+
 - name: Cleanup gem
   command: gem cleanup
   changed_when: false
