@@ -29,6 +29,6 @@
     - nginx
     - mailhog
     - minio
+    - redis
     - upgrade
     - cleanup
-    - redis
