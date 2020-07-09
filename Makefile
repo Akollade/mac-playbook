@@ -88,3 +88,9 @@ fix-python-crash: ## Fix Python with macOS Catalina, see https://github.com/TheG
 	@ln -s /usr/local/opt/openssl@1.1/lib/libssl.1.1.dylib /usr/local/lib/libssl.dylib
 	@rm /usr/local/opt/openssl/lib/libssl.1.0.0.dylib || true
 	@ln -s /usr/local/opt/openssl@1.1/lib/libssl.1.1.dylib /usr/local/opt/openssl/lib/libssl.1.0.0.dylib
+
+.PHONY: fix-postgresql-locale
+fix-postgresql-locale: ## Change default PostgreSQL server locale to en_US.UTF-8
+	@rm -rf /usr/local/var/postgresql@11
+	@initdb -E UTF-8 --locale="en_US.UTF-8" /usr/local/var/postgresql@11
+	@$(ANSIBLE_COMMAND) playbooks/setup.yml --tags "postgresql"
