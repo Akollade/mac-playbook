@@ -2,7 +2,7 @@
 - name: Check that default PHP version is supported
   fail:
     msg: "Default PHP version {{ php_version }} is not supported"
-  when: php_version not in php_supported_versions
+  when: php_version|float not in php_supported_versions
 
 - name: Uninstall unsupported PHP versions
   homebrew:
