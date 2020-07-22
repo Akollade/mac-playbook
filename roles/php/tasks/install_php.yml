@@ -66,10 +66,3 @@
   when: item.when|default(true)
   become: true
   with_items: "{{ php_custom_config }}"
-
-- name: "{{ php_current_version }} - Add ~/.load_php file to add PHP to $PATH"
-  template:
-    src: load_php.j2
-    dest: ~/.load_php
-    mode: "u=rxw,g=rx,o=rx"
-  when: php_version == php_current_version
