@@ -23,4 +23,5 @@ brew services stop php@{{ php_supported_version }}
 php_brew_prefix=$(brew --prefix php@$php_version)
 
 echo export PATH="$php_brew_prefix/bin:\$PATH" > ~/.load_php
+echo export DEV_PHP_VERSION="$php_version" >> ~/.load_php
 brew services start php@$php_version

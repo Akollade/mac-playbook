@@ -7,7 +7,8 @@
     - include_vars: "{{ item }}"
       with_fileglob:
         - ../config.yml
-    - name: set facts for packages
+        - ../config_php.yml
+    - name: set facts
       set_fact:
         upgrade_all_packages: "{{ upgrade_all_packages|bool }}"
         homebrew_package_state: "{{ upgrade_all_packages | ternary('latest','present') }}"
