@@ -3,7 +3,7 @@
   homebrew_tap:
     tap: "{{ item }}"
     state: present
-  with_items: "{{ homebrew_tap }}"
+  loop: "{{ homebrew_tap }}"
 
 - name: Update homebrew
   homebrew:
@@ -12,14 +12,15 @@
 
 - name: Install homebrew packages
   homebrew:
-    name: "{{ homebrew_base_packages + homebrew_packages|default([]) }}"
+    name: "{{ item }}"
     state: "{{ homebrew_package_state }}"
+  loop: "{{ homebrew_base_packages + homebrew_packages|default([]) }}"
 
 - name: Install homebrew cask packages
   homebrew_cask:
     name: "{{ item }}"
     state: present
-  with_items: "{{ homebrew_cask_packages }}"
+  loop: "{{ homebrew_cask_packages }}"
   ignore_errors: true
 
 - name: List installed MAS apps
@@ -30,5 +31,5 @@
 
 - name: Ensure configured MAS apps are installed
   command: mas install "{{ item.id|default(item) }}"
-  with_items: "{{ mas_installed_apps }}"
+  loop: "{{ mas_installed_apps }}"
   when: (item.id | default(item) | string) not in mas_list.stdout
