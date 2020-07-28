@@ -39,13 +39,25 @@
     regexp: '^zend_extension="xdebug.so"'
   when: install_xdebug
 
+- name: "{{ php_current_version }} - Check if ext-xdebug.ini exists"
+  stat:
+    path: "/usr/local/etc/php/{{ php_current_version }}/conf.d/ext-xdebug.ini"
+  register: stat_ext_debug_ini
+  when: install_xdebug
+
+- name: "{{ php_current_version }} - Check if ext-xdebug.ini.disabled exists"
+  stat:
+    path: "/usr/local/etc/php/{{ php_current_version }}/conf.d/ext-xdebug.ini.disabled"
+  register: stat_ext_debug_ini_disabled
+  when: install_xdebug
+
 - name: "{{ php_current_version }} - Load xdebug with custom file"
   lineinfile:
     path: "/usr/local/etc/php/{{ php_current_version }}/conf.d/ext-xdebug.ini"
     state: present
     line: 'zend_extension="xdebug.so"'
     create: yes
-  when: install_xdebug
+  when: install_xdebug and not stat_ext_debug_ini.stat.exists and not stat_ext_debug_ini_disabled.stat.exists
 
 - name: "{{ php_current_version }} - Set FPM config"
   template:
