@@ -8,7 +8,7 @@
 
 - name: Update composer
   shell:
-    "{{ composer_path }} selfupdate"
+    "{{ composer_path }} selfupdate --1"
 
 - name: Global require packages
   shell: composer global require {{ item.key }}:{{ item.value }} --no-progress
