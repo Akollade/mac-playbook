@@ -22,16 +22,6 @@ foreach ($configs as $config) {
     $fileExists && require_once $configFile;
 }
 
-$phpVersion = phpversion();
-$phpErrorLog = ini_get('error_log');
-
-try {
-    $pdo = new PDO(sprintf('mysql:host=%s:%d;charset=utf8', $mariadbHost, $mariadbPort),  $mariadbUser, $mariadbPassword);
-    $mariadbVersion = $res = $pdo->query('select version()')->fetchColumn();
-} catch (\Exception $exception) {
-    $mariadbVersion = 'N/A';
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,43 +73,21 @@ try {
                 <table class="table table-striped table-bordered">
                     <tbody>
                     <tr>
-                        <th class="w-50">Version</th>
-                        <td class="w-50"><?php echo $phpVersion; ?></td>
-                    </tr>
-                    <tr>
-                        <th class="w-50">phpinfo()</th>
-                        <td class="w-50"><a href="phpinfo.php" target="_blank">Ouvrir</a></td>
-                    </tr>
-                    <tr>
                         <th class="w-50">Log</th>
-                        <td class="w-50"><?php echo $phpErrorLog; ?></td>
+                        <td class="w-50"><?php echo ini_get('error_log'); ?></td>
                     </tr>
                     </tbody>
                 </table>
+            </div>
 
+            <div class="bg-white rounded box-shadow my-3 p-3 border">
                 <h2>MariaDB</h2>
 
                 <table class="table table-striped table-bordered">
                     <tbody>
                     <tr>
-                        <th class="w-50">Version</th>
-                        <td class="w-50"><?php echo $mariadbVersion; ?></td>
-                    </tr>
-                    <tr>
-                        <th class="w-50">Host</th>
-                        <td class="w-50"><?php echo $mariadbHost; ?></td>
-                    </tr>
-                    <tr>
-                        <th class="w-50">Port</th>
-                        <td class="w-50"><?php echo $mariadbPort; ?></td>
-                    </tr>
-                    <tr>
-                        <th class="w-50">Utilisateur</th>
-                        <td class="w-50"><?php echo $mariadbUser; ?></td>
-                    </tr>
-                    <tr>
-                        <th class="w-50">Mot de passe</th>
-                        <td class="w-50"><?php echo $mariadbPassword; ?></td>
+                        <th class="w-50">DSN</th>
+                        <td class="w-50"><?php echo sprintf('mysql://%s:%s@%s:%s', $mariadbUser, $mariadbPassword, $mariadbHost, $mariadbPort); ?></td>
                     </tr>
                     <tr>
                         <th class="w-50">Log</th>
@@ -127,7 +95,9 @@ try {
                     </tr>
                     </tbody>
                 </table>
+            </div>
 
+            <div class="bg-white rounded box-shadow my-3 p-3 border">
                 <h2>Mailhog</h2>
 
                 <table class="table table-striped table-bordered">
@@ -143,26 +113,31 @@ try {
                     </tbody>
                 </table>
 
-                <?php if(isset($rabbitmqManagementUrl)): ?>
-                <h2>RabbitMQ</h2>
+            </div>
+
+            <div class="bg-white rounded box-shadow my-3 p-3 border">
+                <h2>Minio</h2>
 
                 <table class="table table-striped table-bordered">
                     <tbody>
                     <tr>
-                        <th class="w-50">Interface web</th>
-                        <td class="w-50"><a href="<?php echo $rabbitmqManagementUrl; ?>" target="_blank">Ouvrir</a></td>
-                    </tr>
-                    <tr>
-                        <th class="w-50">Host</th>
-                        <td class="w-50"><?php echo $rabbitmqHost; ?></td>
+                        <th class="w-50">Interface Web</th>
+                        <td class="w-50"><a href="http://127.0.0.1:<?php echo $minioPort; ?>" target="_blank">Ouvrir</a></td>
                     </tr>
                     <tr>
                         <th class="w-50">Port</th>
-                        <td class="w-50"><?php echo $rabbitmqPort; ?></td>
+                        <td class="w-50"><?php echo $minioPort; ?></td>
+                    </tr>
+                    <tr>
+                        <th class="w-50">Access Key</th>
+                        <td class="w-50"><?php echo $minioAccessKey; ?></td>
+                    </tr>
+                    <tr>
+                        <th class="w-50">Secret Key</th>
+                        <td class="w-50"><?php echo $minioSecretKey; ?></td>
                     </tr>
                     </tbody>
                 </table>
-                <?php endif; ?>
             </div>
         </div>
 
@@ -201,30 +176,6 @@ HTML;
                 </table>
             </div>
 
-            <div class="bg-white rounded box-shadow my-3 p-3 border">
-                <h2>Minio</h2>
-
-                <table class="table table-striped table-bordered">
-                    <tbody>
-                    <tr>
-                        <th class="w-50">Interface Web</th>
-                        <td class="w-50"><a href="http://127.0.0.1:<?php echo $minioPort; ?>" target="_blank">Ouvrir</a></td>
-                    </tr>
-                    <tr>
-                        <th class="w-50">Port</th>
-                        <td class="w-50"><?php echo $minioPort; ?></td>
-                    </tr>
-                    <tr>
-                        <th class="w-50">Access Key</th>
-                        <td class="w-50"><?php echo $minioAccessKey; ?></td>
-                    </tr>
-                    <tr>
-                        <th class="w-50">Secret Key</th>
-                        <td class="w-50"><?php echo $minioSecretKey; ?></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
 
     </div>
