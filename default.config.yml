@@ -12,12 +12,7 @@ sudo_password: ""
 # Use with "dev config". Examples: atom, code, pstorm, etc
 edit_dev_config_with: vim
 
-homebrew_cask_packages:
-  - qlmarkdown # preview markdown
-  - quicklook-json # preview json
-  - qlstephen # preview all files without or with unknown extension
-  - qlcolorcode # add color for code
-
+homebrew_cask_packages: []
 homebrew_packages: []
 
 mas_upgrade_all_apps: no
