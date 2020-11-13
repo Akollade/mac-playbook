@@ -2,7 +2,7 @@
 
 - name: Download and install Composer into the target directory.
   get_url:
-    url=https://getcomposer.org/download/1.10.17/composer.phar
+    url=https://getcomposer.org/composer-2.phar
     dest="{{ composer_path }}"
     mode=0755
 
