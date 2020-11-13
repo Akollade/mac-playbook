@@ -18,6 +18,5 @@ nginx_site_types:
   - symfony
   - symfony-flex
   - php
-  - cors
   - wordpress
   - drupal8
