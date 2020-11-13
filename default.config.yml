@@ -185,8 +185,7 @@ blackfire_server_token: ~
 blackfire_client_id: ~
 blackfire_client_token: ~
 
-composer_global_packages:
-  hirak/prestissimo: "@stable"
+composer_global_packages: []
 
 ###########
 # Node    #
