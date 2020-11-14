@@ -5,7 +5,7 @@ server {
     {% if not site.redirect_to_https|default(false) %}listen {{ site.http_port|default(nginx_http_port) }};{% endif %}
     {% if site.https|default(true) %}listen {{ site.https_port|default(nginx_https_port) }} ssl {% if site.http2|default(nginx_http2) %}http2{% endif %};{% endif %}
     server_name {{ site.server_name }};
-    {%if site.root is defined %}root {{ site.root | expanduser }};{% endif %}
+    {% if site.root is defined %}root {{ site.root | expanduser }};{% endif %}
 
     {% if site.https|default(true) %}
     ssl_certificate      {{ nginx_certificates_path }}/{{ site.name }}.crt;
