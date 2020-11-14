@@ -41,7 +41,7 @@
 - name: Check config of each sites
   fail:
     msg: "Type {{ item.type }} does not exist"
-  when: item.type not in nginx_site_types
+  when: item.type != 'custom' and item.type not in nginx_site_types
   with_items: "{{ nginx_sites }}"
   loop_control:
     label: "{{ item.type }}"
