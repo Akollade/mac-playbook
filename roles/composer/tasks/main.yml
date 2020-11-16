@@ -1,14 +1,19 @@
 ---
 
+- name: Check if Composer is installed.
+  stat: "path={{ composer_path }}"
+  register: composer_bin
+
 - name: Download and install Composer into the target directory.
   get_url:
     url=https://getcomposer.org/composer-2.phar
     dest="{{ composer_path }}"
     mode=0755
+  when: not composer_bin.stat.exists
 
 - name: Update composer
   shell:
-    "{{ composer_path }} selfupdate --1"
+    "{{ composer_path }} selfupdate --2"
 
 - name: Global require packages
   shell: composer global require {{ item.key }}:{{ item.value }} --no-progress
