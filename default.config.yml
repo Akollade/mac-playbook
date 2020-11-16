@@ -94,10 +94,10 @@ use_gpg_to_sign_commit: false
 php_default_version:  7.4
 
 php_supported_versions:
-  - 7.3
   - 7.4
 
 php_unsupported_versions:
+  - 7.3
   - 7.2
 
 install_xdebug: true
