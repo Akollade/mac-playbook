@@ -1,9 +1,6 @@
 /config.yml
 /vars.yml
 
-!/local-homepage/config/.gitkeep
-/local-homepage/config/*
-
 *.retry
 
 !/roles/community/.gitkeep

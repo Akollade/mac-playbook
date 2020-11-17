@@ -19,8 +19,3 @@
     dest: "{{ mailhog_plist_file }}"
     force: yes
   notify: Restart mailhog
-
-- name: Generate config for local homepage
-  template:
-    src: local-homepage/config.php.j2
-    dest: '{{ playbook_dev_path | realpath }}/local-homepage/config/mailhog.config.php'
