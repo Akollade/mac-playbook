@@ -58,3 +58,19 @@
   loop_control:
     label: "{{ item.name }}"
   notify: Restart nginx
+
+- name: Remove old entries in /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: "# Ansible managed"
+    state: absent
+  become: true
+
+- name: Updating the /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    line: "127.0.0.1 {{ item.server_name }} # Ansible managed"
+  with_items: "{{ nginx_sites }}"
+  loop_control:
+    label: "{{ item.server_name }}"
+  become: true
