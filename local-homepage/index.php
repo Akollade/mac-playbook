@@ -1,25 +1,9 @@
 <?php
 
-/**
- * Inspiration https://github.com/cmall/LocalHomePage
- */
+$files = glob( __DIR__ . '/config/*.php');
 
-$configs = [
-    ['name' => 'nginx', 'required' => true],
-    ['name' => 'mariadb', 'required' => true],
-    ['name' => 'mailhog', 'required' => true],
-    ['name' => 'minio', 'required' => true],
-];
-
-foreach ($configs as $config) {
-    $configFile = sprintf('config/%s.config.php', $config['name']);
-
-    $fileExists = file_exists($configFile);
-    if ($config['required'] && !$fileExists) {
-        die(sprintf('Le fichier de config "%s" est manquant', $configFile));
-    }
-
-    $fileExists && require_once $configFile;
+foreach ($files as $file) {
+    require($file);
 }
 
 ?>
@@ -29,7 +13,7 @@ foreach ($configs as $config) {
     <title>mac-playbook</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <style>
         body {
             background: url('background.png');
@@ -51,9 +35,7 @@ foreach ($configs as $config) {
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a class="nav-link" href="phpinfo.php" target="_blank">phpinfo()</a></li>
             <li class="nav-item"><a class="nav-link" href="http://<?php echo $mailhogUi; ?>" target="_blank">Mailhog</a></li>
-            <?php if(isset($rabbitmqManagementUrl)): ?>
-                <li class="nav-item"><a class="nav-link" href="<?php echo $rabbitmqManagementUrl ?>" target="_blank">RabbitMQ</a></li>
-            <?php endif; ?>
+            <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:<?php echo $minioPort; ?>" target="_blank">Minio</a></li>
         </ul>
     </div>
     <div >
@@ -63,15 +45,18 @@ foreach ($configs as $config) {
     </div>
 </nav>
 
-<div id="main-content" class="container-fluid">
+<div id="main-content" class="container">
     <div class="row">
-
-        <div class="col-6">
+        <div class="col">
             <div class="bg-white rounded box-shadow my-3 p-3 border">
-                <h2>PHP</h2>
+                <h2 class="text-center">PHP</h2>
 
                 <table class="table table-striped table-bordered">
                     <tbody>
+                    <tr>
+                        <th class="w-50">Verison</th>
+                        <td class="w-50"><?php echo phpversion(); ?></td>
+                    </tr>
                     <tr>
                         <th class="w-50">Log</th>
                         <td class="w-50"><?php echo ini_get('error_log'); ?></td>
@@ -79,9 +64,48 @@ foreach ($configs as $config) {
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col">
             <div class="bg-white rounded box-shadow my-3 p-3 border">
-                <h2>MariaDB</h2>
+                <h2 class="text-center">Nginx</h2>
+
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                    <tr>
+                        <th class="w-50">Log</th>
+                        <td class="w-50"><?php echo $webServerLogPath; ?></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="text-center">Sites</h3>
+
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <th class="w-50">Nom</th>
+                        <th class="w-50">Chemin</th>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($sites as $site): ?>
+                        <tr>
+                            <th><a target="_blank" href="<?php echo $site['url'] ?>"><?php echo $site['name'] ?></a></th>
+                            <td><?php echo $site['path'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <?php if(isset($mariadbEnabled)): ?>
+    <div class="row">
+        <div class="col">
+            <div class="bg-white rounded box-shadow my-3 p-3 border">
+                <h2 class="text-center">MariaDB</h2>
 
                 <table class="table table-striped table-bordered">
                     <tbody>
@@ -96,9 +120,14 @@ foreach ($configs as $config) {
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+    <?php endif; ?>
 
+    <div class="row">
+        <div class="col">
             <div class="bg-white rounded box-shadow my-3 p-3 border">
-                <h2>Mailhog</h2>
+                <h2 class="text-center">Mailhog</h2>
 
                 <table class="table table-striped table-bordered">
                     <tbody>
@@ -114,16 +143,16 @@ foreach ($configs as $config) {
                 </table>
 
             </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col">
             <div class="bg-white rounded box-shadow my-3 p-3 border">
-                <h2>Minio</h2>
+                <h2 class="text-center">Minio</h2>
 
                 <table class="table table-striped table-bordered">
                     <tbody>
-                    <tr>
-                        <th class="w-50">Interface Web</th>
-                        <td class="w-50"><a href="http://127.0.0.1:<?php echo $minioPort; ?>" target="_blank">Ouvrir</a></td>
-                    </tr>
                     <tr>
                         <th class="w-50">Port</th>
                         <td class="w-50"><?php echo $minioPort; ?></td>
@@ -140,49 +169,11 @@ foreach ($configs as $config) {
                 </table>
             </div>
         </div>
-
-        <div class="col-6">
-            <div class="bg-white rounded box-shadow my-3 p-3 border">
-                <h2>Nginx</h2>
-
-                <table class="table table-striped table-bordered">
-                    <tbody>
-                    <tr>
-                        <th class="w-50">Log</th>
-                        <td class="w-50"><?php echo $webServerLogPath; ?></td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <h3>Sites</h3>
-
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <th class="w-50">Nom</th>
-                        <th class="w-50">Chemin</th>
-                    </thead>
-                    <tbody>
-                    <?php
-                    foreach ($sites as $site) {
-                        echo <<<HTML
-                        <tr>
-                            <th><a target="_blank" href="{$site['url']}">{$site['name']}</a></th>
-                            <td>{$site['path']}</td>
-                        </tr>
-HTML;
-                    }
-                    ?>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-
     </div>
+
 </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </body>
 </html>
