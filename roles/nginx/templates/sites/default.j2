@@ -2,8 +2,12 @@
 
 server {
     listen {{ nginx_http_port }};
+    listen {{ nginx_https_port }} ssl http2;
     server_name  localhost;
     root       {{ playbook_dev_path | realpath }}/local-homepage;
+
+    ssl_certificate      {{ nginx_ssl_certificate }};
+    ssl_certificate_key  {{ nginx_ssl_certificate_key }};
 
     error_log {{ nginx_log_path }}/default.error.log;
     access_log {{ nginx_log_path }}/default.access.log;

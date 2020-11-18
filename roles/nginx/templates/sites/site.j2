@@ -8,8 +8,8 @@ server {
     {% if site.root is defined %}root {{ site.root | expanduser }};{% endif %}
 
     {% if site.https|default(true) %}
-    ssl_certificate      {{ nginx_certificates_path }}/{{ site.name }}.crt;
-    ssl_certificate_key  {{ nginx_certificates_path }}/{{ site.name }}.key;
+    ssl_certificate      {{ nginx_ssl_certificate }};
+    ssl_certificate_key  {{ nginx_ssl_certificate_key }};
     {% endif %}
 
     access_log {{ nginx_log_path }}/{{ site.name }}.access.log main;
