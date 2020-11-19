@@ -3,6 +3,10 @@ ANSIBLE_WITHOUT_PASSWORD_COMMAND = ansible-playbook -c local -i inventory_sudo_p
 ANSIBLE_COMMAND := $(if $(shell grep "sudo_password: !vault" config.yml),$(ANSIBLE_WITHOUT_PASSWORD_COMMAND),$(ANSIBLE_WITH_PASSWORD_COMMAND))
 CONFIG_EDITOR = $(or $(DEV_CONFIG_EDITOR) , vim)
 
+ANSIBLE_PLAYBOOK_SETUP=$(ANSIBLE_COMMAND) playbooks/setup.yml
+ANSIBLE_PLAYBOOK_MANAGE_SERVICES=$(ANSIBLE_COMMAND) playbooks/manage_services.yml
+tags = all
+
 .DEFAULT_GOAL := help
 default: help
 
@@ -15,13 +19,17 @@ help:
 	@echo ""
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+.PHONY: tags
+tags: ## List all tags
+	@$(ANSIBLE_PLAYBOOK_SETUP) --list-tags
+
 .PHONY: bootstrap
 bootstrap: ## Bootstrap the dev environment for the first time
 	@scripts/bootstrap.sh
 
 .PHONY: setup
 setup: ## Setup the dev environment
-	@$(ANSIBLE_COMMAND) playbooks/setup.yml --extra-vars='upgrade_all_packages=false'
+	@$(ANSIBLE_PLAYBOOK_SETUP) --tags="$(tags)"
 
 .PHONY: upgrade
 upgrade: ## Upgrade of the apps and dev environment
@@ -31,11 +39,11 @@ upgrade: ## Upgrade of the apps and dev environment
 	@echo ""
 	@echo "Upgrade of the dev environment"
 	@echo ""
-	@$(ANSIBLE_COMMAND) playbooks/setup.yml --extra-vars='upgrade_all_packages=true'
+	@$(ANSIBLE_PLAYBOOK_SETUP) --extra-vars='upgrade_all_packages=true' --tags="$(tags)"
 
 .PHONY: setup-nginx
 setup-nginx: ## Setup/config nginx
-	@$(ANSIBLE_COMMAND) playbooks/setup_nginx.yml
+	@$(ANSIBLE_PLAYBOOK_SETUP) --tags="nginx"
 
 .PHONY: setup-mkcert
 setup-mkcert: ## Setup mkcert
@@ -43,7 +51,7 @@ setup-mkcert: ## Setup mkcert
 
 .PHONY: dotfiles
 dotfiles: ## Setup "dotfiles"
-	@$(ANSIBLE_COMMAND) playbooks/dotfiles.yml
+	@$(ANSIBLE_PLAYBOOK_SETUP) --tags="dotfiles"
 
 .PHONY: config
 config: ## Edit config
@@ -55,15 +63,15 @@ update: ## Pull the last version of the dev environment
 
 .PHONY: stop
 stop: ## Stop all services
-	@$(ANSIBLE_COMMAND) playbooks/manage_services.yml --extra-vars='service_state=stop'
+	@$(ANSIBLE_PLAYBOOK_MANAGE_SERVICES) --extra-vars='service_state=stop'
 
 .PHONY: start
 start: ## Start all services
-	@$(ANSIBLE_COMMAND) playbooks/manage_services.yml --extra-vars='service_state=start'
+	@$(ANSIBLE_PLAYBOOK_MANAGE_SERVICES) --extra-vars='service_state=start'
 
 .PHONY: restart
 restart: ## Restart all services
-	@$(ANSIBLE_COMMAND) playbooks/manage_services.yml --extra-vars='service_state=restart'
+	@$(ANSIBLE_PLAYBOOK_MANAGE_SERVICES) --extra-vars='service_state=restart'
 
 .PHONY: status
 status: ## List all services
@@ -94,4 +102,4 @@ fix-postgresql-locale: ## Change default PostgreSQL server locale to en_US.UTF-8
 	@rm -rf /usr/local/var/postgresql@11 || true
 	@rm -rf /usr/local/var/postgresql@12
 	@initdb -E UTF-8 --locale="en_US.UTF-8" /usr/local/var/postgresql@12
-	@$(ANSIBLE_COMMAND) playbooks/setup.yml --tags "postgresql"
+	@$(ANSIBLE_PLAYBOOK_SETUP) --tags "postgresql"

@@ -8,28 +8,47 @@
       with_fileglob:
         - ../config.yml
         - ../config_php.yml
+      tags: always
     - name: set facts
       set_fact:
-        upgrade_all_packages: "{{ upgrade_all_packages|bool }}"
+        upgrade_all_packages: "{{ upgrade_all_packages|bool|default(false) }}"
         homebrew_package_state: "{{ upgrade_all_packages | ternary('latest','present') }}"
+      tags: always
   roles:
-    - check_sudo_access
+    - role: check_sudo_access
+      tags: always
     - sudoers
     - common
     - ansible
-    - dev_bin
-    - git
-    - dotfiles
-    - dnsmasq
-    - mariadb
-    - postgresql
-    - php
-    - { role: blackfire, when: setup_blackfire == true }
-    - composer
-    - node
-    - nginx
-    - mailhog
-    - minio
-    - redis
+    - role: dev_bin
+      tags: dotfiles
+    - role: git
+      tags: dotfiles
+    - role: dotfiles
+      tags: dotfiles
+    - role: dnsmasq
+      tags: dnsmasq
+    - role: mariadb
+      tags: mariadb
+    - role: postgresql
+      tags: postgresql
+    - role: php
+      tags: php
+    - role: blackfire
+      tags: blackfire
+      when: setup_blackfire == true
+    - role: composer
+      tags: composer
+    - role: node
+      tags: node
+    - role: nginx
+      tags: nginx
+    - role: mailhog
+      tags: mailhog
+    - role: minio
+      tags: minio
+    - role: redis
+      tags: redis
     - upgrade
-    - cleanup
+    - role: cleanup
+      tags: cleanup
