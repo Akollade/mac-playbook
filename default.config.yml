@@ -208,6 +208,10 @@ nginx_sites:
     redirect_to_https: true
     https: true
 
+nginx_certificates:
+  - localhost
+  - 127.0.0.1
+
 #########
 # DNS   #
 #########

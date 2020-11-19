@@ -6,13 +6,16 @@
 nginx_http_port: 80
 nginx_https_port: 443
 nginx_http2: true
+
 nginx_default_site_root: "/usr/local/var/www"
 nginx_path: /usr/local/etc/nginx
 nginx_conf_file_path: "{{ nginx_path }}/nginx.conf"
 nginx_confs_path: "{{ nginx_path }}/conf.d"
-nginx_certificates_path: "{{ nginx_path }}/certificates"
 nginx_vhosts_path: "{{ nginx_path }}/sites-enabled"
 nginx_log_path: /usr/local/var/log/nginx
+
+nginx_ssl_certificate: "{{ nginx_path }}/certificate.crt"
+nginx_ssl_certificate_key: "{{ nginx_path }}/certificate.key"
 
 nginx_site_types:
   - symfony

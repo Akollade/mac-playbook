@@ -16,8 +16,14 @@
     state: directory
   with_items:
     - "{{ nginx_confs_path }}"
-    - "{{ nginx_certificates_path }}"
     - "{{ nginx_vhosts_path }}"
+
+- name: Clean old directory
+  file:
+    path: '{{ item }}'
+    state: absent
+  with_items:
+    - "{{ nginx_path }}/certificates"
 
 - name: Add confs
   template:
@@ -52,11 +58,8 @@
     dest: '{{ nginx_vhosts_path }}/dev'
   notify: Restart nginx
 
-- name: Create certs
-  shell: "mkcert -cert-file {{ nginx_certificates_path }}/{{ item.name }}.crt -key-file {{ nginx_certificates_path }}/{{ item.name }}.key {{ item.server_name }}"
-  with_items: "{{ nginx_sites }}"
-  loop_control:
-    label: "{{ item.name }}"
+- name: Create certificate
+  shell: mkcert -cert-file {{ nginx_ssl_certificate }} -key-file {{ nginx_ssl_certificate_key }} "{{ (nginx_certificates + (nginx_sites | map(attribute='server_name') | list)) | join('" "') }}"
   notify: Restart nginx
 
 - name: Remove old entries in /etc/hosts
