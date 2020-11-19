@@ -11,6 +11,8 @@
       with_fileglob:
         - ../config.yml
         - ../config_php.yml
+      tags: always
   roles:
-    - check_sudo_access
+    - role: check_sudo_access
+      tags: always
     - manage_services
