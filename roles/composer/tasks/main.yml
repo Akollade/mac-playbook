@@ -1,19 +1,34 @@
 ---
 
-- name: Check if Composer is installed.
-  stat: "path={{ composer_path }}"
-  register: composer_bin
+- name: Check if Composer1 is installed.
+  stat: "path={{ composer1_path }}"
+  register: composer1_bin
 
-- name: Download and install Composer into the target directory.
+- name: Download and install Composer1 into the target directory.
+  get_url:
+    url=https://getcomposer.org/composer-1.phar
+    dest="{{ composer1_path }}"
+    mode=0755
+  when: not composer1_bin.stat.exists
+
+- name: Update composer1
+  shell:
+    "{{ composer1_path }} selfupdate --1"
+
+- name: Check if Composer2 is installed.
+  stat: "path={{ composer2_path }}"
+  register: composer2_bin
+
+- name: Download and install Composer2 into the target directory.
   get_url:
     url=https://getcomposer.org/composer-2.phar
-    dest="{{ composer_path }}"
+    dest="{{ composer2_path }}"
     mode=0755
-  when: not composer_bin.stat.exists
+  when: not composer2_bin.stat.exists
 
-- name: Update composer
+- name: Update composer2
   shell:
-    "{{ composer_path }} selfupdate --2"
+    "{{ composer2_path }} selfupdate --2"
 
 - name: Global require packages
   shell: composer global require {{ item.key }}:{{ item.value }} --no-progress
