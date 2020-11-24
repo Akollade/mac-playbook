@@ -160,6 +160,10 @@ php_custom_config:
     when: install_xdebug
   - section: "xdebug"
     option: "xdebug.profiler_enable"
+    value: 0
+    when: install_xdebug
+  - section: "xdebug"
+    option: "xdebug.profiler_enable_trigger"
     value: 1
     when: install_xdebug
   - section: "xdebug"
