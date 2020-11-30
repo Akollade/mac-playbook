@@ -103,4 +103,4 @@ fix-postgresql-locale: ## Change default PostgreSQL server locale to en_US.UTF-8
 	@rm -rf /usr/local/var/postgresql@12 || true
 	@rm -rf /usr/local/var/postgres || true
 	@initdb -E UTF-8 --locale=en_US.UTF-8 /usr/local/var/postgres
-	@$(ANSIBLE_PLAYBOOK_SETUP) tags "postgresql"
+	@$(ANSIBLE_PLAYBOOK_SETUP) tags="postgresql"
