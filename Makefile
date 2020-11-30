@@ -29,7 +29,7 @@ bootstrap: ## Bootstrap the dev environment for the first time
 
 .PHONY: setup
 setup: ## Setup the dev environment
-	@$(ANSIBLE_PLAYBOOK_SETUP) --tags="$(tags)"
+	@$(ANSIBLE_PLAYBOOK_SETUP) --tags=$(tags)
 
 .PHONY: upgrade
 upgrade: ## Upgrade of the apps and dev environment
@@ -39,7 +39,7 @@ upgrade: ## Upgrade of the apps and dev environment
 	@echo ""
 	@echo "Upgrade of the dev environment"
 	@echo ""
-	@$(ANSIBLE_PLAYBOOK_SETUP) --extra-vars='upgrade_all_packages=true' --tags="$(tags)"
+	@$(ANSIBLE_PLAYBOOK_SETUP) --extra-vars='upgrade_all_packages=true' --tags=$(tags)
 
 .PHONY: setup-nginx
 setup-nginx: ## Setup/config nginx
@@ -103,4 +103,4 @@ fix-postgresql-locale: ## Change default PostgreSQL server locale to en_US.UTF-8
 	@rm -rf /usr/local/var/postgresql@12 || true
 	@rm -rf /usr/local/var/postgres || true
 	@initdb -E UTF-8 --locale=en_US.UTF-8 /usr/local/var/postgres
-	@$(ANSIBLE_PLAYBOOK_SETUP) --tags "postgresql"
+	@$(ANSIBLE_PLAYBOOK_SETUP) tags "postgresql"
