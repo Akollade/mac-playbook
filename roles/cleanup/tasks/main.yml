@@ -3,6 +3,7 @@
   command: brew cleanup -s
   register: clean_homebrew_result
   changed_when: "clean_homebrew_result.stdout != ''"
+  ignore_errors: true
 
 - name: Cleanup homebrew services for user
   command: brew services cleanup
