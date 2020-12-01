@@ -17,8 +17,7 @@ brew update
 
 echo "Installing Ansible..."
 brew install python
-pip3 install ansible
-pip3 install dnspython
+pip3 install -r requirements.txt
 
 echo "Provisioning with Ansible..."
 make setup
