@@ -213,6 +213,10 @@ nginx_sites:
     redirect_to_https: true
     https: true
 
+nginx_system_sites:
+  - "{{ mailhog_nginx_site }}"
+  - "{{ minio_nginx_site }}"
+
 nginx_certificates:
   - localhost
   - 127.0.0.1
@@ -255,6 +259,22 @@ mailhog_hostname: example.org
 #    host: smtp.exemple.fr
 #    port: "25"
 
+mailhog_nginx_site:
+  name: mailhog
+  server_name: mailhog.localhost
+  type: custom
+  redirect_to_https: true
+  custom_config: |
+    location / {
+        proxy_pass http://{{ mailhog_ui_bind_addr }};
+        chunked_transfer_encoding on;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_http_version 1.1;
+        proxy_redirect off;
+        proxy_buffering off;
+    }
+
 #############
 # Minio     #
 #############
@@ -262,3 +282,31 @@ mailhog_hostname: example.org
 minio_plist_name: com.minio.minio
 minio_access_key: AKIAIOSFODNN7EXAMPLE
 minio_secret_key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+
+minio_nginx_site:
+  name: minio
+  server_name: minio.localhost
+  type: custom
+  redirect_to_https: true
+  custom_config: |
+    # To allow special characters in headers
+    ignore_invalid_headers off;
+    # Allow any size file to be uploaded.
+    client_max_body_size 0;
+    # To disable buffering
+    proxy_buffering off;
+
+    location / {
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header Host $http_host;
+
+      proxy_connect_timeout 300;
+      # Default is HTTP/1, keepalive is only enabled in HTTP/1.1
+      proxy_http_version 1.1;
+      proxy_set_header Connection "";
+      chunked_transfer_encoding off;
+
+      proxy_pass http://localhost:9005;
+    }
