@@ -47,8 +47,8 @@
 - name: Check config of each sites
   fail:
     msg: "Type {{ item.type }} does not exist"
-  when: item.type != 'custom' and item.type not in nginx_site_types
-  with_items: "{{ nginx_sites }}"
+  when: item.when|default(true) and item.type != 'custom' and item.type not in nginx_site_types
+  with_items: "{{ nginx_system_sites + nginx_sites }}"
   loop_control:
     label: "{{ item.type }}"
 
@@ -59,7 +59,7 @@
   notify: Restart nginx
 
 - name: Create certificate
-  shell: mkcert -cert-file {{ nginx_ssl_certificate }} -key-file {{ nginx_ssl_certificate_key }} "{{ (nginx_certificates + (nginx_sites | map(attribute='server_name') | list)) | join('" "') }}"
+  shell: mkcert -cert-file {{ nginx_ssl_certificate }} -key-file {{ nginx_ssl_certificate_key }} "{{ (nginx_certificates + ((nginx_system_sites + nginx_sites) | map(attribute='server_name') | list)) | join('" "') }}"
   notify: Restart nginx
 
 - name: Remove old entries in /etc/hosts
@@ -73,7 +73,8 @@
   lineinfile:
     dest: /etc/hosts
     line: "127.0.0.1 {{ item.server_name }} # Ansible managed"
-  with_items: "{{ nginx_sites }}"
+  when: item.when|default(true) 
+  with_items: "{{ nginx_system_sites + nginx_sites }}"
   loop_control:
     label: "{{ item.server_name }}"
   become: true

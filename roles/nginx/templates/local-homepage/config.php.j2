@@ -3,8 +3,8 @@
 {{ ansible_managed | comment('c') }}
 
 $sites = [
-{% for site in nginx_sites %}
-    [
+{% for site in nginx_system_sites + nginx_sites %}
+    '{{ site.name }}' => [
         'name' => '{{ site.name }}',
         'url' => '{{ 'https' if site.https|default(true) else 'http' }}://{{ site.server_name }}:{{ site.https_port|default(nginx_https_port) if site.https|default(true) else site.http_port|default(nginx_http_port) }}',
         'path' => '{{ site.root | default('-') }}'

@@ -34,8 +34,8 @@ foreach ($files as $file) {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a class="nav-link" href="phpinfo.php" target="_blank">phpinfo()</a></li>
-            <li class="nav-item"><a class="nav-link" href="http://<?php echo $mailhogUi; ?>" target="_blank">Mailhog</a></li>
-            <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:<?php echo $minioPort; ?>" target="_blank">Minio</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo $sites['mailhog']['url']; ?>" target="_blank">Mailhog</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo $sites['minio']['url']; ?>" target="_blank">Minio</a></li>
         </ul>
     </div>
     <div >
