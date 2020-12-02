@@ -37,6 +37,10 @@ upgrade: ## Upgrade of the apps and dev environment
 	@echo ""
 	@brew cu -y --cleanup
 	@echo ""
+	@echo "Upgrade ansible"
+	@echo ""
+	@pip3 install --upgrade -r requirements.txt
+	@echo ""
 	@echo "Upgrade of the dev environment"
 	@echo ""
 	@$(ANSIBLE_PLAYBOOK_SETUP) --extra-vars='upgrade_all_packages=true' --tags=$(tags)
