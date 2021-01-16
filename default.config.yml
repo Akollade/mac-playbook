@@ -152,23 +152,15 @@ php_custom_config:
     option: "sendmail_path"
     value: "Mailhog sendmail"
   - section: "xdebug"
-    option: "xdebug.remote_port"
-    value: "9001"
+    option: "xdebug.client_port"
+    value: "9003"
     when: install_xdebug
   - section: "xdebug"
-    option: "xdebug.remote_enable"
-    value: 1
+    option: "xdebug.mode"
+    value: 'debug'
     when: install_xdebug
   - section: "xdebug"
-    option: "xdebug.profiler_enable"
-    value: 0
-    when: install_xdebug
-  - section: "xdebug"
-    option: "xdebug.profiler_enable_trigger"
-    value: 1
-    when: install_xdebug
-  - section: "xdebug"
-    option: "xdebug.profiler_output_dir"
+    option: "xdebug.output_dir"
     value: "{{ '~/dev/xdebug' | expanduser }}"
     when: install_xdebug
   - section: "xdebug"
@@ -180,7 +172,7 @@ php_custom_config:
     value: "'phpstorm://open?file=%f&line=%l'"
     when: install_xdebug
   - section: "xdebug"
-    option: "xdebug.remote_log"
+    option: "xdebug.log"
     value: "/usr/local/var/log/xdebug_remote.log"
     when: install_xdebug
 
