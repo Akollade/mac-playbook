@@ -107,15 +107,14 @@ php_fpm_memory_limit: 256M
 
 # PECL
 php_extensions:
-  - imagick
-  - redis
+#  - imagick
+#  - redis
   - igbinary
 
 # packages needed to build extensions
 php_extensions_dependencies:
-  - openldap
   - libiconv
-  - imagemagick
+#  - imagemagick
 
 php_custom_config:
   - section: "PHP"
