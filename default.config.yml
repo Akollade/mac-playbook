@@ -233,7 +233,7 @@ mariadb_root_password: ohvaiN2azoof0feeDi2
 # PostgreSQL   #
 ################
 
-postgresql_version: 12
+postgresql_version: 13
 
 #############
 # Mailhog   #
