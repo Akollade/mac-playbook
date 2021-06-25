@@ -1,5 +1,8 @@
 ---
 blackfire_homebrew_tap: blackfireio/homebrew-blackfire
 blackfire_agent_config_path: /usr/local/etc/blackfire/agent
+
+# Old config file
+# @todo : remove when everybody has updated
 blackfire_config_path: ~/.blackfire.ini
 

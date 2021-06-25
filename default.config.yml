@@ -25,7 +25,7 @@ managed_services_as_user:
   - mailhog
   - mariadb
   - "postgresql@{{ postgresql_version }}"
-  - blackfire-agent
+  - blackfire
 
 managed_services_as_root:
   - nginx

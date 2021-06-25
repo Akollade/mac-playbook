@@ -4,15 +4,25 @@
     tap: "{{ blackfire_homebrew_tap }}"
     state: present
 
+- name: Remove old Blackfire agent
+  homebrew:
+    name: blackfire-agent
+    state: absent
+
+- name: Remove old config file
+  file:
+    path: "{{ blackfire_config_path }}"
+    state: absent
+
 - name: Install Blackfire probe
   homebrew:
     name: "blackfire-php{{ item|replace('.', '') }}"
     state: latest
   with_items: "{{ php_supported_versions }}"
 
-- name: Install Blackfire agent
+- name: Install Blackfire
   homebrew:
-    name: blackfire-agent
+    name: blackfire
     state: latest
 
 - name: Add config for Blackfire agent
@@ -20,9 +30,4 @@
     src: agent.j2
     dest: "{{ blackfire_agent_config_path }}"
   notify:
-    - Restart blackfire-agent
-
-- name: Add config for Blackfire
-  template:
-    src: blackfire.ini.j2
-    dest: "{{ blackfire_config_path }}"
+    - Restart blackfire
