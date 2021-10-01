@@ -5,24 +5,9 @@
   signingkey = {{ git_signingkey }}
 {% endif %}
 [alias]
-  ci   = commit
-  st   = status
-  br   = branch
-  branches = !"git for-each-ref --sort='-authordate:iso8601' --format=' %(color:green)%(authordate:iso8601)%09%(color:white)%(refname:short)' refs/heads"
-  co   = checkout
-  cat  = cat-file -p
-  lg   = log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset%s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative
-  lol = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\"
-  ds = diff --staged
-
-  # stash shortcuts
-  sl = stash list
-  sa = stash apply
-  ss = stash save
-
-  r = reset
-  # cancel last commit
-  r1 = reset HEAD^
+{% for key, value in git_aliases.items() %}
+  {{ key }} = {{ value }}
+{% endfor %}
 [color]
   branch = auto
   diff = auto

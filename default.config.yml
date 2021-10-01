@@ -82,6 +82,25 @@ zsh_aliases:
 git_user_name: X X
 git_user_email: x@exemple.fr
 
+git_aliases: 
+  ci: commit
+  st: status
+  br: branch
+  branches: >
+    !"git for-each-ref --sort='-authordate:iso8601' --format=' %(color:green)%(authordate:iso8601)%09%(color:white)%(refname:short)' refs/heads"
+  co: checkout
+  cat: cat-file -p
+  lg: log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset%s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative
+  lol: log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\"
+  ds: diff --staged
+  # stash shortcuts
+  sl: stash list
+  sa: stash apply
+  ss: stash save
+  r: reset
+  # cancel last commit
+  r1: reset HEAD^
+
 #  https://github.com/tj/git-extras
 install_git_extras: true
 
