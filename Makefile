@@ -63,7 +63,7 @@ config: ## Edit config
 
 .PHONY: update
 update: ## Pull the last version of the dev environment
-	@git pull origin master
+	@git pull origin main
 
 .PHONY: stop
 stop: ## Stop all services
