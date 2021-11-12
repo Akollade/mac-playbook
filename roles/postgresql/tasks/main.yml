@@ -6,8 +6,11 @@
     name: "postgresql@{{ postgresql_version }}"
     state: "{{ homebrew_package_state }}"
 
-- name: Restart postgresql
-  shell: "brew services restart postgresql@{{ postgresql_version }}"
+- name: Stop postgresql
+  shell: "brew services stop postgresql@{{ postgresql_version }}"
+
+- name: Start postgresql
+  shell: "brew services start postgresql@{{ postgresql_version }}"
 
 - name: Get brew prefix for PostgreSQL
   shell: "brew --prefix postgresql@{{ postgresql_version }}"

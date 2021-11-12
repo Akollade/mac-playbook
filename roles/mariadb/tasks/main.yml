@@ -20,8 +20,11 @@
     name: mariadb
     state: "{{ homebrew_package_state }}"
 
-- name: Restart mariadb
-  shell: brew services restart mariadb
+- name: Stop mariadb
+  shell: "brew services stop mariadb"
+
+- name: Start mariadb
+  shell: brew services start mariadb
   args:
     creates: "{{ mariadb_socket }}"
 
