@@ -113,10 +113,10 @@ use_gpg_to_sign_commit: false
 php_default_version:  8.0
 
 php_supported_versions:
-  - 7.4
   - 8.0
 
 php_unsupported_versions:
+  - 7.4
   - 7.3
   - 7.2
 
