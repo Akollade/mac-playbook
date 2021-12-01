@@ -18,7 +18,7 @@
   homebrew:
     name: "blackfire-php{{ item|replace('.', '') }}"
     state: latest
-  with_items: "{{ php_supported_versions }}"
+  with_items: "{{ php_supported_versions|difference(blackfire_php_unsupported_versions) }}"
 
 - name: Install Blackfire
   homebrew:

@@ -1,11 +1,11 @@
 ---
 - name: "{{ php_current_version }} - Install"
   homebrew:
-    name: "php@{{ php_current_version }}"
+    name: "shivammathur/php/php@{{ php_current_version }}"
     state: "{{ homebrew_package_state }}"
 
 - name: "{{ php_current_version }} - Get PECL path"
-  shell: "brew --prefix php@{{ php_current_version }}"
+  shell: "brew --prefix shivammathur/php/php@{{ php_current_version }}"
   register: brew_prefix_php
   changed_when: False
 

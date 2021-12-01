@@ -6,3 +6,5 @@ blackfire_agent_config_path: /usr/local/etc/blackfire/agent
 # @todo : remove when everybody has updated
 blackfire_config_path: ~/.blackfire.ini
 
+blackfire_php_unsupported_versions:
+  - 8.1
