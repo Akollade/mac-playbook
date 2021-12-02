@@ -9,7 +9,7 @@ xdebug_conf_path="/usr/local/etc/php/$php_version/conf.d"
 xdebug_conf_file="ext-xdebug.ini"
 xdebug_conf=$xdebug_conf_path/$xdebug_conf_file
 
-phpPackage="php@$php_version"
+phpPackage="shivammathur/php/php@$php_version"
 pecl info xdebug 2> /dev/null > /dev/null
 
 if [ $? -eq 0 ]; then

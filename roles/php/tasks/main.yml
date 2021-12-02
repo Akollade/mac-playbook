@@ -1,4 +1,9 @@
 ---
+- name: Tap shivammathur/php homebrew repository
+  homebrew_tap:
+    tap: "{{ php_homebrew_tap }}"
+    state: present
+
 - name: Check that default PHP version is supported
   fail:
     msg: "Default PHP version {{ php_version }} is not supported"
@@ -6,12 +11,12 @@
 
 - name: Uninstall unsupported PHP versions
   homebrew:
-    name: "php@{{ item }}"
+    name: "shivammathur/php/php@{{ item }}"
     state: absent
   with_items: "{{ php_unsupported_versions }}"
 
 - name: Stop all supported PHP-FPM
-  shell: "brew services stop php@{{ item }} || true"
+  shell: "brew services stop shivammathur/php/php@{{ item }} || true"
   with_items: "{{ php_supported_versions }}"
   ignore_errors: true
 
