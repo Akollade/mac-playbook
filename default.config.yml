@@ -110,7 +110,7 @@ use_gpg_to_sign_commit: false
 # PHP   #
 #########
 
-php_default_version:  8.0
+php_default_version:  8.1
 
 php_supported_versions:
   - 8.0
