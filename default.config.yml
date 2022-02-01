@@ -204,7 +204,7 @@ composer_global_packages: []
 # Node    #
 ###########
 
-node_version: 14
+node_version: 16
 
 ###########
 # Nginx   #
