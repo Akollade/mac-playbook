@@ -15,7 +15,7 @@ help:
 	@echo "mac-playbook"
 	@echo ""
 	@echo "Dashboard : http://localhost"
-	@echo "New issue : https://github.com/TheGrowingPlant/mac-playbook/issues/new"
+	@echo "New issue : https://github.com/Akollade/mac-playbook/issues/new"
 	@echo ""
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
