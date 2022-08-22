@@ -58,7 +58,7 @@ zsh_plugins:
 
 zsh_custom_plugins:
   - name: symfony
-    url: https://github.com/TheGrowingPlant/symfony.plugin.zsh.git
+    url: https://github.com/Akollade/symfony.plugin.zsh.git
   - name: zsh-syntax-highlighting
     url: https://github.com/zsh-users/zsh-syntax-highlighting.git
 

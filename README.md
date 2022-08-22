@@ -10,9 +10,9 @@ You must first clone the repository to setup the environment.
 
 ```shell
 $ xcode-select --install
-$ git clone https://github.com/TheGrowingPlant/mac-playbook.git ~/.mac-playbook
+$ git clone https://github.com/Akollade/mac-playbook.git ~/.mac-playbook
 # With SSH
-$ git clone git@github.com:TheGrowingPlant/mac-playbook.git ~/.mac-playbook
+$ git clone git@github.com:Akollade/mac-playbook.git ~/.mac-playbook
 ```
 
 Then you have to configure the environment:
@@ -90,4 +90,4 @@ To list all commands just type `dev`.
 
 ## License
 
-[mac-playbook](https://github.com/TheGrowingPlant/mac-playbook) is licensed under the [MIT license](LICENSE).
+[mac-playbook](https://github.com/Akollade/mac-playbook) is licensed under the [MIT license](LICENSE).

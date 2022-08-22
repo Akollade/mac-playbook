@@ -41,7 +41,7 @@ foreach ($files as $file) {
     </div>
     <div >
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="https://github.com/TheGrowingPlant/mac-playbook" target="_blank">Github</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/Akollade/mac-playbook" target="_blank">Github</a></li>
         </ul>
     </div>
 </nav>
