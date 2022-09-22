@@ -39,6 +39,8 @@
       when: setup_blackfire == true
     - role: composer
       tags: composer
+    - role: wp_cli
+      tags: wp_cli
     - role: node
       tags: node
     - role: nginx
