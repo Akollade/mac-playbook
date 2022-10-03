@@ -260,7 +260,7 @@ mailhog_api_bind_addr: 0.0.0.0:8025
 mailhog_ui_bind_addr: 0.0.0.0:8025
 mailhog_smtp_bind_addr: 0.0.0.0:1025
 
-mailhog_hostname: example.org
+mailhog_hostname: mailhog.example
 #mailhog_outgoing_smtp_servers:
 #  my_server:
 #    name: my_server
