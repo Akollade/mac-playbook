@@ -12,6 +12,7 @@ homebrew_base_packages:
   - pwgen
   - git
   - tree
+  - grep
   - httpie
   - python
   - zsh
