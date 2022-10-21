@@ -16,6 +16,7 @@ Icon
 
 # Jetbrains
 .idea
+.fleet
 
 # Ansible
 *.retry
