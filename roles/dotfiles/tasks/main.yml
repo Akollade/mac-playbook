@@ -15,7 +15,7 @@
   file:
     state: absent
     path: "{{ item.path }}"
-  when: (item.path | basename) not in zsh_custom_plugins|to_json
+  when: (item.path | basename) not in (zsh_custom_plugins+['example'])|to_json
   with_items: "{{ current_installed_zsh_custom_plugins.files }}"
   loop_control:
     label: "{{ item.path | basename }}"
