@@ -55,6 +55,7 @@ zsh_plugins:
   - extract
   - symfony
   - zsh-syntax-highlighting
+  - drush
 
 zsh_custom_plugins:
   - name: symfony
