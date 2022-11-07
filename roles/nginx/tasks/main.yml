@@ -1,5 +1,11 @@
 ---
 
+- name: Set exec right on HOME directory
+  file:
+    path: '{{ ansible_env.HOME }}'
+    state: directory
+    mode: "u=rxw,g=rx,o=rx"
+
 - name: Generate config for homepage
   template:
     src: local-homepage/config.php.j2
