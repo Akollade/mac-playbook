@@ -18,8 +18,9 @@ nginx_ssl_certificate: "{{ nginx_path }}/certificate.crt"
 nginx_ssl_certificate_key: "{{ nginx_path }}/certificate.key"
 
 nginx_site_types:
+  - drupal8
+  - php
+  - laravel
   - symfony
   - symfony-flex
-  - php
   - wordpress
-  - drupal8
