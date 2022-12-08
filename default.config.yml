@@ -25,7 +25,6 @@ managed_services_as_user:
   - mailhog
   - mariadb
   - "postgresql@{{ postgresql_version }}"
-  - blackfire
 
 managed_services_as_root:
   - nginx
@@ -193,12 +192,6 @@ php_custom_config:
     option: "xdebug.log"
     value: "/usr/local/var/log/xdebug_remote.log"
     when: install_xdebug
-
-setup_blackfire: false
-blackfire_server_id: ~
-blackfire_server_token: ~
-blackfire_client_id: ~
-blackfire_client_token: ~
 
 composer_global_packages: []
 

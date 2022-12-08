@@ -1,4 +1,0 @@
----
-- name: Restart blackfire
-  command: brew services restart blackfire
-  ignore_errors: true
