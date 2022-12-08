@@ -34,9 +34,6 @@
       tags: postgresql
     - role: php
       tags: php
-    - role: blackfire
-      tags: blackfire
-      when: setup_blackfire == true
     - role: composer
       tags: composer
     - role: wp_cli

@@ -1,5 +1,5 @@
 ---
-- name: Tap blackfire homebrew repositories
+- name: Tap homebrew repositories
   homebrew_tap:
     tap: "{{ item }}"
     state: present
