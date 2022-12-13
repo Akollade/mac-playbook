@@ -26,7 +26,7 @@
   with_items: "{{ php_extensions }}"
 
 - name: "{{ php_current_version }} - Install xdebug"
-  shell: "{{ pecl_bin }} install {{ xdebug_package }}"
+  shell: "{{ pecl_bin }} install {{ (php_current_version >= 8)| ternary(xdebug_package, xdebug_package_for_php_7) }}"
   register: pecl_result
   changed_when: "pecl_result.rc == 0"
   failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
