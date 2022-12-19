@@ -36,6 +36,8 @@
       tags: php
     - role: composer
       tags: composer
+    - role: symfony_cli
+      tags: symfony_cli
     - role: wp_cli
       tags: wp_cli
     - role: node

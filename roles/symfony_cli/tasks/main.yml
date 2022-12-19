@@ -1,0 +1,6 @@
+---
+
+- name: Install Symfony
+  homebrew:
+    name: symfony-cli/tap/symfony-cli
+    state: "{{ homebrew_package_state }}"
