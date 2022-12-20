@@ -1,6 +1,8 @@
 {{ ansible_managed | comment }}
 
 {% for site in nginx_system_sites + nginx_sites %}
+{% set site_php_version = site.php_version|default(php_default_version) %}
+{% set site_php_fpm_port = '90' + site_php_version|replace('.', '') %}
 server {
     {% if not site.redirect_to_https|default(false) %}listen {{ site.http_port|default(nginx_http_port) }};{% endif %}
     {% if site.https|default(true) %}listen {{ site.https_port|default(nginx_https_port) }} ssl {% if site.http2|default(nginx_http2) %}http2{% endif %};{% endif %}
@@ -15,7 +17,9 @@ server {
     access_log {{ nginx_log_path }}/{{ site.name }}.access.log main;
     error_log {{ nginx_log_path }}/{{ site.name }}.error.log;
 
-    {% if site.type != 'custom' %}include {{ nginx_confs_path }}/{{ site.type }};{% endif %}
+    {% if site.type != 'custom' %}
+    {% include 'conf/' + site.type + '.j2' %}
+    {% endif %}
 
     {% if site.custom_config is defined %}
     {{ site.custom_config|indent(4) }}

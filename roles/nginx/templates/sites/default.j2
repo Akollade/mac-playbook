@@ -1,9 +1,12 @@
 {{ ansible_managed | comment }}
 
+{% for site_php_version in php_versions %}
+{% set site_php_fpm_port = '90' + site_php_version|replace('.', '') %}
+{% set site_php_server_name = 'php' + site_php_version|replace('.', '') + '.localhost' %}
 server {
     listen {{ nginx_http_port }};
     listen {{ nginx_https_port }} ssl http2;
-    server_name  localhost;
+    server_name  {% if site_php_version == php_default_version %}localhost{% endif %} {{ site_php_server_name }};
     root       {{ playbook_dev_path | realpath }}/local-homepage;
 
     ssl_certificate      {{ nginx_ssl_certificate }};
@@ -12,8 +15,9 @@ server {
     error_log {{ nginx_log_path }}/default.error.log;
     access_log {{ nginx_log_path }}/default.access.log;
 
-    include   {{ nginx_confs_path }}/php;
+    {% include 'conf/php.j2' %}
 
     error_page  404     /404.html;
     error_page  403     /403.html;
 }
+{% endfor %}

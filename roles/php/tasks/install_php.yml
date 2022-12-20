@@ -4,6 +4,10 @@
     name: "shivammathur/php/php@{{ php_current_version }}"
     state: "{{ homebrew_package_state }}"
 
+- name: "{{ php_current_version }} - Register FPM port"
+  set_fact:
+    php_fpm_port: "{{ '90' + php_current_version|replace('.', '') }}"
+
 - name: "{{ php_current_version }} - Get PECL path"
   shell: "brew --prefix shivammathur/php/php@{{ php_current_version }}"
   register: brew_prefix_php
@@ -24,6 +28,7 @@
   changed_when: "pecl_result.rc == 0"
   failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
   with_items: "{{ php_extensions }}"
+  notify: Restart PHP-FPM
 
 - name: "{{ php_current_version }} - Install xdebug"
   shell: "{{ pecl_bin }} install {{ (php_current_version >= 8)| ternary(xdebug_package, xdebug_package_for_php_7) }}"
@@ -31,6 +36,7 @@
   changed_when: "pecl_result.rc == 0"
   failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
   when: install_xdebug
+  notify: Restart PHP-FPM
 
 - name: "{{ php_current_version }} - Remove loading of xdebug in php.ini"
   lineinfile:
@@ -63,11 +69,13 @@
   template:
     src: php-fpm.conf.j2
     dest: "/usr/local/etc/php/{{ php_current_version }}/php-fpm.conf"
+  notify: Restart PHP-FPM
 
 - name: "{{ php_current_version }} - Delete old fpm config"
   file:
     dest: "/usr/local/etc/php/{{ php_current_version }}/php-fpm.d/www.conf"
     state: absent
+  notify: Restart PHP-FPM
 
 - name: "{{ php_current_version }} - Add configs"
   ini_file:
@@ -78,3 +86,11 @@
   when: item.when|default(true)
   become: true
   with_items: "{{ php_custom_config }}"
+  notify: Restart PHP-FPM
+
+- name: Set .load_php for default version
+  template:
+    src: load_php.j2
+    dest: "~/.load_php"
+    mode: 0755
+  when: php_current_version == php_default_version

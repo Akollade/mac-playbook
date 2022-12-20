@@ -1,5 +1,3 @@
-{{ ansible_managed | comment }}
-
 location = /robots.txt {
     allow all;
     log_not_found off;
@@ -19,7 +17,7 @@ location @rewriteapp {
 }
 
 location ~ ^/(index)\.php(/|$) {
-    fastcgi_pass   127.0.0.1:9000;
+    fastcgi_pass   127.0.0.1:{{ site_php_fpm_port }};
     fastcgi_split_path_info ^(.+\.php)(/.*)$;
     include fastcgi_params;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;

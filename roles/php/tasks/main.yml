@@ -4,21 +4,11 @@
     tap: "{{ php_homebrew_tap }}"
     state: present
 
-- name: Check that default PHP version is supported
-  fail:
-    msg: "Default PHP version {{ php_version }} is not supported"
-  when: php_version|float not in php_supported_versions
-
-- name: Uninstall unsupported PHP versions
+- name: Uninstall PHP versions
   homebrew:
     name: "shivammathur/php/php@{{ item }}"
     state: absent
-  with_items: "{{ php_unsupported_versions }}"
-
-- name: Stop all supported PHP-FPM
-  shell: "brew services stop shivammathur/php/php@{{ item }} || true"
-  with_items: "{{ php_supported_versions }}"
-  ignore_errors: true
+  with_items: "{{ php_all_versions | difference(php_versions) }}"
 
 - name: Install extensions dependencies
   homebrew:
@@ -27,18 +17,9 @@
 
 - name: Install PHP
   include_tasks: install_php.yml
-  with_items: "{{ php_supported_versions }}"
+  with_items: "{{ php_versions }}"
   loop_control:
     loop_var: php_current_version
 
-- name: Setup sphp
-  template:
-    src: sphp.sh.j2
-    dest: "/usr/local/bin/sphp"
-    mode: 0755
-
 - name: Install Oh My Zsh plugin
   include_tasks: oh-my-zsh-plugin.yml
-
-- name: Start default PHP-FPM
-  command: "sphp {{ php_version }}"

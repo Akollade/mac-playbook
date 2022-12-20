@@ -4,7 +4,7 @@
 daemonize = no
 
 [www]
-listen = 127.0.0.1:9000
+listen = 127.0.0.1:{{ php_fpm_port }}
 listen.mode = 0666
 
 pm = ondemand
