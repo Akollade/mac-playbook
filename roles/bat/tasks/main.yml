@@ -1,0 +1,16 @@
+---
+
+- name: Install bat
+  homebrew:
+    name: bat
+    state: "{{ homebrew_package_state }}"
+
+- name: Create bat config directory
+  file:
+    path: '{{ bat_config_directory }}'
+    state: directory
+
+- name: Add bat config
+  template:
+    src: config.j2
+    dest: "{{ bat_config_directory }}/config"

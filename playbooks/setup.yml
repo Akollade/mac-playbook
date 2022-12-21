@@ -20,6 +20,8 @@
     - sudoers
     - common
     - ansible
+    - role: bat
+      tags: bat
     - role: dev_bin
       tags: dotfiles
     - role: git
