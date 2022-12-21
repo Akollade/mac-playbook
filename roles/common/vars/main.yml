@@ -26,7 +26,6 @@ homebrew_base_packages:
   - telnet
   - mas
   - wget
-  - bat
   - ruby@2.7
   - vips # https://github.com/lovell/sharp/issues/1593#issuecomment-475680243
   - gnu-tar
