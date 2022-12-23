@@ -26,6 +26,7 @@
     dest: "~/.oh-my-zsh/custom/plugins/{{ item.name }}"
     force: yes
   with_items: "{{ zsh_custom_plugins }}"
+  when: item.url is defined
 
 - name: Deploy .zshrc
   template:
