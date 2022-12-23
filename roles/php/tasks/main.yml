@@ -37,5 +37,8 @@
     dest: "/usr/local/bin/sphp"
     mode: 0755
 
+- name: Install Oh My Zsh plugin
+  include_tasks: oh-my-zsh-plugin.yml
+
 - name: Start default PHP-FPM
   command: "sphp {{ php_version }}"
