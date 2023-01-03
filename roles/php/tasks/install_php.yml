@@ -4,6 +4,11 @@
     name: "shivammathur/php/php@{{ php_current_version }}"
     state: "{{ homebrew_package_state }}"
 
+- name: "{{ php_current_version }} - brew unlink"
+  shell: "brew unlink php@{{ php_current_version }}"
+  register: php_brew_unlink_result
+  changed_when: "'0 symlinks removed' not in php_brew_unlink_result.stdout"
+
 - name: "{{ php_current_version }} - Register FPM port"
   set_fact:
     php_fpm_port: "{{ '90' + php_current_version|replace('.', '') }}"
