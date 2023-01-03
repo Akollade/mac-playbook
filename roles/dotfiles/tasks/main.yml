@@ -50,11 +50,15 @@
     shell: /bin/zsh
   become: true
 
+- name: Add conf.d in ssh directory
+  file:
+    state: directory
+    path: "~/.ssh/conf.d"
+
 - name: Add SSH config
-  copy:
-    content: "{{ ssh_config }}"
+  template:
+    src: "ssh_config.j2"
     dest: ~/.ssh/config
-  when: ssh_config is defined and ssh_config != ''
 
 - name: Deploy .sqliterc
   copy:

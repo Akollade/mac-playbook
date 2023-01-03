@@ -73,9 +73,12 @@ zsh_aliases:
   - cat="bat"
 
 # SSH config (~/.ssh/config)
+ssh_config: ~
 #ssh_config: |
-#      Host *
-#		    User example
+#  Host my_host
+#      HostName my_hostname
+#      User akollade
+#      Port 12345
 
 #########
 # GIT   #
