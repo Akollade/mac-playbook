@@ -16,7 +16,7 @@ hpv_load_php_version() {
     if [ "$php_version" != "$php_current_version" ]; then
         # switch php versions
         echo "Using PHP: $php_version"
-        php_brew_prefix=$(brew --prefix shivammathur/php/php@$php_version)
+        php_brew_prefix="$(brew --prefix)/opt/php@$php_version"
         export PATH="$php_brew_prefix/bin:$PATH"
     fi
 }
