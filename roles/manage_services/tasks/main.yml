@@ -5,6 +5,11 @@
   register: started_brew_services
   changed_when: false
 
+- name: Add brew services for PHP
+  set_fact: 
+    managed_services_as_user: "{{ managed_services_as_user  | default([]) + ['php@' ~ item] }}" 
+  with_items: "{{ php_versions }}"
+
 - name: Manage brew services as user
   command: "brew services {{ service_state }} {{ item }}"
   with_items: "{{ managed_services_as_user }}"

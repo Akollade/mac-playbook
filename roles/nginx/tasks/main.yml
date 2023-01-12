@@ -31,18 +31,20 @@
   with_items:
     - "{{ nginx_path }}/certificates"
 
-- name: Add confs
-  template:
-    src: "conf/{{ item }}.j2"
-    dest: "{{ nginx_confs_path }}/{{ item }}"
-  with_items: "{{ nginx_site_types }}"
-  notify: Restart nginx
-
 - name: Add nginx conf
   template:
     src: nginx.conf.j2
     dest: '{{ nginx_conf_file_path }}'
   notify: Restart nginx
+
+- name: Create list of homepage server names of all php versions
+  set_fact: 
+    nginx_php_server_names: "{{ nginx_php_server_names  | default([]) + ['php' + item|replace('.', '') + '.localhost'] }}" 
+  with_items: "{{ php_versions }}"
+
+- name: Create list of server names of all sites
+  set_fact: 
+    nginx_sites_server_names: "{{ (nginx_system_sites + nginx_sites) | map(attribute='server_name') | list }}" 
 
 - name: Add default site
   template:
@@ -65,7 +67,7 @@
   notify: Restart nginx
 
 - name: Create certificate
-  shell: mkcert -cert-file {{ nginx_ssl_certificate }} -key-file {{ nginx_ssl_certificate_key }} "{{ (nginx_certificates + ((nginx_system_sites + nginx_sites) | map(attribute='server_name') | list)) | join('" "') }}"
+  shell: mkcert -cert-file {{ nginx_ssl_certificate }} -key-file {{ nginx_ssl_certificate_key }} "{{ (nginx_certificates + nginx_sites_server_names + nginx_php_server_names) | join('" "') }}"
   notify: Restart nginx
 
 - name: Remove old entries in /etc/hosts
@@ -78,9 +80,9 @@
 - name: Updating the /etc/hosts
   lineinfile:
     dest: /etc/hosts
-    line: "127.0.0.1 {{ item.server_name }} # Ansible managed"
+    line: "127.0.0.1 {{ item }} # Ansible managed"
   when: item.when|default(true) 
-  with_items: "{{ nginx_system_sites + nginx_sites }}"
+  with_items: "{{ nginx_sites_server_names + nginx_php_server_names }}"
   loop_control:
-    label: "{{ item.server_name }}"
+    label: "{{ item }}"
   become: true

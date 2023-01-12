@@ -88,12 +88,14 @@ foreach ($files as $file) {
                     <thead>
                         <th class="w-50">Nom</th>
                         <th class="w-50">Chemin</th>
+                        <th class="w-50">PHP version</th>
                     </thead>
                     <tbody>
                     <?php foreach ($sites as $site): ?>
                         <tr>
                             <th><a target="_blank" href="<?php echo $site['url'] ?>"><?php echo $site['name'] ?></a></th>
                             <td><?php echo $site['path'] ?></td>
+                            <td><?php echo $site['php_version'] ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

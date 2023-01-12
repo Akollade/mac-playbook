@@ -45,13 +45,9 @@ upgrade: ## Upgrade of the apps and dev environment
 	@echo ""
 	@$(ANSIBLE_PLAYBOOK_SETUP) --extra-vars='upgrade_all_packages=true' --tags=$(tags)
 
-.PHONY: setup-nginx
-setup-nginx: ## Setup/config nginx
-	@$(ANSIBLE_PLAYBOOK_SETUP) --tags="nginx"
-
 .PHONY: setup-mkcert
 setup-mkcert: ## Setup mkcert
-	mkcert -install
+	@mkcert -install
 
 .PHONY: dotfiles
 dotfiles: ## Setup "dotfiles"

@@ -1,0 +1,5 @@
+---
+
+- name: Restart PHP-FPM
+  command: "brew services restart php@{{ item }}"
+  with_items: "{{ php_versions }}"
