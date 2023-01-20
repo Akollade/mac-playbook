@@ -1,3 +1,0 @@
----
-- name: Restart mailhog
-  command: brew services restart mailhog

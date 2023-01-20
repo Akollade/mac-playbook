@@ -21,7 +21,7 @@ mas_installed_apps: []
 managed_services_as_user:
   - redis
   - dnsmasq
-  - mailhog
+  - mailpit
   - mariadb
   - "postgresql@{{ postgresql_version }}"
 
@@ -179,7 +179,7 @@ php_custom_config:
     value: 604800
   - section: "mail function"
     option: "sendmail_path"
-    value: "Mailhog sendmail"
+    value: "mailpit sendmail"
   - section: "xdebug"
     option: "xdebug.client_port"
     value: "9003"
@@ -229,7 +229,7 @@ nginx_sites:
     https: true
 
 nginx_system_sites:
-  - "{{ mailhog_nginx_site }}"
+  - "{{ mailpit_nginx_site }}"
   - "{{ minio_nginx_site }}"
 
 nginx_certificates:
@@ -260,28 +260,20 @@ mariadb_root_password: ohvaiN2azoof0feeDi2
 postgresql_version: 14
 
 #############
-# Mailhog   #
+# Mailpit   #
 #############
 
-mailhog_api_bind_addr: 0.0.0.0:8025
-mailhog_ui_bind_addr: 0.0.0.0:8025
-mailhog_smtp_bind_addr: 0.0.0.0:1025
+mailpit_ui_bind_addr: 0.0.0.0:8025
+mailpit_smtp_bind_addr: 0.0.0.0:1025
 
-mailhog_hostname: mailhog.example
-#mailhog_outgoing_smtp_servers:
-#  my_server:
-#    name: my_server
-#    host: smtp.exemple.fr
-#    port: "25"
-
-mailhog_nginx_site:
-  name: mailhog
-  server_name: mailhog.localhost
+mailpit_nginx_site:
+  name: mailpit
+  server_name: mailpit.localhost
   type: custom
   redirect_to_https: true
   custom_config: |
     location / {
-        proxy_pass http://{{ mailhog_ui_bind_addr }};
+        proxy_pass http://{{ mailpit_ui_bind_addr }};
         chunked_transfer_encoding on;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";

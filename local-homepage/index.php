@@ -35,7 +35,7 @@ foreach ($files as $file) {
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a class="nav-link" href="phpinfo.php" target="_blank">phpinfo()</a></li>
             <?php if(extension_loaded('xdebug')): ?><li class="nav-item"><a class="nav-link" href="xdebug-info.php" target="_blank">xdebug_info()</a></li><?php endif; ?>
-            <li class="nav-item"><a class="nav-link" href="<?php echo $sites['mailhog']['url']; ?>" target="_blank">Mailhog</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo $sites['mailpit']['url']; ?>" target="_blank">Mailpit</a></li>
             <li class="nav-item"><a class="nav-link" href="<?php echo $sites['minio']['url']; ?>" target="_blank">Minio</a></li>
         </ul>
     </div>
@@ -130,17 +130,17 @@ foreach ($files as $file) {
     <div class="row">
         <div class="col">
             <div class="bg-white rounded box-shadow my-3 p-3 border">
-                <h2 class="text-center">Mailhog</h2>
+                <h2 class="text-center">Mailpit</h2>
 
                 <table class="table table-striped table-bordered">
                     <tbody>
                     <tr>
                         <th class="w-50">Interface web</th>
-                        <td class="w-50"><a href="http://<?php echo $mailhogUi; ?>" target="_blank">Ouvrir</a></td>
+                        <td class="w-50"><a href="http://<?php echo $mailpitUi; ?>" target="_blank">Ouvrir</a></td>
                     </tr>
                     <tr>
                         <th class="w-50">Serveur SMTP</th>
-                        <td class="w-50"><?php echo $mailhogSmtp; ?></td>
+                        <td class="w-50"><?php echo $mailpitSmtp; ?></td>
                     </tr>
                     </tbody>
                 </table>

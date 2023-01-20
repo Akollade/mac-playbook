@@ -46,8 +46,8 @@
       tags: node
     - role: nginx
       tags: nginx
-    - role: mailhog
-      tags: mailhog
+    - role: mailpit
+      tags: mailpit
     - role: minio
       tags: minio
     - role: redis
