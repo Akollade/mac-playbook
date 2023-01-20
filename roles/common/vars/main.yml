@@ -4,6 +4,7 @@ homebrew_tap:
   - buo/cask-upgrade
   - homebrew/cask-fonts
   - homebrew/cask-versions
+  - akollade/tap
 
 homebrew_base_packages:
   - openssl

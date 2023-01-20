@@ -1,0 +1,18 @@
+---
+
+- name: Install mailpit
+  homebrew:
+    name: akollade/tap/mailpit
+    state: "{{ homebrew_package_state }}"
+
+- name: Add custom plist for mailpit
+  template:
+    src: plist.j2
+    dest: "{{ mailpit_plist_file }}"
+    force: yes
+  notify: Restart mailpit
+
+- name: Generate config for local homepage
+  template:
+    src: local-homepage/config.php.j2
+    dest: '{{ playbook_dev_path | realpath }}/local-homepage/config/mailpit.config.php'
