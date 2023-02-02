@@ -6,6 +6,7 @@
 
 upgrade_all_packages: false
 homebrew_package_state: present
+mas_package_state: "{{ homebrew_package_state }}"
 playbook_dev_path: "{{ playbook_dir }}/.."
 sudo_password: ""
 
