@@ -43,5 +43,6 @@
   autoStash = true
 {% if use_gpg_to_sign_commit %}
 [gpg]
-	program = /usr/local/bin/gpg
+  program = /usr/local/bin/gpg
+  format = {{ git_gpg_format }}
 {% endif %}
