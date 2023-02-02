@@ -6,6 +6,7 @@
 
 upgrade_all_packages: false
 homebrew_package_state: present
+mas_package_state: "{{ homebrew_package_state }}"
 playbook_dev_path: "{{ playbook_dir }}/.."
 sudo_password: ""
 
@@ -17,6 +18,8 @@ homebrew_packages: []
 
 mas_upgrade_all_apps: no
 mas_installed_apps: []
+# Example:
+#  - 904280696 # Things 3
 
 managed_services_as_user:
   - redis
