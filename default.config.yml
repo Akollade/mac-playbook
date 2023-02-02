@@ -18,6 +18,8 @@ homebrew_packages: []
 
 mas_upgrade_all_apps: no
 mas_installed_apps: []
+# Example:
+#  - 904280696 # Things 3
 
 managed_services_as_user:
   - redis
