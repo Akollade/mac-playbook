@@ -1,0 +1,7 @@
+---
+
+drush_launcher_url: https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar
+drush_launcher_path: /usr/local/bin/drush
+
+drush8_url: https://github.com/drush-ops/drush/releases/download/8.4.11/drush.phar
+drush8_path: /usr/local/bin/drush8
