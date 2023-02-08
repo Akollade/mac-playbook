@@ -27,6 +27,7 @@ managed_services_as_user:
   - mailpit
   - mariadb
   - "postgresql@{{ postgresql_version }}"
+  - php
 
 managed_services_as_root:
   - nginx
