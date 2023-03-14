@@ -149,8 +149,6 @@ php_all_versions:
 
 install_xdebug: true
 
-php_fpm_memory_limit: 256M
-
 # PECL
 php_extensions:
   - igbinary
@@ -159,6 +157,7 @@ php_extensions:
 php_extensions_dependencies:
   - libiconv
 
+php_fpm_memory_limit: 512M
 php_custom_config:
   - section: "PHP"
     option: "max_execution_time"
