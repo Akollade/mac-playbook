@@ -4,8 +4,7 @@
 # ansible  #
 ############
 
-ansible_become_method: sudo 
-ansible_become_flags: "-E"
+ansible_become_flags: "-H -S -n --preserve-env=HOMEBREW_CACHE"
 
 ############
 # System   #
@@ -47,6 +46,12 @@ managed_plists:
 ##################
 
 openssl_ca_file: /usr/local/etc/openssl@1.1/cert.pem
+
+############
+# homebrew #
+############
+
+homebrew_cache_path: ${HOME}/Library/Caches/Homebrew
 
 ############
 # dotfiles #
