@@ -16,6 +16,9 @@ DEFAULT_USER="{{ lookup('env','USER') }}"
 
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
+# See https://github.com/Homebrew/brew/blob/master/Library/Homebrew/brew.sh#L48 for default value
+export HOMEBREW_CACHE={{ homebrew_cache_path }}
+
 # OpenSSL
 export PATH="{{ lookup('pipe', 'brew --prefix openssl') }}/bin:$PATH"
 
