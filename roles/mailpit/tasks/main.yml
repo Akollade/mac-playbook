@@ -1,8 +1,13 @@
 ---
 
-- name: Install mailpit
+- name: Uninstall custom mailpit package
   homebrew:
     name: akollade/tap/mailpit
+    state: "absent"
+
+- name: Install mailpit
+  homebrew:
+    name: mailpit
     state: "{{ homebrew_package_state }}"
 
 - name: Add custom plist for mailpit
