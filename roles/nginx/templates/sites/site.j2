@@ -4,7 +4,7 @@
 {% set site_php_version = site.php_version|default(php_default_version) %}
 {% set site_php_fpm_port = '90' + site_php_version|replace('.', '') %}
 server {
-    {% if not site.redirect_to_https|default(false) %}listen {{ site.http_port|default(nginx_http_port) }};{% endif %}
+    {% if not site.redirect_to_https|default(true) %}listen {{ site.http_port|default(nginx_http_port) }};{% endif %}
     {% if site.https|default(true) %}listen {{ site.https_port|default(nginx_https_port) }} ssl {% if site.http2|default(nginx_http2) %}http2{% endif %};{% endif %}
     server_name {{ site.server_name }};
     {% if site.root is defined %}root {{ site.root | expanduser }};{% endif %}
@@ -26,7 +26,7 @@ server {
     {% endif %}
 }
 
-{% if site.redirect_to_https|default(false) %}
+{% if site.redirect_to_https|default(true) %}
 server {
        listen         {{ nginx_http_port }};
        server_name    {{ site.server_name }};
