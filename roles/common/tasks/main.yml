@@ -12,9 +12,8 @@
 
 - name: Install homebrew packages
   homebrew:
-    name: "{{ item }}"
+    name: "{{ homebrew_base_packages + homebrew_packages|default([]) }}"
     state: "{{ homebrew_package_state }}"
-  loop: "{{ homebrew_base_packages + homebrew_packages|default([]) }}"
 
 - name: Install homebrew cask packages
   homebrew_cask:
