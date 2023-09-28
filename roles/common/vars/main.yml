@@ -8,7 +8,7 @@ homebrew_tap:
 
 homebrew_base_packages:
   - openssl
-  - curl-openssl
+  - curl
   - coreutils
   - pwgen
   - git
