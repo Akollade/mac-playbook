@@ -21,9 +21,6 @@
   loop_control:
     loop_var: php_current_version
 
-- name: Install Oh My Zsh plugin
-  include_tasks: oh-my-zsh-plugin.yml
-
 - name: "brew link default version"
   shell: "brew link --overwrite php@{{ php_default_version }}"
   register: php_brew_link_result
