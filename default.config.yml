@@ -67,7 +67,7 @@ zsh_plugins:
   - git
   - history-substring-search
   - httpie
-  - mac-playbook-php-version
+  - php-version-switcher
   - sudo
   - symfony
   - zsh-syntax-highlighting
