@@ -1,6 +1,6 @@
 ---
 mariadb_socket: /tmp/mysql.sock
 
-mariadb_log_path: /usr/local/var/log/mariadb
+mariadb_log_path: "{{ brew_prefix }}/var/log/mariadb"
 mariadb_slow_query_log_path: "{{ mariadb_log_path }}/mariadb-slow.log"
 mariadb_error_log_path: "{{ mariadb_log_path }}/mariadb-error.log"

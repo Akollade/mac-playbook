@@ -17,7 +17,7 @@
 
 - name: Fix right on log directory
   file:
-    path: /usr/local/var/log/minio
+    path: "{{ brew_prefix }}/var/log/minio"
     state: directory
     recurse: yes
     owner: "{{ lookup('env','USER') }}"

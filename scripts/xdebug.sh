@@ -5,7 +5,7 @@ command="$1"
 
 php_version=$(php -r "\$v=explode('.', phpversion() ); echo implode('.', array_splice(\$v, 0, -1));")
 
-xdebug_conf_path="/usr/local/etc/php/$php_version/conf.d"
+xdebug_conf_path="$(brew --prefix)/etc/php/$php_version/conf.d"
 xdebug_conf_file="ext-xdebug.ini"
 xdebug_conf=$xdebug_conf_path/$xdebug_conf_file
 

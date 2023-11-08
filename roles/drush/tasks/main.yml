@@ -1,21 +1,5 @@
 ---
 
-- name: Check if drush launcher is installed.
-  stat: "path={{ drush_launcher_path }}"
-  register: drush_launcher_bin
-
-- name: Download and install drush launcher into the target directory.
-  get_url:
-    url="{{ drush_launcher_url }}"
-    dest="{{ drush_launcher_path }}"
-    mode=0755
-  when: not drush_launcher_bin.stat.exists
-
-- name: Update drush_launcher
-  shell:
-    "{{ drush_launcher_path }} self-update"
-  when: drush_launcher_bin.stat.exists
-
 - name: Check if drush 8 is installed.
   stat: "path={{ drush8_path }}"
   register: drush8_bin
