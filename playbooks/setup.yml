@@ -4,6 +4,14 @@
   vars:
     upgrade_all_packages: false
   pre_tasks:
+    - name: Get brew prefix
+      shell: "brew --prefix"
+      register: brew_prefix
+      changed_when: False
+      tags: always
+    - set_fact:
+        brew_prefix: "{{ brew_prefix.stdout }}"
+      tags: always
     - include_vars: "{{ item }}"
       with_fileglob:
         - ../config.yml
