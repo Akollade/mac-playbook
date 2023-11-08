@@ -45,7 +45,7 @@ managed_plists:
 # Certificates   #
 ##################
 
-openssl_ca_file: "{{ brew_prefix }}/etc/openssl@1.1/cert.pem"
+openssl_ca_file: "{{ brew_prefix }}/etc/openssl@3/cert.pem"
 
 ############
 # homebrew #

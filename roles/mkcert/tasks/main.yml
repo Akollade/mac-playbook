@@ -25,5 +25,6 @@
 
 - name: Replace certifi CA 
   shell: cp {{ openssl_ca_file }} $(python -m certifi)
+  ignore_errors: true
 
   
