@@ -69,3 +69,7 @@
   template:
     src: editorconfig.j2
     dest: ~/.editorconfig
+
+- name: Fix issue with zsh completions with Mac Silicon
+  shell: "chmod go-w '/opt/homebrew/share' && chmod -R go-w '/opt/homebrew/share/zsh'"
+  when: is_mac_silicon

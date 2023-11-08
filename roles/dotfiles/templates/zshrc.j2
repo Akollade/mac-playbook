@@ -16,6 +16,13 @@ DEFAULT_USER="{{ lookup('env','USER') }}"
 
 export PATH=$HOME/bin:$PATH
 
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+    autoload -Uz compinit
+    compinit
+fi
+
 # See https://github.com/Homebrew/brew/blob/master/Library/Homebrew/brew.sh#L48 for default value
 export HOMEBREW_CACHE={{ homebrew_cache_path }}
 
@@ -56,10 +63,3 @@ export GPG_TTY=$(tty)
 export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:{{ brew_prefix }}/opt/libffi/lib/pkgconfig"
 
 source ~/.zshrc.local
-
-if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-    autoload -Uz compinit
-    compinit
-fi
