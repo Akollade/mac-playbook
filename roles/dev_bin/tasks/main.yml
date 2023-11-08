@@ -5,6 +5,7 @@
     src: dev.j2
     dest: /usr/local/bin/dev
     mode: "u=rxw,g=rx,o=rx"
+  become: yes
 
 - name: Configure autocompletion for the "dev" binary
   template:
