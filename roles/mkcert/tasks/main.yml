@@ -15,16 +15,3 @@
 - name: Setup mkcert
   shell: mkcert -install
   become: yes
-
-# See https://github.com/Homebrew/homebrew-core/blob/master/Formula/openssl%401.1.rb#L54
-- name: Force generation of OpenSSL CA file from the system keychain
-  shell: brew postinstall openssl
-
-- name: Include mkcert CA in OpenSSL CA
-  shell: cat "$(mkcert -CAROOT)/rootCA.pem" >> {{ openssl_ca_file }}
-
-- name: Replace certifi CA 
-  shell: cp {{ openssl_ca_file }} $(python -m certifi)
-  ignore_errors: true
-
-  

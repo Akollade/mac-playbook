@@ -29,10 +29,6 @@ export HOMEBREW_CACHE={{ homebrew_cache_path }}
 # OpenSSL
 export PATH="{{ lookup('pipe', 'brew --prefix openssl') }}/bin:$PATH"
 
-# Use custom cacert with mkcert CA
-# See https://github.com/jakubroztocil/httpie/issues/480
-export REQUESTS_CA_BUNDLE="{{ openssl_ca_file }}"
-
 # PHP
 [ -e "${HOME}/.load_php" ] && source "${HOME}/.load_php"
 

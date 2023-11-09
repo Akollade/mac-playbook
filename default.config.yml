@@ -41,12 +41,6 @@ managed_services_as_root:
 managed_plists:
   - com.minio.minio
 
-##################
-# Certificates   #
-##################
-
-openssl_ca_file: "{{ brew_prefix }}/etc/openssl@3/cert.pem"
-
 ############
 # homebrew #
 ############
