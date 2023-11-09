@@ -1,13 +1,13 @@
 ---
 - name: Create my.cnf.d
   file:
-    path: /usr/local/etc/my.cnf.d
+    path: "{{ brew_prefix }}/etc/my.cnf.d"
     state: directory
 
 # https://github.com/Homebrew/brew/issues/5783
-- name: Create file to keep /usr/local/etc/my.cnf.d/
+- name: Create file to keep /etc/my.cnf.d/
   file:
-    path: /usr/local/etc/my.cnf.d/KEEP_DIR
+    path: "{{ brew_prefix }}/etc/my.cnf.d/KEEP_DIR"
     state: touch
 
 - name: Create log path

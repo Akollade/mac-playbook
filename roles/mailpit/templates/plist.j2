@@ -16,7 +16,7 @@
 	</array>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/opt/mailpit/bin/mailpit</string>
+		<string>{{ brew_prefix }}/opt/mailpit/bin/mailpit</string>
     <string>--listen</string>
     <string>{{ mailpit_ui_bind_addr }}</string>
     <string>--smtp</string>
@@ -25,8 +25,8 @@
 	<key>RunAtLoad</key>
 	<true/>
 	<key>StandardErrorPath</key>
-	<string>/usr/local/var/log/mailpit.log</string>
+	<string>{{ brew_prefix }}/var/log/mailpit.log</string>
 	<key>StandardOutPath</key>
-	<string>/usr/local/var/log/mailpit.log</string>
+	<string>{{ brew_prefix }}/var/log/mailpit.log</string>
 </dict>
 </plist>

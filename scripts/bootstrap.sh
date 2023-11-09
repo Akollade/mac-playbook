@@ -8,8 +8,8 @@ xcode-select --install
 
 echo "Checking for Homebrew..."
 if test ! $(which brew); then
-  echo "Installing homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "You must install homebrew, see https://brew.sh/"
+  exit 1
 fi
 
 echo "Updating brew..."

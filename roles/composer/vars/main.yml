@@ -1,4 +1,4 @@
 ---
 
-composer2_path: /usr/local/bin/composer
-composer1_path: /usr/local/bin/composer1
+composer2_path: "{{ brew_prefix }}/bin/composer"
+composer1_path: "{{ brew_prefix }}/bin/composer1"

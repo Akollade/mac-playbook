@@ -69,3 +69,6 @@
   template:
     src: editorconfig.j2
     dest: ~/.editorconfig
+
+- name: Fix permissions with zsh completions
+  shell: "chmod go-w '{{ brew_prefix }}/share' && chmod -R go-w '{{ brew_prefix }}/share/zsh'"

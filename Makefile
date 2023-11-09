@@ -87,8 +87,8 @@ xdebug-off: ## Disable XDebug
 
 .PHONY: fix-postgresql-locale
 fix-postgresql-locale: ## Change default PostgreSQL server locale to en_US.UTF-8
-	@rm -rf /usr/local/var/postgresql@11 || true
-	@rm -rf /usr/local/var/postgresql@12 || true
-	@rm -rf /usr/local/var/postgres || true
-	@initdb -E UTF-8 --locale=en_US.UTF-8 /usr/local/var/postgres
+	@rm -rf $(brew --prefix)/var/postgresql@11 || true
+	@rm -rf $(brew --prefix)/var/postgresql@12 || true
+	@rm -rf $(brew --prefix)/var/postgres || true
+	@initdb -E UTF-8 --locale=en_US.UTF-8 $(brew --prefix)/var/postgres
 	@$(ANSIBLE_PLAYBOOK_SETUP) tags="postgresql"

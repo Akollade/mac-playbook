@@ -15,22 +15,22 @@
     <string>{{ minio_plist_name }}</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/usr/local/opt/minio/bin/minio</string>
+      <string>{{ brew_prefix }}/opt/minio/bin/minio</string>
       <string>server</string>
-      <string>--config-dir=/usr/local/etc/minio</string>
+      <string>--config-dir={{ brew_prefix }}/etc/minio</string>
       <string>--address=:{{ minio_port }}</string>
-      <string>/usr/local/var/minio</string>
+      <string>{{ brew_prefix }}/var/minio</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
     <true/>
     <key>WorkingDirectory</key>
-    <string>/usr/local</string>
+    <string>{{ brew_prefix }}</string>
     <key>StandardErrorPath</key>
-    <string>/usr/local/var/log/minio/output.log</string>
+    <string>{{ brew_prefix }}/var/log/minio/output.log</string>
     <key>StandardOutPath</key>
-    <string>/usr/local/var/log/minio/output.log</string>
+    <string>{{ brew_prefix }}/var/log/minio/output.log</string>
     <key>RunAtLoad</key>
     <true/>
   </dict>

@@ -14,17 +14,20 @@ source $ZSH/oh-my-zsh.sh
 
 DEFAULT_USER="{{ lookup('env','USER') }}"
 
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/bin:$PATH
+
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+    autoload -Uz compinit
+    compinit
+fi
 
 # See https://github.com/Homebrew/brew/blob/master/Library/Homebrew/brew.sh#L48 for default value
 export HOMEBREW_CACHE={{ homebrew_cache_path }}
 
 # OpenSSL
 export PATH="{{ lookup('pipe', 'brew --prefix openssl') }}/bin:$PATH"
-
-# Use custom cacert with mkcert CA
-# See https://github.com/jakubroztocil/httpie/issues/480
-export REQUESTS_CA_BUNDLE="{{ openssl_ca_file }}"
 
 # PHP
 [ -e "${HOME}/.load_php" ] && source "${HOME}/.load_php"
@@ -39,10 +42,10 @@ export PATH=~/.composer/vendor/bin:./vendor/bin:$PATH
 [ -e "${HOME}/.load_node" ] && source "${HOME}/.load_node"
 
 # RUBY
-export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
+export PATH="{{ brew_prefix }}/opt/ruby@2.7/bin:$PATH"
 
 # Python
-export PATH="/usr/local/opt/python@3/libexec/bin:$PATH"
+export PATH="{{ brew_prefix }}/opt/python@3/libexec/bin:$PATH"
 
 [ -e "${HOME}/.zsh_aliases" ] && source "${HOME}/.zsh_aliases"
 
@@ -53,6 +56,6 @@ export PATH="/usr/local/opt/python@3/libexec/bin:$PATH"
 export GPG_TTY=$(tty)
 
 # need by vips
-export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/local/opt/libffi/lib/pkgconfig"
+export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:{{ brew_prefix }}/opt/libffi/lib/pkgconfig"
 
 source ~/.zshrc.local
