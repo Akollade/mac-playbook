@@ -70,6 +70,5 @@
     src: editorconfig.j2
     dest: ~/.editorconfig
 
-- name: Fix issue with zsh completions with Mac Silicon
-  shell: "chmod go-w '/opt/homebrew/share' && chmod -R go-w '/opt/homebrew/share/zsh'"
-  when: is_mac_silicon
+- name: Fix permissions with zsh completions
+  shell: "chmod go-w '{{ brew_prefix }}/share' && chmod -R go-w '{{ brew_prefix }}/share/zsh'"
