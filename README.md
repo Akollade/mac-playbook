@@ -66,6 +66,8 @@ nginx_sites:
     php_version: '8.0'
 ```
 
+Homebrew is needed, see https://brew.sh/ to install it.
+
 Then :
 
 ```shell
