@@ -13,10 +13,12 @@ Thumbs.db
 # Icon must end with two \r
 Icon
 
-
 # Jetbrains
 .idea
 .fleet
+
+# Visual Studio Code
+.vscode
 
 # Ansible
 *.retry
