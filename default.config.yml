@@ -223,7 +223,7 @@ composer_global_packages: []
 # Node    #
 ###########
 
-node_version: 18
+node_version: 20
 
 ###########
 # Nginx   #
