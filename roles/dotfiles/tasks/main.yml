@@ -28,6 +28,11 @@
   with_items: "{{ zsh_custom_plugins }}"
   when: item.url is defined
 
+- name: Deploy .zprofile
+  template:
+    src: zprofile.j2
+    dest: ~/.zprofile
+
 - name: Deploy .zshrc
   template:
     src: zshrc.j2

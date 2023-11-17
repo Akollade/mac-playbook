@@ -5,7 +5,7 @@
     src: dev.j2
     dest: "{{ brew_prefix }}/bin/dev"
     mode: "u=rxw,g=rx,o=rx"
-  become: yes
+  become: true
 
 - name: Configure autocompletion for the "dev" binary
   template:
