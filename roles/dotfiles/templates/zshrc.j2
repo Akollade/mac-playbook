@@ -1,61 +1,28 @@
 {{ ansible_managed | comment }}
 
-export TERM="xterm-256color"
 export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="{{ zsh_theme }}"
+DEFAULT_USER="{{ lookup('env','USER') }}"
 
 # automatically updates Oh My Zsh when a new version is available, without asking for confirmation
 zstyle ':omz:update' mode auto
+
+{% if 'php-version-switcher' in zsh_plugins %}
+PHP_PATH_TEMPLATE="{{ brew_prefix }}/opt/php@__PHP_VERSION__/bin"
+{% endif %}
 
 plugins=({{ zsh_plugins | join(' ') }})
 
 source $ZSH/oh-my-zsh.sh
 
-DEFAULT_USER="{{ lookup('env','USER') }}"
-
-export PATH=$HOME/bin:$PATH
-
 if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+    FPATH={{ brew_prefix }}/share/zsh-completions:$FPATH
 
     autoload -Uz compinit
     compinit
 fi
 
-# See https://github.com/Homebrew/brew/blob/master/Library/Homebrew/brew.sh#L48 for default value
-export HOMEBREW_CACHE={{ homebrew_cache_path }}
-
-# OpenSSL
-export PATH="{{ lookup('pipe', 'brew --prefix openssl') }}/bin:$PATH"
-
-# PHP
-[ -e "${HOME}/.load_php" ] && source "${HOME}/.load_php"
-
-# PostgreSQL
-[ -e "${HOME}/.load_postgresql" ] && source "${HOME}/.load_postgresql"
-
-# composer binaries
-export PATH=~/.composer/vendor/bin:./vendor/bin:$PATH
-
-# node
-[ -e "${HOME}/.load_node" ] && source "${HOME}/.load_node"
-
-# RUBY
-export PATH="{{ brew_prefix }}/opt/ruby@2.7/bin:$PATH"
-
-# Python
-export PATH="{{ brew_prefix }}/opt/python@3/libexec/bin:$PATH"
-
 [ -e "${HOME}/.zsh_aliases" ] && source "${HOME}/.zsh_aliases"
-
-# Used in makefile
-[ -e "${HOME}/.dev_config_env" ] && source "${HOME}/.dev_config_env"
-
-# gpg and password prompt
-export GPG_TTY=$(tty)
-
-# need by vips
-export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:{{ brew_prefix }}/opt/libffi/lib/pkgconfig"
 
 source ~/.zshrc.local

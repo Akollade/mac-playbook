@@ -1,0 +1,39 @@
+{{ ansible_managed | comment }}
+
+export TERM="xterm-256color"
+
+# See https://github.com/Homebrew/brew/blob/master/Library/Homebrew/brew.sh#L48 for default value
+export HOMEBREW_CACHE={{ homebrew_cache_path }}
+
+# Load editor used by "dev config"
+[ -e "${HOME}/.dev_config_env" ] && source "${HOME}/.dev_config_env"
+
+# gpg and password prompt
+export GPG_TTY=$(tty)
+
+# need by vips
+export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:{{ brew_prefix }}/opt/libffi/lib/pkgconfig"
+
+# OpenSSL
+export PATH="{{ lookup('pipe', 'brew --prefix openssl') }}/bin:$PATH"
+
+# PHP
+[ -e "${HOME}/.load_php" ] && source "${HOME}/.load_php"
+
+# PostgreSQL
+[ -e "${HOME}/.load_postgresql" ] && source "${HOME}/.load_postgresql"
+
+# node
+[ -e "${HOME}/.load_node" ] && source "${HOME}/.load_node"
+
+# RUBY
+export PATH="{{ brew_prefix }}/opt/ruby@2.7/bin:$PATH"
+
+# Python
+export PATH="{{ brew_prefix }}/opt/python@3/libexec/bin:$PATH"
+
+# Add user bin
+export PATH=$HOME/bin:$PATH
+
+# composer binaries
+export PATH=~/.composer/vendor/bin:./vendor/bin:$PATH
