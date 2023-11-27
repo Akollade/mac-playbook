@@ -7,11 +7,6 @@
       - nss
     state: "{{ homebrew_package_state }}"
 
-- name: Install certifi
-  pip:
-    name: certifi
-    state: latest
-
 - name: Setup mkcert
   shell: mkcert -install
-  become: yes
+  become: true
