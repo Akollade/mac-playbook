@@ -127,13 +127,14 @@ git_gpg_format: ssh
 # PHP   #
 #########
 
-php_default_version:  8.1
+php_default_version:  8.2
 
 php_versions:
   - 7.4
   - 8.0
   - 8.1
   - 8.2
+  - 8.3
 
 php_all_versions:
   - 5.6
