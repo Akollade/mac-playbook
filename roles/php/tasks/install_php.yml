@@ -27,20 +27,28 @@
   register: pecl_update_result
   changed_when: "'succeeded' in pecl_update_result.stdout"
 
+- name: "{{ php_current_version }} - Register extensions for current version"
+  set_fact:
+    php_current_version_extensions: "php_{{ php_current_version|replace('.', '') }}_extensions"
+
 - name: "{{ php_current_version }} - Install extensions with PECL"
   shell: "{{ pecl_bin }} install {{ item }}"
   register: pecl_result
   changed_when: "pecl_result.rc == 0"
   failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
-  with_items: "{{ php_extensions }}"
+  with_items: "{{ lookup('vars', php_current_version_extensions, default=php_extensions) }}"
   notify: Restart PHP-FPM
 
+- name: "{{ php_current_version }} - Register extensions for current version"
+  set_fact:
+    php_current_version_install_xdebug: "{{ install_xdebug and php_current_version not in disable_xdebug_install_for_versions }}"
+
 - name: "{{ php_current_version }} - Install xdebug"
-  shell: "{{ pecl_bin }} install {{ (php_current_version >= 8)| ternary(xdebug_package, xdebug_package_for_php_7) }}"
+  shell: "{{ pecl_bin }} install {{ xdebug_package }}"
   register: pecl_result
   changed_when: "pecl_result.rc == 0"
   failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
-  when: install_xdebug
+  when: php_current_version_install_xdebug
   notify: Restart PHP-FPM
 
 - name: "{{ php_current_version }} - Remove loading of xdebug in php.ini"
@@ -48,19 +56,19 @@
     path: "{{ brew_prefix }}/etc/php/{{ php_current_version }}/php.ini"
     state: absent
     regexp: '^zend_extension="xdebug.so"'
-  when: install_xdebug
+  when: php_current_version_install_xdebug
 
 - name: "{{ php_current_version }} - Check if ext-xdebug.ini exists"
   stat:
     path: "{{ brew_prefix }}/etc/php/{{ php_current_version }}/conf.d/ext-xdebug.ini"
   register: stat_ext_debug_ini
-  when: install_xdebug
+  when: php_current_version_install_xdebug
 
 - name: "{{ php_current_version }} - Check if ext-xdebug.ini.disabled exists"
   stat:
     path: "{{ brew_prefix }}/etc/php/{{ php_current_version }}/conf.d/ext-xdebug.ini.disabled"
   register: stat_ext_debug_ini_disabled
-  when: install_xdebug
+  when: php_current_version_install_xdebug
 
 - name: "{{ php_current_version }} - Load xdebug with custom file"
   lineinfile:
@@ -68,7 +76,7 @@
     state: present
     line: 'zend_extension="xdebug.so"'
     create: yes
-  when: install_xdebug and not stat_ext_debug_ini.stat.exists and not stat_ext_debug_ini_disabled.stat.exists
+  when: php_current_version_install_xdebug and not stat_ext_debug_ini.stat.exists and not stat_ext_debug_ini_disabled.stat.exists
 
 - name: "{{ php_current_version }} - Set FPM config"
   template:

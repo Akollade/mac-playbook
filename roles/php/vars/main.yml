@@ -2,6 +2,5 @@
 php_custom_config_file: "{{ brew_prefix }}/etc/php/{{ php_current_version }}/conf.d/custom.ini"
 
 xdebug_package: "xdebug"
-xdebug_package_for_php_7: "xdebug-3.1.6"
 
 php_homebrew_tap: "shivammathur/php"

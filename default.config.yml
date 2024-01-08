@@ -150,9 +150,17 @@ php_all_versions:
 
 install_xdebug: true
 
+# See https://bugs.xdebug.org/view.php?id=2167
+disable_xdebug_install_for_versions:
+  - 7.4
+  - 8.0
+
 # PECL
 php_extensions:
   - igbinary
+
+php_74_extensions: []
+php_80_extensions: []
 
 # packages needed to build extensions
 php_extensions_dependencies:
