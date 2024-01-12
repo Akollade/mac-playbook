@@ -228,11 +228,11 @@ php_custom_config:
 
 composer_global_packages: []
 
-###########
-# Node    #
-###########
+############
+# Node.js  #
+############
 
-node_version: 20
+nodejs_version: 20
 
 ###########
 # Nginx   #
