@@ -1,0 +1,24 @@
+---
+
+- name: Install nvm
+  ansible.builtin.shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  args:
+    creates: "~/.nvm/nvm.sh"
+
+- name: Deploy .load_node
+  template:
+    src: load_node.j2
+    dest: ~/.load_node
+
+- name: Install node.js and npm
+  ansible.builtin.shell: bash -c '{{ nodejs_nvm_load_commands }} nvm install {{ nodejs_version }} --latest-npm'
+  register: install_nodejs_with_nvm
+  changed_when: "'is already installed.' not in install_nodejs_with_nvm.stdout and 'is already installed.' not in install_nodejs_with_nvm.stderr"
+
+- ansible.builtin.set_fact:
+    nvm_alias_default_version_stdout: "default -> {{ nodejs_version }}"
+
+- name: Set default node.js version
+  ansible.builtin.shell: bash -c '{{ nodejs_nvm_load_commands }} nvm alias default {{ nodejs_version }}'
+  register: set_default_nodejvs_version
+  changed_when: "nvm_alias_default_version_stdout not in set_default_nodejvs_version.stdout"
