@@ -1,0 +1,17 @@
+---
+
+- name: Install logrotate
+  homebrew:
+    name: logrotate
+    state: "{{ homebrew_package_state }}"
+
+- name: Create logrotate config directory
+  file:
+    path: '{{ logrotate_config_directory }}'
+    state: directory
+
+- name: Add logrotate php-fpm config
+  template:
+    src: php-fpm.j2
+    dest: "{{ logrotate_config_directory }}/php-fpm.conf"
+  notify: Restart logrotate
