@@ -63,6 +63,8 @@
       tags: minio
     - role: redis
       tags: redis
+    - role: logrotate
+      tags: logrotate
     - upgrade
     - role: cleanup
       tags: cleanup
