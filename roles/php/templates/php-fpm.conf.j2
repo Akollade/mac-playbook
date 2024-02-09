@@ -16,5 +16,6 @@ php_admin_value[memory_limit] = {{ php_fpm_memory_limit }}
 
 ; See https://github.com/Homebrew/homebrew-core/issues/137431#issuecomment-1710026379
 env['PGGSSENCMODE'] = disable
+env['LC_ALL'] = C
 
 env[PATH] = {{ brew_prefix }}/bin:/usr/bin:/bin
