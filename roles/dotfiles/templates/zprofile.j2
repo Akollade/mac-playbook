@@ -5,6 +5,9 @@ export TERM="xterm-256color"
 # See https://github.com/Homebrew/brew/blob/master/Library/Homebrew/brew.sh#L48 for default value
 export HOMEBREW_CACHE={{ homebrew_cache_path }}
 
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Load editor used by "dev config"
 [ -e "${HOME}/.dev_config_env" ] && source "${HOME}/.dev_config_env"
 
