@@ -200,7 +200,7 @@ php_custom_config:
     value: 604800
   - section: "mail function"
     option: "sendmail_path"
-    value: "mailpit sendmail"
+    value: "mailpit sendmail -t"
   - section: "xdebug"
     option: "xdebug.client_port"
     value: "9003"
