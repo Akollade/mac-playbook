@@ -158,6 +158,7 @@ disable_xdebug_install_for_versions:
 # PECL
 php_extensions:
   - igbinary
+  - imagick
 
 php_74_extensions: []
 php_80_extensions: []
