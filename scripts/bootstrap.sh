@@ -16,9 +16,8 @@ echo "Updating brew..."
 brew update
 
 echo "Installing Ansible..."
-brew install python
-pip3 install --upgrade pip
-pip3 install -r requirements.txt
+brew install python pipx
+pipx install --include-deps ansible
 
 echo "Provisioning with Ansible..."
 make setup

@@ -16,6 +16,7 @@ homebrew_base_packages:
   - grep
   - httpie
   - python
+  - pipx
   - zsh
   - tmux
   - gs # pdf

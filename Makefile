@@ -39,7 +39,7 @@ upgrade: ## Upgrade of the apps and dev environment
 	@echo ""
 	@echo "Upgrade ansible"
 	@echo ""
-	@pip3 install --upgrade -r requirements.txt
+	@pipx upgrade --include-injected ansible
 	@echo ""
 	@echo "Upgrade of the dev environment"
 	@echo ""
