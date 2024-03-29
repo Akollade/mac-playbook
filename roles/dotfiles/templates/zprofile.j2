@@ -36,7 +36,7 @@ export PATH="{{ brew_prefix }}/opt/ruby@2.7/bin:$PATH"
 export PATH="{{ brew_prefix }}/opt/python@3/libexec/bin:$PATH"
 
 # Add user bin
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 # composer binaries
 export PATH=~/.composer/vendor/bin:./vendor/bin:$PATH
