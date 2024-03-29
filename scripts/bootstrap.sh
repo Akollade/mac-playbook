@@ -17,7 +17,7 @@ brew update
 
 echo "Installing Ansible..."
 brew install python pipx
-pipx install --include-deps ansible github3.py
+pipx install --include-deps ansible
 
 echo "Provisioning with Ansible..."
 make setup
