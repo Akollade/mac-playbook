@@ -71,6 +71,7 @@ Homebrew is needed, see https://brew.sh/ to install it.
 Then :
 
 ```shell
+# Edit your bashrc or zshrc to include "export PIPX_HOME=$HOME/.local/pipx"
 $ make bootstrap
 $ make setup-mkcert
 ```
