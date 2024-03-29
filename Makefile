@@ -39,7 +39,7 @@ upgrade: ## Upgrade of the apps and dev environment
 	@echo ""
 	@echo "Upgrade ansible"
 	@echo ""
-	@pipx upgrade --include-injected ansible
+	@pipx upgrade --include-injected ansible github3.py
 	@echo ""
 	@echo "Upgrade of the dev environment"
 	@echo ""
