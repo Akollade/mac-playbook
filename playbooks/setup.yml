@@ -61,8 +61,6 @@
       tags: mailpit
     - role: minio
       tags: minio
-    - role: redis
-      tags: redis
     - role: logrotate
       tags: logrotate
     - upgrade
