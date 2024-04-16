@@ -1,12 +1,11 @@
-location = /robots.txt {
-    allow all;
-    log_not_found off;
-    access_log off;
-}
-
 location / {
     try_files $uri $uri/ /index.php?$query_string;
 }
+
+location = /favicon.ico { access_log off; log_not_found off; }
+location = /robots.txt  { access_log off; log_not_found off; }
+
+error_page 404 /index.php;
 
 location ~ \.php$ {
     fastcgi_pass   127.0.0.1:{{ site_php_fpm_port }};
@@ -17,4 +16,8 @@ location ~ \.php$ {
     fastcgi_buffers 256 4k;
     fastcgi_max_temp_file_size 0;
     fastcgi_read_timeout {{ nginx_php_max_execution_time }};
+}
+
+location ~ /\.(?!well-known).* {
+    deny all;
 }
