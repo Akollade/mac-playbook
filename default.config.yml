@@ -63,6 +63,7 @@ zsh_plugins:
   - php-version-switcher
   - sudo
   - symfony
+  - laravel
   - zsh-syntax-highlighting
 
 zsh_custom_plugins:
