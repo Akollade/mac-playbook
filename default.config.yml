@@ -30,7 +30,7 @@ mas_installed_apps: []
 managed_services_as_user:
   - dnsmasq
   - mailpit
-  - mariadb
+  - "mariadb@{{ mariadb_version }}"
   - "postgresql@{{ postgresql_version }}"
   - php
 
@@ -269,6 +269,7 @@ dnsmasq_domains:
 # MariaDB   #
 #############
 
+mariadb_version: 10.6
 mariadb_dev_user: dev
 mariadb_dev_password: dev
 

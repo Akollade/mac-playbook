@@ -23,6 +23,9 @@ export PATH="{{ lookup('pipe', 'brew --prefix openssl') }}/bin:$PATH"
 # PHP
 [ -e "${HOME}/.load_php" ] && source "${HOME}/.load_php"
 
+# MariaDB
+[ -e "${HOME}/.load_mariadb" ] && source "${HOME}/.load_mariadb"
+
 # PostgreSQL
 [ -e "${HOME}/.load_postgresql" ] && source "${HOME}/.load_postgresql"
 

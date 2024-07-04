@@ -1,4 +1,8 @@
 ---
+
+- set_fact:
+    mariadb_package_name: "mariadb@{{ mariadb_version }}"
+
 - name: Create my.cnf.d
   file:
     path: "{{ brew_prefix }}/etc/my.cnf.d"
@@ -17,14 +21,14 @@
 
 - name: Install mariadb
   homebrew:
-    name: mariadb
+    name: "{{ mariadb_package_name }}"
     state: "{{ homebrew_package_state }}"
 
 - name: Stop mariadb
-  shell: "brew services stop mariadb"
+  shell: "brew services stop {{ mariadb_package_name }}"
 
 - name: Start mariadb
-  shell: brew services start mariadb
+  shell: brew services start {{ mariadb_package_name }}
   args:
     creates: "{{ mariadb_socket }}"
 
@@ -32,14 +36,28 @@
   wait_for:
     path: "{{ mariadb_socket }}"
 
+- name: Get brew prefix for MariaDB
+  shell: "brew --prefix {{ mariadb_package_name }}"
+  register: brew_prefix_mariadb
+  changed_when: False
+
+- set_fact:
+    mariadb_bin_path: "{{ brew_prefix_mariadb.stdout }}/bin"
+
+- name: Add "~/.load_mariadb" file to add MariaDB to $PATH
+  template:
+    src: load_mariadb.j2
+    dest: ~/.load_mariadb
+    mode: "u=rxw,g=rx,o=rx"
+
 - name: Set root password
-  shell: mysqladmin -u root password '{{ mariadb_root_password }}'
+  shell: "{{ mariadb_bin_path }}/mysqladmin -u root password '{{ mariadb_root_password }}'"
   become: yes
   args:
     creates: ~/.my.cnf
 
 - name: Create {{ mariadb_dev_user }} user of MariaDB
-  command: mysql -u root -p{{ mariadb_root_password }} -NBe "CREATE USER '{{ mariadb_dev_user }}'@'{{ item }}' IDENTIFIED BY '{{ mariadb_dev_password }}'; GRANT ALL PRIVILEGES ON *.* TO '{{ mariadb_dev_user }}'@'{{ item }}' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+  command: "{{ mariadb_bin_path }}/mysql -u root -p{{ mariadb_root_password }} -NBe \"CREATE USER '{{ mariadb_dev_user }}'@'{{ item }}' IDENTIFIED BY '{{ mariadb_dev_password }}'; GRANT ALL PRIVILEGES ON *.* TO '{{ mariadb_dev_user }}'@'{{ item }}' WITH GRANT OPTION; FLUSH PRIVILEGES;\""
   with_items:
     - 127.0.0.1
     - ::1
@@ -54,21 +72,21 @@
     force=yes
 
 - name: Get list of hosts for the anonymous user
-  command: mysql -NBe 'SELECT Host FROM mysql.user WHERE User = ""'
+  command: "{{ mariadb_bin_path }}/mysql -NBe 'SELECT Host FROM mysql.user WHERE User = \"\"'"
   register: mysql_anonymous_hosts
   changed_when: false
 
 - name: Remove anonymous users
-  command: mysql -u root -p{{ mariadb_root_password }} -NBe "DROP USER ''@'{{ item }}'"
+  command: "{{ mariadb_bin_path }}/mysql -u root -p{{ mariadb_root_password }} -NBe \"DROP USER ''@'{{ item }}'\""
   with_items: "{{ mysql_anonymous_hosts.stdout_lines }}"
 
 - name: Check if test database exists
-  command: mysql -u root -p{{ mariadb_root_password }} -NBe "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'test'"
+  command: "{{ mariadb_bin_path }}/mysql -u root -p{{ mariadb_root_password }} -NBe \"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'test'\""
   register: mysql_check_test_database_exists
   changed_when: false
 
 - name: Remove MySQL test database
-  command: mysql -u root -p{{ mariadb_root_password }} -NBe "DROP DATABASE test"
+  command: "{{ mariadb_bin_path }}/mysql -u root -p{{ mariadb_root_password }} -NBe \"DROP DATABASE test\""
   when: mysql_check_test_database_exists.stdout_lines|length != 0
 
 - name: Create config for homepage
