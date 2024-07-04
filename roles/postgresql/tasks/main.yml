@@ -6,10 +6,10 @@
     name: "postgresql@{{ postgresql_version }}"
     state: "{{ homebrew_package_state }}"
 
-- name: Stop postgresql
+- name: Stop PostgreSQL
   shell: "brew services stop postgresql@{{ postgresql_version }}"
 
-- name: Start postgresql
+- name: Start PostgreSQL
   shell: "brew services start postgresql@{{ postgresql_version }}"
 
 - name: Get brew prefix for PostgreSQL
@@ -20,7 +20,7 @@
 - set_fact:
     postgresql_bin_path: "{{ brew_prefix_postgresql.stdout }}/bin"
 
-- name: Add "~/.load_postgresql" file to add PHP to $PATH
+- name: Add "~/.load_postgresql" file to add PostgreSQL to $PATH
   template:
     src: load_postgresql.j2
     dest: ~/.load_postgresql
