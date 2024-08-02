@@ -173,6 +173,9 @@ php_custom_config:
     option: "max_execution_time"
     value: 120
   - section: "PHP"
+    option: "max_input_vars"
+    value: 3000
+  - section: "PHP"
     option: "display_errors"
     value: 1
   - section: "PHP"
