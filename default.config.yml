@@ -123,6 +123,8 @@ use_gpg_to_sign_commit: false
 git_signingkey: "{{ '~/.ssh/id_ed25519.pub' | expanduser }}"
 git_gpg_format: ssh
 
+git_sequence_editor: ~
+
 #########
 # PHP   #
 #########

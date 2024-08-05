@@ -46,3 +46,7 @@
   program = {{ brew_prefix }}/bin/gpg
   format = {{ git_gpg_format }}
 {% endif %}
+{% if git_sequence_editor|default(false) %}
+[sequence]
+  editor = {{ git_sequence_editor }}
+{% endif %}
