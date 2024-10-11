@@ -129,7 +129,7 @@ git_sequence_editor: ~
 # PHP   #
 #########
 
-php_default_version:  8.2
+php_default_version:  8.3
 
 php_versions:
   - 7.4
