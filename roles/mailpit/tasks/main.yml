@@ -1,10 +1,5 @@
 ---
 
-- name: Uninstall custom mailpit package
-  homebrew:
-    name: akollade/tap/mailpit
-    state: "absent"
-
 - name: Install mailpit
   homebrew:
     name: mailpit
