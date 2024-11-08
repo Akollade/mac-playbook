@@ -32,7 +32,7 @@
     php_current_version_extensions: "php_{{ php_current_version|replace('.', '') }}_extensions"
 
 - name: "{{ php_current_version }} - Install extensions with PECL"
-  shell: "{{ pecl_bin }} install {{ item }}"
+  shell: "{{ pecl_bin }} install -n {{ item }}"
   register: pecl_result
   changed_when: "pecl_result.rc == 0"
   failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
@@ -44,19 +44,12 @@
     php_current_version_install_xdebug: "{{ install_xdebug and php_current_version not in disable_xdebug_install_for_versions }}"
 
 - name: "{{ php_current_version }} - Install xdebug"
-  shell: "{{ pecl_bin }} install {{ xdebug_package }}"
+  shell: "{{ pecl_bin }} install -n {{ xdebug_package }}"
   register: pecl_result
   changed_when: "pecl_result.rc == 0"
   failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
   when: php_current_version_install_xdebug
   notify: Restart PHP-FPM
-
-- name: "{{ php_current_version }} - Remove loading of xdebug in php.ini"
-  lineinfile:
-    path: "{{ brew_prefix }}/etc/php/{{ php_current_version }}/php.ini"
-    state: absent
-    regexp: '^zend_extension="xdebug.so"'
-  when: php_current_version_install_xdebug
 
 - name: "{{ php_current_version }} - Check if ext-xdebug.ini exists"
   stat:
@@ -70,7 +63,7 @@
   register: stat_ext_debug_ini_disabled
   when: php_current_version_install_xdebug
 
-- name: "{{ php_current_version }} - Load xdebug with custom file"
+- name: "{{ php_current_version }} - Add config file to load xdebug"
   lineinfile:
     path: "{{ brew_prefix }}/etc/php/{{ php_current_version }}/conf.d/ext-xdebug.ini"
     state: present
@@ -84,13 +77,29 @@
     dest: "{{ brew_prefix }}/etc/php/{{ php_current_version }}/php-fpm.conf"
   notify: Restart PHP-FPM
 
-- name: "{{ php_current_version }} - Delete old fpm config"
+- name: "{{ php_current_version }} - Delete old FPM config"
   file:
     dest: "{{ brew_prefix }}/etc/php/{{ php_current_version }}/php-fpm.d/www.conf"
     state: absent
   notify: Restart PHP-FPM
 
-- name: "{{ php_current_version }} - Add configs"
+- name: "{{ php_current_version }} - A config files to load extensions"
+  ini_file:
+    dest: "{{ brew_prefix }}/etc/php/{{ php_current_version }}/conf.d/ext-{{ item }}.ini"
+    option: "extension"
+    value: "{{ item }}.so"
+    exclusive: false
+  become: true
+  with_items: "{{ php_extensions }}"
+  notify: Restart PHP-FPM
+
+- name: "{{ php_current_version }} - Delete old custom config file"
+  file:
+    dest: "{{ php_custom_config_file }}"
+    state: absent
+  notify: Restart PHP-FPM
+
+- name: "{{ php_current_version }} - Add custom config file"
   ini_file:
     dest: "{{ php_custom_config_file }}"
     section: "{{ item.section }}"
