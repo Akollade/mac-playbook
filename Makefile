@@ -41,10 +41,6 @@ upgrade: ## Upgrade of the apps and dev environment
 	@echo ""
 	@brew cu -y --cleanup
 	@echo ""
-	@echo "Upgrade ansible"
-	@echo ""
-	@pipx upgrade --include-injected ansible
-	@echo ""
 	@echo "Upgrade of the dev environment"
 	@echo ""
 	@$(ANSIBLE_PLAYBOOK_SETUP) --extra-vars='upgrade_all_packages=true' --tags=$(tags)

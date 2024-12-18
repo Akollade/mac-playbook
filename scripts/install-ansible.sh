@@ -1,9 +1,9 @@
 #!/bin/sh
 
-pipx install ansible-core
-pipx inject ansible-core ansible
-pipx inject ansible-core passlib
-pipx inject ansible-core github3-py
+pipx install ansible-core --force
+pipx inject ansible-core ansible --force
+pipx inject ansible-core passlib --force
+pipx inject ansible-core github3-py --force
 
 if [ -n "$1" ]; then
   echo "Force install of ansible-core$1"
