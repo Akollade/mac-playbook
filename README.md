@@ -72,6 +72,7 @@ Then :
 
 ```shell
 # Edit your bashrc or zshrc to include "export PIPX_HOME=$HOME/.local/pipx"
+# To bootstrap with a specific Ansible version: make bootstrap ansible_version_spec="<2.18"
 $ make bootstrap
 $ make setup-mkcert
 ```
