@@ -17,8 +17,7 @@ brew update
 
 echo "Installing Ansible..."
 brew install python pipx
-pipx install --include-deps ansible
-pipx inject ansible passlib
+$(dirname "$0")/install-ansible.sh $1
 
 echo "Provisioning with Ansible..."
 make setup

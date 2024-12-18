@@ -25,7 +25,11 @@ tags: ## List all tags
 
 .PHONY: bootstrap
 bootstrap: ## Bootstrap the dev environment for the first time
-	@scripts/bootstrap.sh
+	@scripts/bootstrap.sh "$(ansible_version_spec)"
+
+.PHONY: install-ansible
+install-ansible: ## Install ansible, you can install a specific version with: ansible_version_spec=<2.18
+	@scripts/install-ansible.sh "$(ansible_version_spec)"
 
 .PHONY: setup
 setup: ## Setup the dev environment
@@ -36,10 +40,6 @@ upgrade: ## Upgrade of the apps and dev environment
 	@echo "Upgrade apps"
 	@echo ""
 	@brew cu -y --cleanup
-	@echo ""
-	@echo "Upgrade ansible"
-	@echo ""
-	@pipx upgrade --include-injected ansible
 	@echo ""
 	@echo "Upgrade of the dev environment"
 	@echo ""
