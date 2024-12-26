@@ -7,7 +7,6 @@ homebrew_tap:
   - akollade/tap
 
 homebrew_base_packages:
-  - openssl
   - curl
   - coreutils
   - pwgen
@@ -15,8 +14,6 @@ homebrew_base_packages:
   - tree
   - grep
   - httpie
-  - python
-  - pipx
   - zsh
   - tmux
   - gs # pdf
