@@ -2,7 +2,6 @@
 homebrew_tap:
   - homebrew/services
   - buo/cask-upgrade
-  - akollade/tap
 
 homebrew_base_packages:
   - curl
